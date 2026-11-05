@@ -99,7 +99,7 @@ Para manter a organização do código e garantir que ambos dominem todas as par
 ## Status das Atividades
 
 - [x] **Q01:** Ontologias vs Grafos de Conhecimento e Mapeamento (`docs/q01_ontologias_kg.md`)
-- [ ] **Q02:** Algoritmo KNN sobre as 30 instâncias da Lista 1 (`src/q02_knn/`)
+- [x] **Q02:** Algoritmo KNN sobre as 30 instâncias da Lista 1 (`docs/q02_knn.md`, `src/q02_knn/`)
 - [ ] **Q03:** Chatbot ELIZA, PARRY e evolução para AIML (`docs/q03_eliza.md`)
 - [ ] **Q04:** Taxonomia de Agentes Inteligentes e Descrição PEAS (`docs/q04_taxonomia_agentes.md`)
 - [ ] **Q05:** Resumo Estendido sobre Inferência em LLMs (`docs/q05_inferencia_llm.md`)

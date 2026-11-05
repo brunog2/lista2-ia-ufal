@@ -1,0 +1,428 @@
+\documentclass[12pt, a4paper]{article}
+
+% ─── Pacotes Fundamentais ────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14pt}
+
+% ─── Configurações de Página ─────────────────────────────────────────────────
+\geometry{
+  top=2.5cm,
+  bottom=2.5cm,
+  left=3.0cm,
+  right=2.5cm
+}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+
+% ─── Cores Institucionais ────────────────────────────────────────────────────
+\definecolor{ufalblue}{RGB}{0, 60, 113}
+\definecolor{codebg}{RGB}{247, 248, 250}
+\definecolor{coderule}{RGB}{220, 224, 230}
+
+% ─── Listings ────────────────────────────────────────────────────────────────
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\small\ttfamily,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{gray},
+  frame=single,
+  rulecolor=\color{coderule},
+  keywordstyle=\color{ufalblue}\bfseries,
+  stringstyle=\color{teal},
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  xleftmargin=1.5em,
+  language=Python
+}
+
+% ─── Cabeçalho e Rodapé ──────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{ufalblue}\textsc{ECOM031 --- Inteligência Artificial}}
+\fancyhead[R]{\small\color{gray}UFAL / IC --- Lista de Exercícios 2}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ─── Configurações de Links ──────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ufalblue,
+  urlcolor=ufalblue,
+  citecolor=ufalblue
+}
+
+% ─── Identificação do Trabalho ───────────────────────────────────────────────
+\title{
+  {\large\textbf{UNIVERSIDADE FEDERAL DE ALAGOAS --- UFAL}}\\[0.2em]
+  {\large\textbf{INSTITUTO DE COMPUTAÇÃO / ENGENHARIA DE COMPUTAÇÃO}}\\[1.5em]
+  {\Large\bfseries\color{ufalblue} Lista de Exercícios 2 --- Inteligência Artificial}\\[0.4em]
+  {\normalsize Componente Curricular: ECOM031 (Graduação / PPGI)}
+}
+\author{
+  \textbf{Bruno Gomes de Barros Filho} --- Matrícula: 21111360\\[0.3em]
+  \textbf{Antonio Rodrigo Lima de Andrade Tenório} --- Matrícula: 23210707
+}
+\date{
+  Professor: Evandro de Barros Costa\\[0.3em]
+  Maceió, AL --- 2026.2
+}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\vspace{1em}
+\hrule
+\vspace{1.5em}
+
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Questão 1 --- Representação do Conhecimento: Ontologias versus Grafos de Conhecimento}
+\label{sec:q1}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\subsection{Comparativo entre Sistemas Baseados em Ontologias e Grafos de Conhecimento}
+
+Na área de Representação do Conhecimento e Raciocínio (RCR), a modelagem formal de domínios evoluiu a partir das redes semânticas e dos sistemas de \textit{frames} introduzidos nas décadas de 1970 e 1980, consolidando-se em duas abordagens predominantes na literatura contemporânea: os sistemas baseados em ontologias formais e os sistemas baseados em grafos de conhecimento (\textit{Knowledge Graphs}). Conforme apontado por Russell e Norvig (2013), qualquer formalismo de representação precisa equilibrar a expressividade axiomática necessária para inferência dedutiva e a tratabilidade computacional dos algoritmos associados.
+
+Embora ambas as abordagens organizem entidades e relacionamentos em estruturas direcionadas, suas fundações teóricas e objetivos operacionais diferem de maneira substancial:
+
+\subsubsection{Fundamentação Teórica, Semântica e Suposição de Mundo}
+As ontologias formais fundamentam-se nas Lógicas de Descrição (\textit{Description Logics} --- DL), uma família de linguagens de representação baseadas em fragmentos decidíveis da Lógica de Primeira Ordem. Esse arcabouço originou o padrão W3C OWL 2 (\textit{Web Ontology Language}), cuja semântica baseia-se na lógica $\mathcal{SROIQ}$. Numa ontologia, a semântica de classes, relações e instâncias é expressa através de axiomas rigorosos, operando sob a \textbf{Hipótese de Mundo Aberto} (\textit{Open World Assumption} --- OWA). Sob a OWA, a ausência de uma afirmação na base de dados não autoriza o sistema a deduzir sua falsidade, mas apenas indica que a informação é desconhecida. Adicionalmente, adota-se a ausência da pressuposição de nomes únicos (\textit{Non-Unique Name Assumption}), de modo que indivíduos com identificadores distintos podem ser inferidos como equivalentes (\texttt{owl:sameAs}), salvo declaração explícita de desigualdade.
+
+Por outro lado, os Grafos de Conhecimento surgiram da convergência prática entre a Web Semântica (especificações RDF e RDF Schema) e as tecnologias modernas de bancos de dados orientados a grafos, com ênfase no modelo de Grafos de Propriedades Rotuladas (\textit{Labeled Property Graphs} --- LPG, como o motor Neo4j). Nesse modelo, a prioridade reside na representação estruturada e na conectividade em larga escala de instâncias do mundo real. Diferentemente dos sistemas ontológicos puros, as implementações de LPG adotam em suas consultas a \textbf{Hipótese de Mundo Fechado} (\textit{Closed World Assumption} --- CWA) combinada com a pressuposição de nomes únicos: a ausência de uma aresta entre dois nós é tratada pragmaticamente como inexistência do vínculo, viabilizando avaliações eficientes de conectividade.
+
+\subsubsection{Mecanismos de Raciocínio e Inferência}
+Nos sistemas ontológicos, o raciocínio é estritamente dedutivo e analítico. Motores de inferência lógica especializados (\textit{reasoners} automáticos como HermiT, Pellet e FaCT++), implementados sobre algoritmos de \textit{Tableau}, processam o conjunto de axiomas terminológicos (TBox) e assertivos (ABox). As tarefas computacionais padrão englobam:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Verificação de consistência:} atestar se a ontologia admite pelo menos um modelo formal satisfatível.
+  \item \textbf{Subsunção e classificação taxonômica:} calcular automaticamente a hierarquia implícita de classes a partir das restrições lógicas declaradas.
+  \item \textbf{Instanciação e realização:} determinar a pertinência de indivíduos a classes abstratas complexas.
+\end{itemize}
+
+Em contrapartida, nos Grafos de Conhecimento o mecanismo primário de inferência deixa de ser a dedução lógica axiomática e passa a ser a inferência estrutural, algorítmica ou estatística. Utilizam-se consultas baseadas em casamento de padrões de subgrafos (expressas em Cypher ou SPARQL), algoritmos clássicos de teoria dos grafos (caminhos mínimos de Dijkstra, centralidade de PageRank, coeficientes de agrupamento) e técnicas indutivas baseadas em aprendizado de máquina sobre grafos, tais como modelos de representação vetorial de entidades e relações (\textit{Knowledge Graph Embeddings} como TransE e RotatE) e Redes Neurais em Grafo (GNNs). Tais abordagens visam à predição de elos ausentes (\textit{link prediction}) e ao alinhamento de entidades em bases ruidosas.
+
+\subsubsection{Escalabilidade e Complexidade Computacional}
+O poder expressivo das Lógicas de Descrição impõe custos computacionais severos. Para a linguagem OWL 2 DL, a complexidade no pior caso de problemas de satisfatibilidade atinge ordens de NEXPTIME a 2EXPTIME, o que limita o desempenho de raciocinadores automáticos completos sobre bases contendo dezenas de milhões de indivíduos. 
+
+Em contraste, os bancos de dados em grafo orientados a propriedades foram concebidos com foco em alto desempenho de leitura, escrita e travessia sobre grafos contendo bilhões de nós e arestas. Ao renunciarem à checagem automática de axiomas complexos em tempo de execução, essas plataformas empregam estruturas físicas com indexação direta por ponteiros (\textit{index-free adjacency}), garantindo que o custo de travessia local dependa apenas do grau dos nós envolvidos, e não do tamanho global do grafo.
+
+A Tabela~\ref{tab:comparativo_q1} resume os pontos de diferenciação entre as abordagens.
+
+\begin{table}[H]
+  \centering
+  \caption{Síntese comparativa entre Sistemas Baseados em Ontologias e Grafos de Conhecimento}
+  \label{tab:comparativo_q1}
+  \renewcommand{\arraystretch}{1.3}
+  \small
+  \begin{tabular}{p{3.8cm} p{5.5cm} p{5.5cm}}
+    \toprule
+    \textbf{Critério de Análise} & \textbf{Sistemas Baseados em Ontologias} & \textbf{Grafos de Conhecimento (LPG/RDF)} \\
+    \midrule
+    \textbf{Fundamentação Teórica} & Lógicas de Descrição ($\mathcal{SROIQ}$), Lógica de Primeira Ordem & Teoria dos Grafos, Bancos de Grafos de Propriedades \\
+    \textbf{Especificações Comuns} & W3C OWL 2, RDF Schema, Protégé & Labeled Property Graph (Neo4j), RDF Triplestores \\
+    \textbf{Suposição de Mundo} & Mundo Aberto (OWA), sem nomes únicos obrigatórios & Mundo Fechado (CWA) em consultas, nomes únicos explícitos \\
+    \textbf{Natureza da Inferência} & Dedução lógica formal via Tableau (HermiT, Pellet) & Travessia de padrões (Cypher), centralidade, embeddings, GNNs \\
+    \textbf{Foco Funcional} & Validação axiomática, consistência conceitual, subsunção & Consultas de conectividade, travessia rápida, escalabilidade \\
+    \textbf{Complexidade de Escala} & Elevada complexidade de raciocínio (NEXPTIME / 2EXPTIME) & Travessia em tempo quase linear por adjacência direta \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Exemplo de Aplicação: Sistema de Catálogo e Recomendação Cinematográfica}
+
+Para ilustrar o contraste entre as duas concepções de representação, considere o domínio de um catálogo e sistema de recomendação cinematográfica.
+
+\subsubsection{Abordagem por Ontologia (Modelagem Terminológica --- TBox)}
+Na abordagem ontológica, o objetivo primário é formalizar o esquema conceitual e as regras de integridade do domínio:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Taxonomia de Classes:} Definem-se as classes conceituais \texttt{Pessoa}, \texttt{Diretor}, \texttt{Ator} e \texttt{Filme}. Especifica-se formalmente que $\texttt{Diretor} \sqsubseteq \texttt{Pessoa}$, $\texttt{Ator} \sqsubseteq \texttt{Pessoa}$, e estabelece-se o axioma de disjunção $\texttt{Pessoa} \sqcap \texttt{Filme} \equiv \bot$.
+  \item \textbf{Propriedades de Objeto:} Modela-se a relação binária \texttt{dirigiu}, definindo-se formalmente seu domínio como \texttt{Diretor} ($\exists \texttt{dirigiu}.\top \sqsubseteq \texttt{Diretor}$) e sua imagem como \texttt{Filme} ($\top \sqsubseteq \forall \texttt{dirigiu}.\texttt{Filme}$).
+  \item \textbf{Raciocínio Automático:} Ao inserir na base de asserções (ABox) o fato \texttt{dirigiu(Christopher\_Nolan, Oppenheimer)}, o raciocinador deduz automaticamente que \texttt{Christopher\_Nolan} pertence à classe \texttt{Diretor} e, por conseguinte, à classe \texttt{Pessoa}, sem necessidade de anotação manual. Se um registro inconsistente declarar que um indivíduo da classe \texttt{Filme} dirigiu outro \texttt{Filme}, o motor detecta a violação do domínio e reporta a inconsistência lógica da base.
+\end{itemize}
+
+\subsubsection{Abordagem por Grafo de Conhecimento (Modelagem Estrutural --- LPG)}
+No grafo de conhecimento, a atenção concentra-se na conectividade eficiente sobre o conjunto instanciado:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Estrutura de Nós:} As entidades reais são nós com rótulos e propriedades literais, como \texttt{(:Pessoa:Diretor \{nome: "Steven Spielberg"\})} e \texttt{(:Filme \{titulo: "Jurassic Park", ano: 1993\})}.
+  \item \textbf{Arestas Tipadas:} Os vínculos são arestas direcionadas explícitas, tais como \texttt{[:DIRIGIU]}, \texttt{[:ATUOU\_EM]} e \texttt{[:PERTENCE\_AO\_GENERO]}.
+  \item \textbf{Mecanismo de Consulta:} Para gerar uma recomendação a um usuário interessado em \texttt{"Jurassic Park"}, o sistema executa uma consulta Cypher que recupera filmes compartilhando nós adjacentes de direção, elenco ou gênero em até dois saltos de distância:
+\begin{lstlisting}[language=SQL]
+MATCH (f1:Filme {titulo: "Jurassic Park"})<-[:DIRIGIU]-(d:Diretor)-[:DIRIGIU]->(f2:Filme)
+WHERE f1 <> f2
+RETURN f2.titulo, count(*) AS peso ORDER BY peso DESC LIMIT 5;
+\end{lstlisting}
+  A resposta é produzida em poucos milissegundos por meio da navegação direta na estrutura de índices em grafo, sem a sobrecarga de checagem dedutiva de modelos lógicos.
+\end{itemize}
+
+\subsection{Mapeamento de uma Ontologia para um Grafo de Conhecimento}
+
+A transição de uma especificação ontológica formal (representada em OWL 2) para um Grafo de Conhecimento implementado sobre o modelo de Grafo de Propriedades Rotuladas (LPG) exige a aplicação de um conjunto sistemático de transformações estruturais:
+
+\begin{enumerate}[leftmargin=2em, label=\textbf{\arabic*.}]
+  \item \textbf{Classes Ontológicas para Rótulos de Nós (\textit{Labels}):}
+  Cada classe da ontologia OWL converte-se em um rótulo (\textit{label}) aplicável aos nós do grafo. A herança taxonômica (\texttt{rdfs:subClassOf}) pode ser tratada de duas formas: (i) atribuindo múltiplos rótulos a um mesmo nó, de modo que uma instância de \texttt{Diretor} receba simultaneamente os rótulos \texttt{:Pessoa} e \texttt{:Diretor}; ou (ii) mantendo nós explícitos de metadados para as classes, interligados por arestas estruturais \texttt{[:SUBCLASSE\_DE]}.
+
+  \item \textbf{Propriedades de Objeto para Arestas Direcionadas Tipadas:}
+  As \textit{Object Properties} de OWL, que representam relações semânticas binárias entre indivíduos de classes, são traduzidas em arestas direcionadas tipadas no LPG. A propriedade ontológica \texttt{dirigiu} (com domínio \texttt{Diretor} e imagem \texttt{Filme}) materializa-se como a aresta direcionada \texttt{[:DIRIGIU]} conectando o nó de origem ao nó de destino.
+
+  \item \textbf{Propriedades de Tipo de Dados para Atributos Internos Chave-Valor:}
+  As \textit{Datatype Properties} de OWL mapeiam indivíduos para valores literais (tais como \texttt{xsd:string}, \texttt{xsd:integer} ou \texttt{xsd:dateTime}). No modelo LPG, esses pares não necessitam constituir nós isolados: são armazenados diretamente como propriedades internas chave-valor no nó correspondente (exemplo: \texttt{anoLancamento: 1993} armazenado dentro do nó do filme).
+
+  \item \textbf{Axiomas e Restrições para Restrições de Integridade e Camada de Aplicação:}
+  Bancos de dados de grafo comuns não possuem motores de inferência lógica embutidos para avaliar axiomas em tempo de execução. Logo, axiomas de cardinalidade mínima/máxima e restrições de unicidade (\texttt{owl:hasKey}) são implementados como restrições de esquema no banco (ex.: \texttt{CREATE CONSTRAINT FOR (f:Filme) REQUIRE f.id IS UNIQUE}). Regras lógicas mais complexas (como disjunções e propriedades transitivas) são transferidas para a camada de serviço da aplicação antes da persistência.
+\end{enumerate}
+
+A Figura~\ref{fig:mapeamento_ontologia_kg} ilustra graficamente o esquema de mapeamento proposto.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+  \begin{tikzpicture}[
+      node distance=1.8cm,
+      tboxnode/.style={draw, rectangle, rounded corners=3pt, fill=ufalblue!12,
+                       minimum width=3.4cm, minimum height=0.9cm, font=\small\sffamily, align=center},
+      aboxnode/.style={draw, rectangle, rounded corners=3pt, fill=green!15,
+                       minimum width=3.6cm, minimum height=0.9cm, font=\small\sffamily, align=center},
+      seta/.style={-stealth, thick, draw=ufalblue},
+      meta/.style={font=\scriptsize\itshape, text=gray}
+    ]
+    % Lado Esquerdo: Ontologia TBox
+    \node[tboxnode] (c-dir) {\textbf{Classe OWL:}\\\texttt{Diretor}};
+    \node[tboxnode, right=2.8cm of c-dir] (c-filme) {\textbf{Classe OWL:}\\\texttt{Filme}};
+    \draw[seta] (c-dir) -- node[above, font=\scriptsize] {\texttt{ObjectProperty: dirigiu}} (c-filme);
+    \node[draw, rectangle, fill=gray!15, below=1.4cm of c-filme, font=\small\ttfamily] (lit) {xsd:integer};
+    \draw[seta] (c-filme) -- node[right, meta, align=left] {\texttt{DataProperty:}\\\texttt{anoLancamento}} (lit);
+
+    \node[above=0.5cm of c-dir, font=\small\bfseries\color{ufalblue}] {Esquema Terminológico (Ontologia OWL)};
+
+    % Seta de transição
+    \draw[-stealth, very thick, gray, dashed]
+          (3.8cm, -0.9cm) -- node[above, font=\footnotesize\bfseries] {Mapeamento} (5.6cm, -0.9cm);
+
+    % Lado Direito: Grafo de Conhecimento LPG
+    \node[aboxnode, right=5.8cm of c-dir] (n-dir) {\textbf{Nó LPG:}\\\texttt{(:Pessoa:Diretor)}\\{\scriptsize \{nome: "Steven Spielberg"\}}};
+    \node[aboxnode, right=2.8cm of n-dir] (n-filme) {\textbf{Nó LPG:}\\\texttt{(:Filme)}\\{\scriptsize \{titulo: "Jurassic Park",}\\{\scriptsize anoLancamento: 1993\}}};
+    \draw[seta, green!50!black] (n-dir) -- node[above, font=\scriptsize\bfseries] {\texttt{[:DIRIGIU]}} (n-filme);
+
+    \node[above=0.5cm of n-dir, font=\small\bfseries\color{green!50!black}] {Estrutura Instanciada (Grafo de Propriedades)};
+  \end{tikzpicture}%
+  }
+  \caption{Mapeamento estrutural do modelo ontológico formal para grafo de propriedades rotuladas.}
+  \label{fig:mapeamento_ontologia_kg}
+\end{figure}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Questão 2 --- Classificador dos K-Vizinhos Mais Próximos (KNN)}
+\label{sec:q2}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\subsection{Base de Dados e Configuração do Experimento}
+
+O algoritmo dos $K$-Vizinhos Mais Próximos (\textit{K-Nearest Neighbors} --- KNN) foi avaliado sobre as mesmas 30 instâncias de risco de crédito usadas na Lista de Exercícios 1. A base parte do exemplo clássico do livro de Luger e foi ampliada na Questão 1 daquela lista para 6 atributos categóricos e 30 exemplos (E1 a E30).
+
+Os atributos preditores são História de Crédito, Dívida, Garantia, Renda, Emprego e Imóvel. A variável-alvo é o risco de crédito, com três classes:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Alto}
+  \item \textbf{Moderado}
+  \item \textbf{Baixo}
+\end{itemize}
+
+Como o KNN trabalha com distância numérica e todos os atributos são categóricos, cada atributo foi convertido em colunas binárias por \textit{one-hot encoding} (\texttt{get\_dummies}), a mesma estratégia usada no CART da Lista 1. O espaço resultante tem 14 dimensões com valores em $\{0,1\}$, de modo que a distância euclidiana entre dois exemplos conta, na prática, quantas categorias diferem. Não foi necessária normalização min-max.
+
+\subsection{As 30 Instâncias Utilizadas no Experimento}
+
+A Tabela~\ref{tab:30_instancias} reproduz a base completa da Lista 1.
+
+\begin{table}[H]
+  \centering
+  \caption{As 30 instâncias de risco de crédito da Lista 1}
+  \label{tab:30_instancias}
+  \renewcommand{\arraystretch}{1.12}
+  \scriptsize
+  \begin{tabular}{cccccccc}
+    \toprule
+    \textbf{Ex.} & \textbf{História} & \textbf{Dívida} & \textbf{Garantia} & \textbf{Renda} & \textbf{Emprego} & \textbf{Imóvel} & \textbf{Risco} \\
+    \midrule
+E1  & Ruim          & Alta  & Nenhuma   & 0--15  & Instável & Alugado & Alto \\
+E2  & Desconhecida  & Alta  & Nenhuma   & 15--35 & Instável & Alugado & Alto \\
+E3  & Desconhecida  & Baixa & Nenhuma   & 15--35 & Estável  & Alugado & Moderado \\
+E4  & Desconhecida  & Baixa & Nenhuma   & 0--15  & Instável & Alugado & Alto \\
+E5  & Desconhecida  & Baixa & Nenhuma   & $>$35  & Estável  & Próprio & Baixo \\
+E6  & Desconhecida  & Baixa & Adequada  & $>$35  & Estável  & Próprio & Baixo \\
+E7  & Ruim          & Baixa & Nenhuma   & 0--15  & Instável & Alugado & Alto \\
+E8  & Ruim          & Baixa & Adequada  & $>$35  & Estável  & Alugado & Moderado \\
+E9  & Boa           & Baixa & Nenhuma   & $>$35  & Estável  & Próprio & Baixo \\
+E10 & Boa           & Alta  & Adequada  & $>$35  & Estável  & Próprio & Baixo \\
+E11 & Boa           & Alta  & Nenhuma   & 0--15  & Instável & Alugado & Alto \\
+E12 & Boa           & Alta  & Nenhuma   & 15--35 & Estável  & Alugado & Moderado \\
+E13 & Boa           & Alta  & Nenhuma   & $>$35  & Estável  & Alugado & Baixo \\
+E14 & Ruim          & Alta  & Nenhuma   & 15--35 & Instável & Alugado & Alto \\
+E15 & Boa           & Baixa & Adequada  & 15--35 & Estável  & Próprio & Baixo \\
+E16 & Boa           & Baixa & Nenhuma   & 15--35 & Estável  & Próprio & Baixo \\
+E17 & Desconhecida  & Baixa & Adequada  & $>$35  & Instável & Próprio & Moderado \\
+E18 & Ruim          & Alta  & Nenhuma   & $>$35  & Estável  & Alugado & Moderado \\
+E19 & Desconhecida  & Alta  & Nenhuma   & 0--15  & Estável  & Alugado & Alto \\
+E20 & Boa           & Baixa & Adequada  & $>$35  & Estável  & Alugado & Baixo \\
+E21 & Ruim          & Baixa & Nenhuma   & 15--35 & Estável  & Alugado & Moderado \\
+E22 & Boa           & Alta  & Adequada  & 15--35 & Estável  & Próprio & Moderado \\
+E23 & Ruim          & Alta  & Adequada  & 0--15  & Instável & Próprio & Alto \\
+E24 & Desconhecida  & Baixa & Nenhuma   & 15--35 & Instável & Próprio & Moderado \\
+E25 & Boa           & Baixa & Nenhuma   & 0--15  & Estável  & Próprio & Moderado \\
+E26 & Ruim          & Baixa & Nenhuma   & $>$35  & Instável & Alugado & Alto \\
+E27 & Desconhecida  & Alta  & Adequada  & $>$35  & Estável  & Próprio & Baixo \\
+E28 & Ruim          & Alta  & Nenhuma   & 15--35 & Estável  & Alugado & Alto \\
+E29 & Boa           & Baixa & Nenhuma   & $>$35  & Instável & Próprio & Baixo \\
+E30 & Desconhecida  & Baixa & Nenhuma   & 0--15  & Estável  & Alugado & Alto \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+A distribuição ficou com 11 exemplos de risco \textbf{Alto}, 9 de \textbf{Moderado} e 10 de \textbf{Baixo}.
+
+\subsection{Funcionamento do Algoritmo KNN}
+
+O KNN constitui um algoritmo de aprendizado baseado em instâncias (\textit{lazy learner}), dispensando a construção explícita de uma função de generalização durante a fase de treino. O processamento ocorre integralmente no momento da predição:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Cálculo de Distância:} Para uma instância de teste $\mathbf{q} \in \mathbb{R}^p$, computa-se a distância euclidiana para cada ponto $\mathbf{x}_i$ do conjunto de treino:
+  \begin{equation}
+    d(\mathbf{q}, \mathbf{x}_i) = \sqrt{\sum_{j=1}^{p} (q_j - x_{ij})^2}
+  \end{equation}
+  \item \textbf{Seleção dos $k$ Vizinhos:} Ordenam-se as distâncias calculadas em ordem ascendente e isolam-se os índices dos $k$ pontos com as menores distâncias:
+  \begin{equation}
+    \mathcal{N}_k(\mathbf{q}) = \operatorname{arg\,min}_{S \subset D, |S|=k} \sum_{\mathbf{x}_i \in S} d(\mathbf{q}, \mathbf{x}_i)
+  \end{equation}
+  \item \textbf{Regra de Decisão por Voto Majoritário:} A classe predita $\hat{y}$ corresponde à classe com maior frequência absoluta entre os $k$ vizinhos:
+  \begin{equation}
+    \hat{y} = \operatorname{arg\,max}_{c \in C} \sum_{\mathbf{x}_i \in \mathcal{N}_k(\mathbf{q})} \mathbb{I}(y_i = c)
+  \end{equation}
+  onde $\mathbb{I}(\cdot)$ representa a função indicadora. Em caso de empate, utilizam-se critérios determinísticos de desempate pela menor distância média ou classe majoritária a priori.
+\end{enumerate}
+
+\subsection{Seleção do Hiperparâmetro $k$ via Validação Cruzada Leave-One-Out (LOO-CV)}
+
+Dado o tamanho reduzido da amostra ($N=30$), a técnica mais adequada para seleção do hiperparâmetro $k$ é a validação cruzada \textit{Leave-One-Out} (LOO-CV). Nesse procedimento, cada uma das 30 instâncias é utilizada individualmente como conjunto de teste, enquanto as outras 29 instâncias atuam como conjunto de treino, repetindo-se o ciclo 30 vezes.
+
+Foram avaliados valores ímpares $k \in \{1, 3, 5, 7, 9\}$ para minimizar a ocorrência de empates. A Tabela~\ref{tab:loocv_k} e a Figura~\ref{fig:loocv_k} detalham os resultados observados.
+
+\begin{table}[H]
+  \centering
+  \caption{Desempenho da Validação Cruzada Leave-One-Out por valor de $k$}
+  \label{tab:loocv_k}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{ccc}
+    \toprule
+    \textbf{Valor de $k$} & \textbf{Acertos ($/30$)} & \textbf{Acurácia LOO-CV (\%)} \\
+    \midrule
+    $k = 1$ & 18 & $60{,}00\%$ \\
+    $k = 3$ & 19 & $63{,}33\%$ \\
+    $\mathbf{k = 5}$ & \textbf{21} & $\mathbf{70{,}00\%}$ \\
+    $k = 7$ & 19 & $63{,}33\%$ \\
+    $k = 9$ & 18 & $60{,}00\%$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+O melhor valor foi $\mathbf{k = 5}$, com 21 acertos em 30 ($70{,}00\%$). Com $k=1$ o classificador fica sensível a vizinhos isolados; com $k \ge 7$ a votação começa a misturar exemplos de classes vizinhas e a acurácia cai de novo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.68\textwidth]{figures/q02_knn_escolha_k.pdf}
+  \caption{Curva de acurácia da validação cruzada Leave-One-Out (LOO-CV) em função de $k$.}
+  \label{fig:loocv_k}
+\end{figure}
+
+\subsection{Resultados e Análise de Desempenho}
+
+Com $k=5$, as predições Leave-One-Out geram a matriz de confusão e as métricas da Tabela~\ref{tab:metricas_knn} e da Figura~\ref{fig:knn_confusao}.
+
+\begin{table}[H]
+  \centering
+  \caption{Métricas LOO-CV do KNN com $k=5$ sobre as 30 instâncias}
+  \label{tab:metricas_knn}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Classe} & \textbf{Precisão} & \textbf{Revocação} & \textbf{$F_1$-Score} & \textbf{Suporte} \\
+    \midrule
+    Alto     & 0,71 & 0,91 & 0,80 & 11 \\
+    Baixo    & 0,71 & 1,00 & 0,83 & 10 \\
+    Moderado & 0,50 & 0,11 & 0,18 & 9 \\
+    \midrule
+    \textbf{Acurácia Global} & \multicolumn{3}{c}{\textbf{70,00\%}} & \textbf{30} \\
+    \textbf{Média Macro}     & 0,64 & 0,67 & 0,61 & 30 \\
+    \textbf{Média Ponderada} & 0,65 & 0,70 & 0,63 & 30 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/q02_knn_confusao.pdf}
+    \caption{Matriz de Confusão ($k=5$)}
+    \label{fig:knn_confusao}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.52\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{figures/q02_knn_fronteira.pdf}
+    \caption{Fronteira projetada em PCA 2D}
+    \label{fig:knn_fronteira}
+  \end{subfigure}
+  \caption{Visualizações do KNN ($k=5$): matriz de confusão em LOO-CV e fronteira no plano das duas primeiras componentes principais.}
+  \label{fig:knn_visualizacoes}
+\end{figure}
+
+O classificador acerta bem as classes extremas: recupera 10 dos 11 exemplos \texttt{Alto} e todos os 10 \texttt{Baixo}. A dificuldade fica em \texttt{Moderado}, que no Leave-One-Out é confundida com Alto ou Baixo (apenas 1 acerto em 9). Isso faz sentido na base: o risco moderado ocupa uma região intermediária do espaço de atributos e, com poucos exemplos, os vizinhos tendem a puxar o voto para uma das extremidades.
+
+Como exemplo passo a passo, o caso E1 (risco real Alto) tem como cinco vizinhos mais próximos E7, E11, E14, E2 e E4, todos da classe Alto. O voto é unânime e a predição coincide com o rótulo verdadeiro.
+
+% ══════════════════════════════════════════════════════════════════════════════
+\newpage
+\begin{thebibliography}{9}
+
+\bibitem{russel2013}
+RUSSELL, Stuart J.; NORVIG, Peter. \textit{Inteligência Artificial: uma abordagem moderna}. 3. ed. Rio de Janeiro: Elsevier / Campus, 2013.
+
+\bibitem{carvalho2011}
+CARVALHO, André C. P. L. F. et al. \textit{Inteligência Artificial: Uma Abordagem de Aprendizado de Máquina}. Rio de Janeiro: LTC, 2011.
+
+\bibitem{luger2009}
+LUGER, George F. \textit{Artificial Intelligence: Structures and Strategies for Complex Problem Solving}. 6. ed. Boston: Pearson, 2009.
+
+\bibitem{lista1_2026}
+TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. \textit{Lista de Exercícios 1 --- Inteligência Artificial}. Notebook \texttt{Lista\_IA.ipynb}, UFAL, 2026.
+
+\end{thebibliography}
+
+\end{document}
