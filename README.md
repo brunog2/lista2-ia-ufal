@@ -22,14 +22,13 @@ lista2-ia-ufal/
 │   ├── Inteligencia_artificial_3a_ed_russell_st.pdf
 │   └── Lista 2_IA_Grad_2026_2.pdf
 ├── docs/                       # Respostas conceituais e relatórios técnicos
+│   ├── lista2_relatorio.md     # Relatório agregado (espelha o PDF LaTeX)
 │   ├── q01_ontologias_kg.md
+│   ├── q02_knn.md
 │   ├── q03_eliza.md
-│   ├── q04_taxonomia_agentes.md
-│   ├── q05_inferencia_llm.md
-│   ├── q10_buscas.md
-│   ├── q11_agentes_classicos_vs_llm.md
-│   ├── q13_transformers.md
-│   └── q14_knowledge_graphs.md
+│   └── ...
+├── lista2_ia_ufal.tex          # Relatório LaTeX (fonte do PDF)
+├── lista2_ia_ufal.pdf          # PDF compilado com tectonic
 └── src/                        # Implementações práticas e protótipos
     ├── q02_knn/                # Algoritmo KNN sobre base de 30 instâncias
     ├── q06_fuzzy/              # Sistema baseado em regras Fuzzy (Scikit-Fuzzy / Mamdani)
@@ -100,7 +99,7 @@ Para manter o código organizado e garantir que ambos acompanhem as partes da av
 - [x] Q02: Algoritmo KNN sobre as 30 instâncias da Lista 1 (`docs/q02_knn.md`, `src/q02_knn/`)
 - [x] Q03: Chatbot ELIZA, PARRY e evolução para AIML (`docs/q03_eliza.md`)
 - [ ] Q04: Taxonomia de Agentes Inteligentes e Descrição PEAS (`docs/q04_taxonomia_agentes.md`)
-- [ ] Q05: Resumo Estendido sobre Inferência em LLMs (`docs/q05_inferencia_llm.md`)
+- [x] Q05: Resumo Estendido sobre Inferência em LLMs (`docs/q05_inferencia_llm.md`)
 - [ ] Q06: Sistema Fuzzy com Metodologia de Mamdani (`src/q06_fuzzy/`)
 - [ ] Q07: Sistema de Apoio ao Diagnóstico com CBR (`src/q07_cbr/`)
 - [ ] Q08: Diagnóstico Médico com Redes Bayesianas (`src/q08_bayes/`)
