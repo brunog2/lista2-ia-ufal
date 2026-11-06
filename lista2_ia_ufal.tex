@@ -409,6 +409,124 @@ Como exemplo passo a passo, o caso E1 (risco real Alto) tem como cinco vizinhos 
 
 % ══════════════════════════════════════════════════════════════════════════════
 \newpage
+\section{Questão 3 --- Chatbot ELIZA, diálogo, algoritmo e evoluções}
+\label{sec:q3}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\subsection{O chatbot ELIZA e o script DOCTOR}
+
+O ELIZA foi desenvolvido entre 1964 e 1966 por Joseph Weizenbaum no MIT Artificial Intelligence Laboratory~\cite{weizenbaum1966}. O programa conversa por casamento de padrões e transformação de texto. Weizenbaum não pretendia modelar compreensão semântica: queria mostrar que regras simples bastavam para o interlocutor humano projetar inteligência e empatia no sistema --- o chamado \emph{efeito ELIZA}.
+
+O script mais famoso é o DOCTOR, que emula um psicoterapeuta rogeriano (abordagem centrada na pessoa, de Carl Rogers). Nesse estilo, o terapeuta evita opinar, diagnosticar ou trazer temas externos; reformula o que o paciente disse e devolve a fala em pergunta ou comentário reflexivo. O ELIZA se aproveita exatamente desse domínio reduzido.
+
+\paragraph{Principais funcionalidades.}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Casamento de padrões:} a sentença é decomposta a partir de palavras-chave e curingas.
+  \item \textbf{Remontagem:} trechos capturados entram em moldes de resposta, com troca de pessoa gramatical (\texttt{I}/\texttt{me}/\texttt{my} $\rightarrow$ \texttt{you}/\texttt{your}).
+  \item \textbf{Pilha de palavras-chave (\emph{keystack}):} cada palavra-chave tem um peso; a de maior prioridade é processada primeiro.
+  \item \textbf{Memória de tópicos:} algumas declarações (em especial com \texttt{my}) são guardadas para reaparecer se a conversa estagnar.
+  \item \textbf{Respostas de contingência:} sem palavra-chave reconhecida, o sistema usa frases neutras (\emph{``Please go on''}, \emph{``What does that suggest to you?''}).
+\end{enumerate}
+
+\subsection{Trecho de diálogo e análise técnica}
+
+O diálogo abaixo adapta, em português, a interação clássica de Weizenbaum (1966) com o script DOCTOR.
+
+{\footnotesize
+\begin{verbatim}
+[U1] Homens são todos iguais.
+[E1] DE QUE MANEIRA?
+[U2] Eles estão sempre nos incomodando por causa de alguma coisa.
+[E2] VOCÊ CONSEGUE PENSAR EM UM EXEMPLO ESPECÍFICO?
+[U3] Bem, meu namorado me fez vir aqui.
+[E3] SEU NAMORADO FEZ VOCÊ VIR AQUI?
+[U4] Ele disse que eu fico deprimida quase o tempo todo.
+[E4] SINTO MUITO EM OUVIR QUE VOCÊ FICA DEPRIMIDA.
+[U5] É verdade. Eu sou infeliz.
+[E5] VOCÊ ACHA QUE VIR AQUI VAI TE AJUDAR A NÃO SER INFELIZ?
+[U6] Eu preciso de um pouco de ajuda, isso é certo.
+[E6] O QUE SIGNIFICARIA PARA VOCÊ SE VOCÊ CONSEGUISSE AJUDA?
+[U7] Talvez eu pudesse aprender a me dar bem com minha mãe.
+[E7] FALE-ME MAIS SOBRE A SUA FAMÍLIA.
+[U8] Você não gosta de mim.
+[E8] O QUE FAZ VOCÊ PENSAR QUE EU NÃO GOSTO DE VOCÊ?
+[U9] Você não é uma pessoa de verdade, você é um computador.
+[E9] IMPORTA SE EU SOU UM COMPUTADOR?
+\end{verbatim}
+}
+
+\paragraph{Partes tecnicamente interessantes.}
+Em [U3]$\rightarrow$[E3], a palavra-chave ligada a \texttt{meu}/\texttt{my} captura o segmento possessivo; a troca pronominal e a remontagem interrogativa geram \emph{``Seu namorado fez você vir aqui?''}. Em [U4]$\rightarrow$[E4], o estado \emph{deprimida} dispara um molde de empatia. Em [U7]$\rightarrow$[E7], \texttt{mãe} é generalizada para o tópico \emph{família}, em vez de ecoar a frase inteira. Em [U2]$\rightarrow$[E2], \texttt{sempre}/\texttt{always} pede um exemplo concreto --- típico do estilo rogeriano.
+
+\paragraph{Partes tecnicamente falhas.}
+Não há memória semântica entre turnos: cada sentença é quase isolada. Negações e escopo lógico confundem o casamento (``não estou infeliz'' ainda pode acionar a regra de \emph{infeliz}). Em [U9], a exposição do truque (``você é um computador'') só recebe um molde de negação de pressuposto. Em [E5], a pergunta sobre ``vir aqui'' presume continuidade terapêutica que [U5] não afirmou: o molde veio da palavra-chave, não de um plano de diálogo.
+
+\subsection{Regras e algoritmo do ELIZA}
+
+O motor é determinístico e opera em fases: (1)~normalização e tokenização; (2)~varredura de palavras-chave e montagem da \emph{keystack}; (3)~casamento com regras de decomposição; (4)~substituição pronominal; (5)~remontagem no próximo molde da lista circular. Se nenhuma regra da palavra-chave atual casar, o algoritmo desce na pilha; se a pilha acabar, usa memória de tópicos ou \emph{fallback}.
+
+Exemplo clássico para a palavra-chave \texttt{I REMEMBER}: o padrão \texttt{(* I REMEMBER *)} decompõe \emph{``Well, I remember when we lived in Maceió''} em três partes; o molde \texttt{(DO YOU OFTEN THINK OF (3) ?)} produz \emph{``DO YOU OFTEN THINK OF WHEN YOU LIVED IN MACEIO?''}, após a troca pronominal nos segmentos capturados.
+
+\subsection{Resposta do ELIZA a cada sentença do diálogo}
+
+A Tabela~\ref{tab:eliza_turnos} liga cada turno do usuário à palavra-chave dominante, à transformação e à saída (versão em português do trecho acima). Em todos os casos o ``entendimento'' é ilusório: o sistema ranqueia palavras-chave, decompõe, troca pronomes e preenche um molde.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Mapeamento turno a turno do diálogo com o script DOCTOR.}
+  \label{tab:eliza_turnos}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}llp{3.2cm}p{4.6cm}@{}}
+    \toprule
+    \textbf{Turno} & \textbf{Gatilho} & \textbf{Transformação} & \textbf{Saída} \\
+    \midrule
+    U1$\rightarrow$E1 & generalização & molde interrogativo fixo & De que maneira? \\
+    U2$\rightarrow$E2 & \texttt{sempre}/\texttt{always} & pede concretude & Exemplo específico? \\
+    U3$\rightarrow$E3 & \texttt{meu}/\texttt{my} & captura + troca pronominal & Seu namorado fez você vir aqui? \\
+    U4$\rightarrow$E4 & estado (\emph{deprimida}) & molde de empatia & Sinto muito\ldots deprimida. \\
+    U5$\rightarrow$E5 & \emph{infeliz} & molde sobre ajuda & \ldots ajudar a não ser infeliz? \\
+    U6$\rightarrow$E6 & \emph{preciso}/\emph{ajuda} & pergunta hipotética & O que significaria\ldots ajuda? \\
+    U7$\rightarrow$E7 & \texttt{mãe}$\rightarrow$família & generaliza o tópico & Fale-me mais sobre a sua família. \\
+    U8$\rightarrow$E8 & acusação ao terapeuta & inverte em pergunta & O que faz você pensar\ldots? \\
+    U9$\rightarrow$E9 & exposição (\emph{computador}) & negação de pressuposto & Importa se eu sou um computador? \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{Evoluções: PARRY (1972) e AIML / ALICE (1995--2000)}
+
+\paragraph{PARRY (Kenneth Colby, Stanford, 1972).}
+O PARRY simula o discurso de uma pessoa com esquizofrenia paranoica~\cite{colby1972}. Diferente do ELIZA, mantém um modelo de personalidade com variáveis afetivas contínuas --- medo (\emph{fear}), raiva (\emph{anger}) e desconfiança (\emph{mistrust}). A mesma pergunta do interlocutor gera respostas distintas conforme esses níveis. Com medo e raiva baixos, o sistema pode falar de suas obsessões; com níveis altos, fica hostil ou evasivo. Em avaliações com psiquiatras e transcrições cegas, os médicos nem sempre distinguiram o programa de pacientes reais. O salto em relação ao ELIZA é a introdução de \textbf{estado interno} que altera a seleção das respostas.
+
+\paragraph{AIML e A.L.I.C.E.\ (Richard Wallace, 1995--2000).}
+A linguagem AIML (\emph{Artificial Intelligence Markup Language}) e o bot A.L.I.C.E.\ (\emph{Artificial Linguistic Internet Computer Entity}) padronizam a base conversacional em categorias XML~\cite{wallace2009}. Há normalização recursiva com a tag \texttt{<srai>}, contexto com \texttt{<that>} e \texttt{<topic>}, e indexação em árvore (\emph{Graphmaster}), o que permite dezenas de milhares de regras com busca rápida. A.L.I.C.E.\ venceu o Prêmio Loebner em mais de uma edição. Em relação ao ELIZA, o ganho principal é escala, modularidade e controle explícito de contexto --- ainda sem compreensão semântica profunda.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Comparativo das três gerações de chatbots clássicos.}
+  \label{tab:chatbots_evolucao}
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}p{2.2cm}p{3.0cm}p{3.2cm}p{3.4cm}@{}}
+    \toprule
+    \textbf{Critério} & \textbf{ELIZA (1966)} & \textbf{PARRY (1972)} & \textbf{AIML/ALICE (1995)} \\
+    \midrule
+    Arquitetura & script + padrões & regras + estados afetivos & categorias XML (Graphmaster) \\
+    Modelo interno & quase nenhum & variáveis emocionais & base hierárquica de regras \\
+    Contexto & pilha de tópicos & filtrado pelo estresse & \texttt{<that>}, \texttt{<topic>} \\
+    Variações & decomposição rígida & heurísticas de intenção & recursão \texttt{<srai>} \\
+    Domínio & escuta clínica & paranoia simulada & cobertura conversacional ampla \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+A linha evolutiva é clara: o ELIZA mostra que padrões sintáticos bastam para a ilusão conversacional; o PARRY acrescenta estado afetivo; o AIML/ALICE transforma o acervo de regras num formalismo modular e indexável.
+
+% ══════════════════════════════════════════════════════════════════════════════
+\newpage
 \begin{thebibliography}{9}
 
 \bibitem{russel2013}
@@ -422,6 +540,15 @@ LUGER, George F. \textit{Artificial Intelligence: Structures and Strategies for 
 
 \bibitem{lista1_2026}
 TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. \textit{Lista de Exercícios 1 --- Inteligência Artificial}. Notebook \texttt{Lista\_IA.ipynb}, UFAL, 2026.
+
+\bibitem{weizenbaum1966}
+WEIZENBAUM, Joseph. ELIZA --- a computer program for the study of natural language communication between man and machine. \textit{Communications of the ACM}, v.~9, n.~1, p.~36--45, 1966.
+
+\bibitem{colby1972}
+COLBY, Kenneth M.; WEBER, Sylvia; HILF, Franklin D. Artificial paranoia. \textit{Artificial Intelligence}, v.~2, n.~1, p.~1--25, 1971/1972.
+
+\bibitem{wallace2009}
+WALLACE, Richard S. The anatomy of A.L.I.C.E. In: EPSTEIN, R.; ROBERTS, G.; BEBER, G. (eds.). \textit{Parsing the Turing Test}. Dordrecht: Springer, 2009. p.~181--210.
 
 \end{thebibliography}
 
