@@ -1,27 +1,23 @@
-# Lista 2 — Inteligência Artificial
+# Lista 2: Inteligência Artificial
 
 **Dupla:** Bruno Gomes de Barros Filho (21111360); Antonio Rodrigo Lima de Andrade Tenório (23210707)  
-**Disciplina:** ECOM031 — Inteligência Artificial  
+**Disciplina:** ECOM031: Inteligência Artificial  
 **Professor:** Evandro de Barros Costa  
 **Período:** 2026.2
 
-## Questão 2 — Classificador dos K-Vizinhos Mais Próximos (KNN)
+## Questão 2: Classificador dos K-Vizinhos Mais Próximos (KNN)
 
-### Base de Dados e Configuração do Experimento
+### Base de dados e configuração do experimento
 
-O algoritmo dos K-Vizinhos Mais Próximos (K-Nearest Neighbors — KNN) foi avaliado sobre as mesmas 30 instâncias de risco de crédito usadas na Lista de Exercícios 1. A base parte do exemplo clássico do livro de Luger e foi ampliada na Questão 1 daquela lista para 6 atributos categóricos e 30 exemplos (E1 a E30).
+O algoritmo dos K-Vizinhos Mais Próximos (K-Nearest Neighbors, KNN) foi avaliado sobre as mesmas 30 instâncias de risco de crédito da Lista de Exercícios 1. A base parte do exemplo clássico do livro de Luger e foi ampliada na Questão 1 daquela lista para 6 atributos categóricos e 30 exemplos (E1 a E30).
 
-Os atributos preditores são História de Crédito, Dívida, Garantia, Renda, Emprego e Imóvel. A variável-alvo é o risco de crédito, com três classes:
+Os atributos preditores são História de Crédito, Dívida, Garantia, Renda, Emprego e Imóvel. A variável-alvo é o risco de crédito, com três classes: Alto, Moderado e Baixo.
 
-- **Alto**
-- **Moderado**
-- **Baixo**
-
-Como o KNN trabalha com distância numérica e todos os atributos são categóricos, cada atributo foi convertido em colunas binárias por one-hot encoding (`get_dummies`), a mesma estratégia usada no CART da Lista 1. O espaço resultante tem 14 dimensões com valores em {0, 1}, de modo que a distância euclidiana entre dois exemplos conta, na prática, quantas categorias diferem. Não foi necessária normalização min-max.
+Como o KNN usa distância numérica e todos os atributos são categóricos, cada atributo foi convertido em colunas binárias por one-hot encoding (`get_dummies`), a mesma estratégia do CART na Lista 1. O espaço resultante tem 14 dimensões com valores em {0, 1}, e a distância euclidiana entre dois exemplos conta, na prática, quantas categorias diferem. Não foi necessária normalização min-max.
 
 Código e experimentos: [`src/q02_knn/q02_knn.ipynb`](../src/q02_knn/q02_knn.ipynb).
 
-### As 30 Instâncias Utilizadas no Experimento
+### As 30 instâncias utilizadas no experimento
 
 A tabela abaixo reproduz a base completa da Lista 1.
 
@@ -58,13 +54,13 @@ A tabela abaixo reproduz a base completa da Lista 1.
 | E29 | Boa | Baixa | Nenhuma | >35 | Instável | Próprio | Baixo |
 | E30 | Desconhecida | Baixa | Nenhuma | 0–15 | Estável | Alugado | Alto |
 
-A distribuição ficou com 11 exemplos de risco **Alto**, 9 de **Moderado** e 10 de **Baixo**.
+A distribuição ficou com 11 exemplos de risco Alto, 9 de Moderado e 10 de Baixo.
 
 ![Distribuição das classes nas 30 instâncias](../figures/png/q02_distribuicao_classes.png)
 
-### Funcionamento do Algoritmo KNN
+### Funcionamento do algoritmo KNN
 
-O KNN é um algoritmo de aprendizado baseado em instâncias (*lazy learner*): ele não constrói uma função de generalização explícita na fase de treino. O processamento acontece no momento da predição:
+O KNN é um algoritmo de aprendizado baseado em instâncias (*lazy learner*): não constrói uma função de generalização explícita no treino. O processamento acontece na predição:
 
 1. **Cálculo de distância.** Para uma instância de teste \(\mathbf{q} \in \mathbb{R}^p\), calcula-se a distância euclidiana para cada ponto \(\mathbf{x}_i\) do conjunto de treino:
 
@@ -86,7 +82,7 @@ d(\mathbf{q}, \mathbf{x}_i) = \sqrt{\sum_{j=1}^{p} (q_j - x_{ij})^2}
 
 Em caso de empate, usam-se critérios determinísticos de desempate (por exemplo, menor distância média ou classe majoritária a priori).
 
-### Seleção do Hiperparâmetro \(k\) via Leave-One-Out (LOO-CV)
+### Seleção do hiperparâmetro \(k\) via Leave-One-Out (LOO-CV)
 
 Com \(N = 30\), Leave-One-Out é a validação natural: a cada rodada, um exemplo fica de fora para teste e os outros 29 treinam o modelo. Foram avaliados valores ímpares \(k \in \{1, 3, 5, 7, 9\}\) para reduzir empates no voto.
 
@@ -98,11 +94,11 @@ Com \(N = 30\), Leave-One-Out é a validação natural: a cada rodada, um exempl
 | \(k = 7\) | 19 | 63,33% |
 | \(k = 9\) | 18 | 60,00% |
 
-O melhor valor foi **\(k = 5\)**, com 21 acertos em 30 (70,00%). Com \(k = 1\) o classificador fica sensível a vizinhos isolados; com \(k \ge 7\) a votação começa a misturar exemplos de classes vizinhas e a acurácia cai de novo.
+O melhor valor foi \(k = 5\), com 21 acertos em 30 (70,00%). Com \(k = 1\) o classificador fica sensível a vizinhos isolados; com \(k \ge 7\) a votação começa a misturar exemplos de classes vizinhas e a acurácia cai de novo.
 
 ![Curva de acurácia LOO-CV em função de k](../figures/png/q02_knn_escolha_k.png)
 
-### Resultados e Análise de Desempenho
+### Resultados e análise de desempenho
 
 Com \(k = 5\), as predições Leave-One-Out geram as métricas abaixo.
 
@@ -130,4 +126,4 @@ Como exemplo passo a passo, o caso E1 (risco real Alto) tem como cinco vizinhos 
 1. RUSSELL, Stuart J.; NORVIG, Peter. *Inteligência Artificial: uma abordagem moderna*. 3. ed. Rio de Janeiro: Elsevier / Campus, 2013.
 2. CARVALHO, André C. P. L. F. et al. *Inteligência Artificial: Uma Abordagem de Aprendizado de Máquina*. Rio de Janeiro: LTC, 2011.
 3. LUGER, George F. *Artificial Intelligence: Structures and Strategies for Complex Problem Solving*. 6. ed. Boston: Pearson, 2009.
-4. TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. *Lista de Exercícios 1 — Inteligência Artificial*. Notebook `Lista_IA.ipynb`, UFAL, 2026.
+4. TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. *Lista de Exercícios 1: Inteligência Artificial*. Notebook `Lista_IA.ipynb`, UFAL, 2026.

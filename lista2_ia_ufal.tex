@@ -61,8 +61,8 @@
 % ─── Cabeçalho e Rodapé ──────────────────────────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\color{ufalblue}\textsc{ECOM031 --- Inteligência Artificial}}
-\fancyhead[R]{\small\color{gray}UFAL / IC --- Lista de Exercícios 2}
+\fancyhead[L]{\small\color{ufalblue}\textsc{ECOM031: Inteligência Artificial}}
+\fancyhead[R]{\small\color{gray}UFAL / IC: Lista de Exercícios 2}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -76,18 +76,18 @@
 
 % ─── Identificação do Trabalho ───────────────────────────────────────────────
 \title{
-  {\large\textbf{UNIVERSIDADE FEDERAL DE ALAGOAS --- UFAL}}\\[0.2em]
+  {\large\textbf{UNIVERSIDADE FEDERAL DE ALAGOAS (UFAL)}}\\[0.2em]
   {\large\textbf{INSTITUTO DE COMPUTAÇÃO / ENGENHARIA DE COMPUTAÇÃO}}\\[1.5em]
-  {\Large\bfseries\color{ufalblue} Lista de Exercícios 2 --- Inteligência Artificial}\\[0.4em]
+  {\Large\bfseries\color{ufalblue} Lista de Exercícios 2: Inteligência Artificial}\\[0.4em]
   {\normalsize Componente Curricular: ECOM031 (Graduação / PPGI)}
 }
 \author{
-  \textbf{Bruno Gomes de Barros Filho} --- Matrícula: 21111360\\[0.3em]
-  \textbf{Antonio Rodrigo Lima de Andrade Tenório} --- Matrícula: 23210707
+  \textbf{Bruno Gomes de Barros Filho}, matrícula 21111360\\[0.3em]
+  \textbf{Antonio Rodrigo Lima de Andrade Tenório}, matrícula 23210707
 }
 \date{
   Professor: Evandro de Barros Costa\\[0.3em]
-  Maceió, AL --- 2026.2
+  Maceió, AL, 2026.2
 }
 
 \begin{document}
@@ -102,37 +102,37 @@
 \newpage
 
 % ══════════════════════════════════════════════════════════════════════════════
-\section{Questão 1 --- Representação do Conhecimento: Ontologias versus Grafos de Conhecimento}
+\section{Questão 1: Representação do Conhecimento: Ontologias versus Grafos de Conhecimento}
 \label{sec:q1}
 % ══════════════════════════════════════════════════════════════════════════════
 
-\subsection{Comparativo entre Sistemas Baseados em Ontologias e Grafos de Conhecimento}
+\subsection{Comparativo entre sistemas baseados em ontologias e grafos de conhecimento}
 
-Na área de Representação do Conhecimento e Raciocínio (RCR), a modelagem formal de domínios evoluiu a partir das redes semânticas e dos sistemas de \textit{frames} introduzidos nas décadas de 1970 e 1980, consolidando-se em duas abordagens predominantes na literatura contemporânea: os sistemas baseados em ontologias formais e os sistemas baseados em grafos de conhecimento (\textit{Knowledge Graphs}). Conforme apontado por Russell e Norvig (2013), qualquer formalismo de representação precisa equilibrar a expressividade axiomática necessária para inferência dedutiva e a tratabilidade computacional dos algoritmos associados.
+Na Representação do Conhecimento e Raciocínio (RCR), a modelagem formal de domínios veio das redes semânticas e dos sistemas de \textit{frames} das décadas de 1970 e 1980 e chegou a duas linhas muito usadas hoje: ontologias formais e grafos de conhecimento (\textit{Knowledge Graphs}). Russell e Norvig (2013) lembram que qualquer formalismo precisa equilibrar a expressividade necessária à inferência dedutiva com a tratabilidade dos algoritmos.
 
-Embora ambas as abordagens organizem entidades e relacionamentos em estruturas direcionadas, suas fundações teóricas e objetivos operacionais diferem de maneira substancial:
+As duas abordagens organizam entidades e relacionamentos em estruturas direcionadas, mas partem de fundamentos e objetivos distintos.
 
-\subsubsection{Fundamentação Teórica, Semântica e Suposição de Mundo}
-As ontologias formais fundamentam-se nas Lógicas de Descrição (\textit{Description Logics} --- DL), uma família de linguagens de representação baseadas em fragmentos decidíveis da Lógica de Primeira Ordem. Esse arcabouço originou o padrão W3C OWL 2 (\textit{Web Ontology Language}), cuja semântica baseia-se na lógica $\mathcal{SROIQ}$. Numa ontologia, a semântica de classes, relações e instâncias é expressa através de axiomas rigorosos, operando sob a \textbf{Hipótese de Mundo Aberto} (\textit{Open World Assumption} --- OWA). Sob a OWA, a ausência de uma afirmação na base de dados não autoriza o sistema a deduzir sua falsidade, mas apenas indica que a informação é desconhecida. Adicionalmente, adota-se a ausência da pressuposição de nomes únicos (\textit{Non-Unique Name Assumption}), de modo que indivíduos com identificadores distintos podem ser inferidos como equivalentes (\texttt{owl:sameAs}), salvo declaração explícita de desigualdade.
+\subsubsection{Fundamentação teórica, semântica e suposição de mundo}
+As ontologias formais se apoiam nas Lógicas de Descrição (\textit{Description Logics}, DL), fragmentos decidíveis da Lógica de Primeira Ordem. Esse arcabouço deu origem ao padrão W3C OWL 2 (\textit{Web Ontology Language}), com semântica baseada na lógica $\mathcal{SROIQ}$. Classes, relações e instâncias são descritas por axiomas, sob a Hipótese de Mundo Aberto (\textit{Open World Assumption}, OWA): a ausência de uma afirmação na base não autoriza concluir que ela é falsa; só indica que a informação é desconhecida. Também se adota a ausência da pressuposição de nomes únicos (\textit{Non-Unique Name Assumption}): indivíduos com identificadores distintos podem ser inferidos como equivalentes (\texttt{owl:sameAs}), salvo declaração explícita de desigualdade.
 
-Por outro lado, os Grafos de Conhecimento surgiram da convergência prática entre a Web Semântica (especificações RDF e RDF Schema) e as tecnologias modernas de bancos de dados orientados a grafos, com ênfase no modelo de Grafos de Propriedades Rotuladas (\textit{Labeled Property Graphs} --- LPG, como o motor Neo4j). Nesse modelo, a prioridade reside na representação estruturada e na conectividade em larga escala de instâncias do mundo real. Diferentemente dos sistemas ontológicos puros, as implementações de LPG adotam em suas consultas a \textbf{Hipótese de Mundo Fechado} (\textit{Closed World Assumption} --- CWA) combinada com a pressuposição de nomes únicos: a ausência de uma aresta entre dois nós é tratada pragmaticamente como inexistência do vínculo, viabilizando avaliações eficientes de conectividade.
+Os grafos de conhecimento surgiram da convergência entre a Web Semântica (RDF e RDF Schema) e bancos orientados a grafos, em especial o modelo de Grafos de Propriedades Rotuladas (\textit{Labeled Property Graphs}, LPG; por exemplo, Neo4j). A prioridade é a representação estruturada e a conectividade em larga escala de instâncias reais. Nas consultas LPG, costuma-se adotar a Hipótese de Mundo Fechado (\textit{Closed World Assumption}, CWA) com pressuposição de nomes únicos: a ausência de uma aresta entre dois nós é tratada como inexistência do vínculo, o que facilita avaliações de conectividade.
 
-\subsubsection{Mecanismos de Raciocínio e Inferência}
-Nos sistemas ontológicos, o raciocínio é estritamente dedutivo e analítico. Motores de inferência lógica especializados (\textit{reasoners} automáticos como HermiT, Pellet e FaCT++), implementados sobre algoritmos de \textit{Tableau}, processam o conjunto de axiomas terminológicos (TBox) e assertivos (ABox). As tarefas computacionais padrão englobam:
+\subsubsection{Mecanismos de raciocínio e inferência}
+Nos sistemas ontológicos, o raciocínio é dedutivo. Motores como HermiT, Pellet e FaCT++, baseados em algoritmos de \textit{Tableau}, processam axiomas terminológicos (TBox) e assertivos (ABox). As tarefas usuais incluem:
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Verificação de consistência:} atestar se a ontologia admite pelo menos um modelo formal satisfatível.
-  \item \textbf{Subsunção e classificação taxonômica:} calcular automaticamente a hierarquia implícita de classes a partir das restrições lógicas declaradas.
-  \item \textbf{Instanciação e realização:} determinar a pertinência de indivíduos a classes abstratas complexas.
+  \item verificação de consistência: a ontologia admite pelo menos um modelo satisfatível?
+  \item subsunção e classificação taxonômica: calcular a hierarquia implícita de classes a partir das restrições declaradas;
+  \item instanciação e realização: decidir a quais classes complexas um indivíduo pertence.
 \end{itemize}
 
-Em contrapartida, nos Grafos de Conhecimento o mecanismo primário de inferência deixa de ser a dedução lógica axiomática e passa a ser a inferência estrutural, algorítmica ou estatística. Utilizam-se consultas baseadas em casamento de padrões de subgrafos (expressas em Cypher ou SPARQL), algoritmos clássicos de teoria dos grafos (caminhos mínimos de Dijkstra, centralidade de PageRank, coeficientes de agrupamento) e técnicas indutivas baseadas em aprendizado de máquina sobre grafos, tais como modelos de representação vetorial de entidades e relações (\textit{Knowledge Graph Embeddings} como TransE e RotatE) e Redes Neurais em Grafo (GNNs). Tais abordagens visam à predição de elos ausentes (\textit{link prediction}) e ao alinhamento de entidades em bases ruidosas.
+Nos grafos de conhecimento, a inferência principal deixa de ser a dedução axiomática e passa a ser estrutural, algorítmica ou estatística. Usam-se consultas por padrão de subgrafo (Cypher ou SPARQL), algoritmos de teoria dos grafos (caminhos mínimos de Dijkstra, centralidade de PageRank, coeficientes de agrupamento) e aprendizado sobre grafos, como embeddings de entidades e relações (\textit{Knowledge Graph Embeddings}; TransE, RotatE) e redes neurais em grafo (GNNs). O objetivo típico é predizer elos ausentes (\textit{link prediction}) e alinhar entidades em bases ruidosas.
 
-\subsubsection{Escalabilidade e Complexidade Computacional}
-O poder expressivo das Lógicas de Descrição impõe custos computacionais severos. Para a linguagem OWL 2 DL, a complexidade no pior caso de problemas de satisfatibilidade atinge ordens de NEXPTIME a 2EXPTIME, o que limita o desempenho de raciocinadores automáticos completos sobre bases contendo dezenas de milhões de indivíduos. 
+\subsubsection{Escalabilidade e complexidade computacional}
+O poder expressivo das Lógicas de Descrição tem custo alto. Em OWL 2 DL, a satisfatibilidade no pior caso chega a ordens de NEXPTIME a 2EXPTIME, o que limita raciocinadores completos sobre bases com dezenas de milhões de indivíduos.
 
-Em contraste, os bancos de dados em grafo orientados a propriedades foram concebidos com foco em alto desempenho de leitura, escrita e travessia sobre grafos contendo bilhões de nós e arestas. Ao renunciarem à checagem automática de axiomas complexos em tempo de execução, essas plataformas empregam estruturas físicas com indexação direta por ponteiros (\textit{index-free adjacency}), garantindo que o custo de travessia local dependa apenas do grau dos nós envolvidos, e não do tamanho global do grafo.
+Bancos de grafo orientados a propriedades foram pensados para leitura, escrita e travessia em grafos com bilhões de nós e arestas. Ao abrir mão da checagem automática de axiomas complexos em tempo de execução, usam indexação direta por ponteiros (\textit{index-free adjacency}): o custo de travessia local depende do grau dos nós envolvidos, e não do tamanho global do grafo.
 
-A Tabela~\ref{tab:comparativo_q1} resume os pontos de diferenciação entre as abordagens.
+A Tabela~\ref{tab:comparativo_q1} resume os pontos de diferença.
 
 \begin{table}[H]
   \centering
@@ -154,51 +154,51 @@ A Tabela~\ref{tab:comparativo_q1} resume os pontos de diferenciação entre as a
   \end{tabular}
 \end{table}
 
-\subsection{Exemplo de Aplicação: Sistema de Catálogo e Recomendação Cinematográfica}
+\subsection{Exemplo de aplicação: catálogo e recomendação cinematográfica}
 
-Para ilustrar o contraste entre as duas concepções de representação, considere o domínio de um catálogo e sistema de recomendação cinematográfica.
+Para contrastar as duas formas de representação, considere um catálogo com recomendação de filmes.
 
-\subsubsection{Abordagem por Ontologia (Modelagem Terminológica --- TBox)}
-Na abordagem ontológica, o objetivo primário é formalizar o esquema conceitual e as regras de integridade do domínio:
+\subsubsection{Abordagem por ontologia (modelagem terminológica: TBox)}
+Na abordagem ontológica, o objetivo é formalizar o esquema conceitual e as regras de integridade do domínio:
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Taxonomia de Classes:} Definem-se as classes conceituais \texttt{Pessoa}, \texttt{Diretor}, \texttt{Ator} e \texttt{Filme}. Especifica-se formalmente que $\texttt{Diretor} \sqsubseteq \texttt{Pessoa}$, $\texttt{Ator} \sqsubseteq \texttt{Pessoa}$, e estabelece-se o axioma de disjunção $\texttt{Pessoa} \sqcap \texttt{Filme} \equiv \bot$.
-  \item \textbf{Propriedades de Objeto:} Modela-se a relação binária \texttt{dirigiu}, definindo-se formalmente seu domínio como \texttt{Diretor} ($\exists \texttt{dirigiu}.\top \sqsubseteq \texttt{Diretor}$) e sua imagem como \texttt{Filme} ($\top \sqsubseteq \forall \texttt{dirigiu}.\texttt{Filme}$).
-  \item \textbf{Raciocínio Automático:} Ao inserir na base de asserções (ABox) o fato \texttt{dirigiu(Christopher\_Nolan, Oppenheimer)}, o raciocinador deduz automaticamente que \texttt{Christopher\_Nolan} pertence à classe \texttt{Diretor} e, por conseguinte, à classe \texttt{Pessoa}, sem necessidade de anotação manual. Se um registro inconsistente declarar que um indivíduo da classe \texttt{Filme} dirigiu outro \texttt{Filme}, o motor detecta a violação do domínio e reporta a inconsistência lógica da base.
+  \item Taxonomia de classes: definem-se \texttt{Pessoa}, \texttt{Diretor}, \texttt{Ator} e \texttt{Filme}, com $\texttt{Diretor} \sqsubseteq \texttt{Pessoa}$, $\texttt{Ator} \sqsubseteq \texttt{Pessoa}$ e o axioma de disjunção $\texttt{Pessoa} \sqcap \texttt{Filme} \equiv \bot$.
+  \item Propriedades de objeto: modela-se a relação binária \texttt{dirigiu}, com domínio \texttt{Diretor} ($\exists \texttt{dirigiu}.\top \sqsubseteq \texttt{Diretor}$) e imagem \texttt{Filme} ($\top \sqsubseteq \forall \texttt{dirigiu}.\texttt{Filme}$).
+  \item Raciocínio automático: ao inserir na ABox o fato \texttt{dirigiu(Christopher\_Nolan, Oppenheimer)}, o raciocinador conclui que \texttt{Christopher\_Nolan} pertence a \texttt{Diretor} e, portanto, a \texttt{Pessoa}, sem anotação manual. Se um registro inconsistente declarar que um \texttt{Filme} dirigiu outro \texttt{Filme}, o motor detecta a violação de domínio e aponta a inconsistência da base.
 \end{itemize}
 
-\subsubsection{Abordagem por Grafo de Conhecimento (Modelagem Estrutural --- LPG)}
-No grafo de conhecimento, a atenção concentra-se na conectividade eficiente sobre o conjunto instanciado:
+\subsubsection{Abordagem por grafo de conhecimento (modelagem estrutural: LPG)}
+No grafo, o foco é a conectividade eficiente sobre o conjunto instanciado:
 \begin{itemize}[leftmargin=2em]
-  \item \textbf{Estrutura de Nós:} As entidades reais são nós com rótulos e propriedades literais, como \texttt{(:Pessoa:Diretor \{nome: "Steven Spielberg"\})} e \texttt{(:Filme \{titulo: "Jurassic Park", ano: 1993\})}.
-  \item \textbf{Arestas Tipadas:} Os vínculos são arestas direcionadas explícitas, tais como \texttt{[:DIRIGIU]}, \texttt{[:ATUOU\_EM]} e \texttt{[:PERTENCE\_AO\_GENERO]}.
-  \item \textbf{Mecanismo de Consulta:} Para gerar uma recomendação a um usuário interessado em \texttt{"Jurassic Park"}, o sistema executa uma consulta Cypher que recupera filmes compartilhando nós adjacentes de direção, elenco ou gênero em até dois saltos de distância:
+  \item Estrutura de nós: entidades reais viram nós com rótulos e propriedades literais, como \texttt{(:Pessoa:Diretor \{nome: "Steven Spielberg"\})} e \texttt{(:Filme \{titulo: "Jurassic Park", ano: 1993\})}.
+  \item Arestas tipadas: os vínculos são arestas direcionadas explícitas, por exemplo \texttt{[:DIRIGIU]}, \texttt{[:ATUOU\_EM]} e \texttt{[:PERTENCE\_AO\_GENERO]}.
+  \item Consulta: para recomendar a partir de \texttt{"Jurassic Park"}, o sistema executa uma consulta Cypher que recupera filmes com nós adjacentes de direção, elenco ou gênero em até dois saltos:
 \begin{lstlisting}[language=SQL]
 MATCH (f1:Filme {titulo: "Jurassic Park"})<-[:DIRIGIU]-(d:Diretor)-[:DIRIGIU]->(f2:Filme)
 WHERE f1 <> f2
 RETURN f2.titulo, count(*) AS peso ORDER BY peso DESC LIMIT 5;
 \end{lstlisting}
-  A resposta é produzida em poucos milissegundos por meio da navegação direta na estrutura de índices em grafo, sem a sobrecarga de checagem dedutiva de modelos lógicos.
+  A resposta sai em poucos milissegundos pela navegação nos índices do grafo, sem checagem dedutiva de modelos lógicos.
 \end{itemize}
 
-\subsection{Mapeamento de uma Ontologia para um Grafo de Conhecimento}
+\subsection{Mapeamento de uma ontologia para um grafo de conhecimento}
 
-A transição de uma especificação ontológica formal (representada em OWL 2) para um Grafo de Conhecimento implementado sobre o modelo de Grafo de Propriedades Rotuladas (LPG) exige a aplicação de um conjunto sistemático de transformações estruturais:
+Passar de uma especificação OWL 2 para um grafo de propriedades rotuladas (LPG) exige um conjunto de transformações estruturais:
 
 \begin{enumerate}[leftmargin=2em, label=\textbf{\arabic*.}]
-  \item \textbf{Classes Ontológicas para Rótulos de Nós (\textit{Labels}):}
-  Cada classe da ontologia OWL converte-se em um rótulo (\textit{label}) aplicável aos nós do grafo. A herança taxonômica (\texttt{rdfs:subClassOf}) pode ser tratada de duas formas: (i) atribuindo múltiplos rótulos a um mesmo nó, de modo que uma instância de \texttt{Diretor} receba simultaneamente os rótulos \texttt{:Pessoa} e \texttt{:Diretor}; ou (ii) mantendo nós explícitos de metadados para as classes, interligados por arestas estruturais \texttt{[:SUBCLASSE\_DE]}.
+  \item Classes ontológicas para rótulos de nós (\textit{labels}):
+  cada classe OWL vira um rótulo aplicável aos nós. A herança (\texttt{rdfs:subClassOf}) pode ser tratada de duas formas: (i) vários rótulos no mesmo nó, de modo que uma instância de \texttt{Diretor} receba \texttt{:Pessoa} e \texttt{:Diretor}; ou (ii) nós de metadados para as classes, ligados por arestas \texttt{[:SUBCLASSE\_DE]}.
 
-  \item \textbf{Propriedades de Objeto para Arestas Direcionadas Tipadas:}
-  As \textit{Object Properties} de OWL, que representam relações semânticas binárias entre indivíduos de classes, são traduzidas em arestas direcionadas tipadas no LPG. A propriedade ontológica \texttt{dirigiu} (com domínio \texttt{Diretor} e imagem \texttt{Filme}) materializa-se como a aresta direcionada \texttt{[:DIRIGIU]} conectando o nó de origem ao nó de destino.
+  \item Propriedades de objeto para arestas direcionadas tipadas:
+  as \textit{Object Properties} de OWL, relações binárias entre indivíduos, viram arestas tipadas no LPG. A propriedade \texttt{dirigiu} (domínio \texttt{Diretor}, imagem \texttt{Filme}) materializa-se como \texttt{[:DIRIGIU]} do nó de origem ao de destino.
 
-  \item \textbf{Propriedades de Tipo de Dados para Atributos Internos Chave-Valor:}
-  As \textit{Datatype Properties} de OWL mapeiam indivíduos para valores literais (tais como \texttt{xsd:string}, \texttt{xsd:integer} ou \texttt{xsd:dateTime}). No modelo LPG, esses pares não necessitam constituir nós isolados: são armazenados diretamente como propriedades internas chave-valor no nó correspondente (exemplo: \texttt{anoLancamento: 1993} armazenado dentro do nó do filme).
+  \item Propriedades de tipo de dados para atributos chave-valor:
+  as \textit{Datatype Properties} mapeiam indivíduos a literais (\texttt{xsd:string}, \texttt{xsd:integer}, \texttt{xsd:dateTime}). No LPG, esses pares não precisam ser nós isolados: ficam como propriedades internas no nó correspondente (por exemplo, \texttt{anoLancamento: 1993} no nó do filme).
 
-  \item \textbf{Axiomas e Restrições para Restrições de Integridade e Camada de Aplicação:}
-  Bancos de dados de grafo comuns não possuem motores de inferência lógica embutidos para avaliar axiomas em tempo de execução. Logo, axiomas de cardinalidade mínima/máxima e restrições de unicidade (\texttt{owl:hasKey}) são implementados como restrições de esquema no banco (ex.: \texttt{CREATE CONSTRAINT FOR (f:Filme) REQUIRE f.id IS UNIQUE}). Regras lógicas mais complexas (como disjunções e propriedades transitivas) são transferidas para a camada de serviço da aplicação antes da persistência.
+  \item Axiomas e restrições para integridade e camada de aplicação:
+  bancos de grafo comuns não avaliam axiomas lógicos em tempo de execução. Cardinalidade e unicidade (\texttt{owl:hasKey}) viram restrições de esquema (ex.: \texttt{CREATE CONSTRAINT FOR (f:Filme) REQUIRE f.id IS UNIQUE}). Regras mais complexas, como disjunções e propriedades transitivas, ficam na camada de serviço antes da persistência.
 \end{enumerate}
 
-A Figura~\ref{fig:mapeamento_ontologia_kg} ilustra graficamente o esquema de mapeamento proposto.
+A Figura~\ref{fig:mapeamento_ontologia_kg} ilustra o mapeamento.
 
 \begin{figure}[H]
   \centering
@@ -233,31 +233,26 @@ A Figura~\ref{fig:mapeamento_ontologia_kg} ilustra graficamente o esquema de map
     \node[above=0.5cm of n-dir, font=\small\bfseries\color{green!50!black}] {Estrutura Instanciada (Grafo de Propriedades)};
   \end{tikzpicture}%
   }
-  \caption{Mapeamento estrutural do modelo ontológico formal para grafo de propriedades rotuladas.}
+  \caption{Mapeamento do modelo ontológico formal para grafo de propriedades rotuladas.}
   \label{fig:mapeamento_ontologia_kg}
 \end{figure}
 
 \newpage
 
 % ══════════════════════════════════════════════════════════════════════════════
-\section{Questão 2 --- Classificador dos K-Vizinhos Mais Próximos (KNN)}
+\section{Questão 2: Classificador dos K-Vizinhos Mais Próximos (KNN)}
 \label{sec:q2}
 % ══════════════════════════════════════════════════════════════════════════════
 
-\subsection{Base de Dados e Configuração do Experimento}
+\subsection{Base de dados e configuração do experimento}
 
-O algoritmo dos $K$-Vizinhos Mais Próximos (\textit{K-Nearest Neighbors} --- KNN) foi avaliado sobre as mesmas 30 instâncias de risco de crédito usadas na Lista de Exercícios 1. A base parte do exemplo clássico do livro de Luger e foi ampliada na Questão 1 daquela lista para 6 atributos categóricos e 30 exemplos (E1 a E30).
+O algoritmo dos $K$-Vizinhos Mais Próximos (\textit{K-Nearest Neighbors}, KNN) foi avaliado sobre as mesmas 30 instâncias de risco de crédito da Lista de Exercícios 1. A base parte do exemplo clássico do livro de Luger e foi ampliada na Questão 1 daquela lista para 6 atributos categóricos e 30 exemplos (E1 a E30).
 
-Os atributos preditores são História de Crédito, Dívida, Garantia, Renda, Emprego e Imóvel. A variável-alvo é o risco de crédito, com três classes:
-\begin{itemize}[leftmargin=2em]
-  \item \textbf{Alto}
-  \item \textbf{Moderado}
-  \item \textbf{Baixo}
-\end{itemize}
+Os atributos preditores são História de Crédito, Dívida, Garantia, Renda, Emprego e Imóvel. A variável-alvo é o risco de crédito, com três classes: Alto, Moderado e Baixo.
 
-Como o KNN trabalha com distância numérica e todos os atributos são categóricos, cada atributo foi convertido em colunas binárias por \textit{one-hot encoding} (\texttt{get\_dummies}), a mesma estratégia usada no CART da Lista 1. O espaço resultante tem 14 dimensões com valores em $\{0,1\}$, de modo que a distância euclidiana entre dois exemplos conta, na prática, quantas categorias diferem. Não foi necessária normalização min-max.
+Como o KNN usa distância numérica e todos os atributos são categóricos, cada atributo foi convertido em colunas binárias por \textit{one-hot encoding} (\texttt{get\_dummies}), a mesma estratégia do CART na Lista 1. O espaço resultante tem 14 dimensões com valores em $\{0,1\}$, e a distância euclidiana entre dois exemplos conta, na prática, quantas categorias diferem. Não foi necessária normalização min-max.
 
-\subsection{As 30 Instâncias Utilizadas no Experimento}
+\subsection{As 30 instâncias utilizadas no experimento}
 
 A Tabela~\ref{tab:30_instancias} reproduz a base completa da Lista 1.
 
@@ -305,33 +300,33 @@ E30 & Desconhecida  & Baixa & Nenhuma   & 0--15  & Estável  & Alugado & Alto \\
   \end{tabular}
 \end{table}
 
-A distribuição ficou com 11 exemplos de risco \textbf{Alto}, 9 de \textbf{Moderado} e 10 de \textbf{Baixo}.
+A distribuição ficou com 11 exemplos de risco Alto, 9 de Moderado e 10 de Baixo.
 
-\subsection{Funcionamento do Algoritmo KNN}
+\subsection{Funcionamento do algoritmo KNN}
 
-O KNN constitui um algoritmo de aprendizado baseado em instâncias (\textit{lazy learner}), dispensando a construção explícita de uma função de generalização durante a fase de treino. O processamento ocorre integralmente no momento da predição:
+O KNN é um algoritmo de aprendizado baseado em instâncias (\textit{lazy learner}): não constrói uma função de generalização explícita no treino. O processamento acontece na predição:
 
 \begin{enumerate}[leftmargin=2em]
-  \item \textbf{Cálculo de Distância:} Para uma instância de teste $\mathbf{q} \in \mathbb{R}^p$, computa-se a distância euclidiana para cada ponto $\mathbf{x}_i$ do conjunto de treino:
+  \item Cálculo de distância: para uma instância de teste $\mathbf{q} \in \mathbb{R}^p$, calcula-se a distância euclidiana a cada ponto $\mathbf{x}_i$ do treino:
   \begin{equation}
     d(\mathbf{q}, \mathbf{x}_i) = \sqrt{\sum_{j=1}^{p} (q_j - x_{ij})^2}
   \end{equation}
-  \item \textbf{Seleção dos $k$ Vizinhos:} Ordenam-se as distâncias calculadas em ordem ascendente e isolam-se os índices dos $k$ pontos com as menores distâncias:
+  \item Seleção dos $k$ vizinhos: ordenam-se as distâncias em ordem crescente e ficam os $k$ pontos mais próximos:
   \begin{equation}
     \mathcal{N}_k(\mathbf{q}) = \operatorname{arg\,min}_{S \subset D, |S|=k} \sum_{\mathbf{x}_i \in S} d(\mathbf{q}, \mathbf{x}_i)
   \end{equation}
-  \item \textbf{Regra de Decisão por Voto Majoritário:} A classe predita $\hat{y}$ corresponde à classe com maior frequência absoluta entre os $k$ vizinhos:
+  \item Voto majoritário: a classe predita $\hat{y}$ é a mais frequente entre os $k$ vizinhos:
   \begin{equation}
     \hat{y} = \operatorname{arg\,max}_{c \in C} \sum_{\mathbf{x}_i \in \mathcal{N}_k(\mathbf{q})} \mathbb{I}(y_i = c)
   \end{equation}
-  onde $\mathbb{I}(\cdot)$ representa a função indicadora. Em caso de empate, utilizam-se critérios determinísticos de desempate pela menor distância média ou classe majoritária a priori.
+  onde $\mathbb{I}(\cdot)$ é a função indicadora. Em empate, usam-se critérios determinísticos (menor distância média ou classe majoritária a priori).
 \end{enumerate}
 
-\subsection{Seleção do Hiperparâmetro $k$ via Validação Cruzada Leave-One-Out (LOO-CV)}
+\subsection{Seleção do hiperparâmetro $k$ via Leave-One-Out (LOO-CV)}
 
-Dado o tamanho reduzido da amostra ($N=30$), a técnica mais adequada para seleção do hiperparâmetro $k$ é a validação cruzada \textit{Leave-One-Out} (LOO-CV). Nesse procedimento, cada uma das 30 instâncias é utilizada individualmente como conjunto de teste, enquanto as outras 29 instâncias atuam como conjunto de treino, repetindo-se o ciclo 30 vezes.
+Com amostra pequena ($N=30$), a validação cruzada \textit{Leave-One-Out} (LOO-CV) é adequada para escolher $k$: cada uma das 30 instâncias entra uma vez como teste e as outras 29 treinam o modelo.
 
-Foram avaliados valores ímpares $k \in \{1, 3, 5, 7, 9\}$ para minimizar a ocorrência de empates. A Tabela~\ref{tab:loocv_k} e a Figura~\ref{fig:loocv_k} detalham os resultados observados.
+Foram avaliados valores ímpares $k \in \{1, 3, 5, 7, 9\}$ para reduzir empates. A Tabela~\ref{tab:loocv_k} e a Figura~\ref{fig:loocv_k} mostram os resultados.
 
 \begin{table}[H]
   \centering
@@ -351,7 +346,7 @@ Foram avaliados valores ímpares $k \in \{1, 3, 5, 7, 9\}$ para minimizar a ocor
   \end{tabular}
 \end{table}
 
-O melhor valor foi $\mathbf{k = 5}$, com 21 acertos em 30 ($70{,}00\%$). Com $k=1$ o classificador fica sensível a vizinhos isolados; com $k \ge 7$ a votação começa a misturar exemplos de classes vizinhas e a acurácia cai de novo.
+O melhor valor foi $k = 5$, com 21 acertos em 30 ($70{,}00\%$). Com $k=1$ o classificador fica sensível a vizinhos isolados; com $k \ge 7$ a votação começa a misturar exemplos de classes vizinhas e a acurácia cai de novo.
 
 \begin{figure}[H]
   \centering
@@ -360,7 +355,7 @@ O melhor valor foi $\mathbf{k = 5}$, com 21 acertos em 30 ($70{,}00\%$). Com $k=
   \label{fig:loocv_k}
 \end{figure}
 
-\subsection{Resultados e Análise de Desempenho}
+\subsection{Resultados e análise de desempenho}
 
 Com $k=5$, as predições Leave-One-Out geram a matriz de confusão e as métricas da Tabela~\ref{tab:metricas_knn} e da Figura~\ref{fig:knn_confusao}.
 
@@ -409,23 +404,23 @@ Como exemplo passo a passo, o caso E1 (risco real Alto) tem como cinco vizinhos 
 
 % ══════════════════════════════════════════════════════════════════════════════
 \newpage
-\section{Questão 3 --- Chatbot ELIZA, diálogo, algoritmo e evoluções}
+\section{Questão 3: Chatbot ELIZA, diálogo, algoritmo e evoluções}
 \label{sec:q3}
 % ══════════════════════════════════════════════════════════════════════════════
 
 \subsection{O chatbot ELIZA e o script DOCTOR}
 
-O ELIZA foi desenvolvido entre 1964 e 1966 por Joseph Weizenbaum no MIT Artificial Intelligence Laboratory~\cite{weizenbaum1966}. O programa conversa por casamento de padrões e transformação de texto. Weizenbaum não pretendia modelar compreensão semântica: queria mostrar que regras simples bastavam para o interlocutor humano projetar inteligência e empatia no sistema --- o chamado \emph{efeito ELIZA}.
+O ELIZA foi desenvolvido entre 1964 e 1966 por Joseph Weizenbaum no MIT Artificial Intelligence Laboratory~\cite{weizenbaum1966}. O programa conversa por casamento de padrões e transformação de texto. Weizenbaum não queria modelar compreensão semântica; queria mostrar que regras simples bastavam para o interlocutor projetar inteligência e empatia no sistema (o \emph{efeito ELIZA}).
 
-O script mais famoso é o DOCTOR, que emula um psicoterapeuta rogeriano (abordagem centrada na pessoa, de Carl Rogers). Nesse estilo, o terapeuta evita opinar, diagnosticar ou trazer temas externos; reformula o que o paciente disse e devolve a fala em pergunta ou comentário reflexivo. O ELIZA se aproveita exatamente desse domínio reduzido.
+O script mais famoso é o DOCTOR, que emula um psicoterapeuta rogeriano (abordagem centrada na pessoa, de Carl Rogers). Nesse estilo, o terapeuta evita opinar, diagnosticar ou trazer temas externos: reformula o que o paciente disse e devolve a fala em pergunta ou comentário reflexivo. O ELIZA se aproveita desse domínio reduzido.
 
 \paragraph{Principais funcionalidades.}
 \begin{enumerate}[leftmargin=*]
-  \item \textbf{Casamento de padrões:} a sentença é decomposta a partir de palavras-chave e curingas.
-  \item \textbf{Remontagem:} trechos capturados entram em moldes de resposta, com troca de pessoa gramatical (\texttt{I}/\texttt{me}/\texttt{my} $\rightarrow$ \texttt{you}/\texttt{your}).
-  \item \textbf{Pilha de palavras-chave (\emph{keystack}):} cada palavra-chave tem um peso; a de maior prioridade é processada primeiro.
-  \item \textbf{Memória de tópicos:} algumas declarações (em especial com \texttt{my}) são guardadas para reaparecer se a conversa estagnar.
-  \item \textbf{Respostas de contingência:} sem palavra-chave reconhecida, o sistema usa frases neutras (\emph{``Please go on''}, \emph{``What does that suggest to you?''}).
+  \item Casamento de padrões: a sentença é decomposta a partir de palavras-chave e curingas.
+  \item Remontagem: trechos capturados entram em moldes de resposta, com troca de pessoa gramatical (\texttt{I}/\texttt{me}/\texttt{my} $\rightarrow$ \texttt{you}/\texttt{your}).
+  \item Pilha de palavras-chave (\emph{keystack}): cada palavra-chave tem um peso; a de maior prioridade é processada primeiro.
+  \item Memória de tópicos: algumas declarações (em especial com \texttt{my}) são guardadas para reaparecer se a conversa estagnar.
+  \item Respostas de contingência: sem palavra-chave reconhecida, o sistema usa frases neutras (\emph{``Please go on''}, \emph{``What does that suggest to you?''}).
 \end{enumerate}
 
 \subsection{Trecho de diálogo e análise técnica}
@@ -456,7 +451,7 @@ O diálogo abaixo adapta, em português, a interação clássica de Weizenbaum (
 }
 
 \paragraph{Partes tecnicamente interessantes.}
-Em [U3]$\rightarrow$[E3], a palavra-chave ligada a \texttt{meu}/\texttt{my} captura o segmento possessivo; a troca pronominal e a remontagem interrogativa geram \emph{``Seu namorado fez você vir aqui?''}. Em [U4]$\rightarrow$[E4], o estado \emph{deprimida} dispara um molde de empatia. Em [U7]$\rightarrow$[E7], \texttt{mãe} é generalizada para o tópico \emph{família}, em vez de ecoar a frase inteira. Em [U2]$\rightarrow$[E2], \texttt{sempre}/\texttt{always} pede um exemplo concreto --- típico do estilo rogeriano.
+Em [U3]$\rightarrow$[E3], a palavra-chave ligada a \texttt{meu}/\texttt{my} captura o segmento possessivo; a troca pronominal e a remontagem interrogativa geram \emph{``Seu namorado fez você vir aqui?''}. Em [U4]$\rightarrow$[E4], o estado \emph{deprimida} dispara um molde de empatia. Em [U7]$\rightarrow$[E7], \texttt{mãe} é generalizada para o tópico \emph{família}, em vez de ecoar a frase inteira. Em [U2]$\rightarrow$[E2], \texttt{sempre}/\texttt{always} pede um exemplo concreto, no estilo rogeriano.
 
 \paragraph{Partes tecnicamente falhas.}
 Não há memória semântica entre turnos: cada sentença é quase isolada. Negações e escopo lógico confundem o casamento (``não estou infeliz'' ainda pode acionar a regra de \emph{infeliz}). Em [U9], a exposição do truque (``você é um computador'') só recebe um molde de negação de pressuposto. Em [E5], a pergunta sobre ``vir aqui'' presume continuidade terapêutica que [U5] não afirmou: o molde veio da palavra-chave, não de um plano de diálogo.
@@ -465,7 +460,7 @@ Não há memória semântica entre turnos: cada sentença é quase isolada. Nega
 
 O motor é determinístico e opera em fases: (1)~normalização e tokenização; (2)~varredura de palavras-chave e montagem da \emph{keystack}; (3)~casamento com regras de decomposição; (4)~substituição pronominal; (5)~remontagem no próximo molde da lista circular. Se nenhuma regra da palavra-chave atual casar, o algoritmo desce na pilha; se a pilha acabar, usa memória de tópicos ou \emph{fallback}.
 
-Exemplo clássico para a palavra-chave \texttt{I REMEMBER}: o padrão \texttt{(* I REMEMBER *)} decompõe \emph{``Well, I remember when we lived in Maceió''} em três partes; o molde \texttt{(DO YOU OFTEN THINK OF (3) ?)} produz \emph{``DO YOU OFTEN THINK OF WHEN YOU LIVED IN MACEIO?''}, após a troca pronominal nos segmentos capturados.
+Exemplo clássico para a palavra-chave \texttt{I REMEMBER}: o padrão \texttt{(* I REMEMBER *)} decompõe \emph{``Well, I remember when we lived in Maceió''} em três partes; o molde \texttt{(DO YOU OFTEN THINK OF (3) ?)} produz \emph{``DO YOU OFTEN THINK OF WHEN YOU LIVED IN MACEIO?''}, depois da troca pronominal nos segmentos capturados.
 
 \subsection{Resposta do ELIZA a cada sentença do diálogo}
 
@@ -498,10 +493,10 @@ A Tabela~\ref{tab:eliza_turnos} liga cada turno do usuário à palavra-chave dom
 \subsection{Evoluções: PARRY (1972) e AIML / ALICE (1995--2000)}
 
 \paragraph{PARRY (Kenneth Colby, Stanford, 1972).}
-O PARRY simula o discurso de uma pessoa com esquizofrenia paranoica~\cite{colby1972}. Diferente do ELIZA, mantém um modelo de personalidade com variáveis afetivas contínuas --- medo (\emph{fear}), raiva (\emph{anger}) e desconfiança (\emph{mistrust}). A mesma pergunta do interlocutor gera respostas distintas conforme esses níveis. Com medo e raiva baixos, o sistema pode falar de suas obsessões; com níveis altos, fica hostil ou evasivo. Em avaliações com psiquiatras e transcrições cegas, os médicos nem sempre distinguiram o programa de pacientes reais. O salto em relação ao ELIZA é a introdução de \textbf{estado interno} que altera a seleção das respostas.
+O PARRY simula o discurso de uma pessoa com esquizofrenia paranoica~\cite{colby1972}. Diferente do ELIZA, mantém um modelo de personalidade com variáveis afetivas contínuas: medo (\emph{fear}), raiva (\emph{anger}) e desconfiança (\emph{mistrust}). A mesma pergunta do interlocutor gera respostas distintas conforme esses níveis. Com medo e raiva baixos, o sistema pode falar de suas obsessões; com níveis altos, fica hostil ou evasivo. Em avaliações com psiquiatras e transcrições cegas, os médicos nem sempre distinguiram o programa de pacientes reais. Em relação ao ELIZA, o avanço principal é o estado interno que altera a seleção das respostas.
 
 \paragraph{AIML e A.L.I.C.E.\ (Richard Wallace, 1995--2000).}
-A linguagem AIML (\emph{Artificial Intelligence Markup Language}) e o bot A.L.I.C.E.\ (\emph{Artificial Linguistic Internet Computer Entity}) padronizam a base conversacional em categorias XML~\cite{wallace2009}. Há normalização recursiva com a tag \texttt{<srai>}, contexto com \texttt{<that>} e \texttt{<topic>}, e indexação em árvore (\emph{Graphmaster}), o que permite dezenas de milhares de regras com busca rápida. A.L.I.C.E.\ venceu o Prêmio Loebner em mais de uma edição. Em relação ao ELIZA, o ganho principal é escala, modularidade e controle explícito de contexto --- ainda sem compreensão semântica profunda.
+A linguagem AIML (\emph{Artificial Intelligence Markup Language}) e o bot A.L.I.C.E.\ (\emph{Artificial Linguistic Internet Computer Entity}) padronizam a base conversacional em categorias XML~\cite{wallace2009}. Há normalização recursiva com a tag \texttt{<srai>}, contexto com \texttt{<that>} e \texttt{<topic>}, e indexação em árvore (\emph{Graphmaster}), o que permite dezenas de milhares de regras com busca rápida. A.L.I.C.E.\ venceu o Prêmio Loebner em mais de uma edição. Em relação ao ELIZA, o ganho principal é escala, modularidade e controle explícito de contexto, ainda sem compreensão semântica profunda.
 
 \begin{table}[H]
   \centering
@@ -523,7 +518,7 @@ A linguagem AIML (\emph{Artificial Intelligence Markup Language}) e o bot A.L.I.
   }
 \end{table}
 
-A linha evolutiva é clara: o ELIZA mostra que padrões sintáticos bastam para a ilusão conversacional; o PARRY acrescenta estado afetivo; o AIML/ALICE transforma o acervo de regras num formalismo modular e indexável.
+Nessa linha, o ELIZA mostra que padrões sintáticos bastam para a ilusão conversacional; o PARRY acrescenta estado afetivo; o AIML/ALICE transforma o acervo de regras num formalismo modular e indexável.
 
 % ══════════════════════════════════════════════════════════════════════════════
 \newpage
@@ -539,10 +534,10 @@ CARVALHO, André C. P. L. F. et al. \textit{Inteligência Artificial: Uma Aborda
 LUGER, George F. \textit{Artificial Intelligence: Structures and Strategies for Complex Problem Solving}. 6. ed. Boston: Pearson, 2009.
 
 \bibitem{lista1_2026}
-TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. \textit{Lista de Exercícios 1 --- Inteligência Artificial}. Notebook \texttt{Lista\_IA.ipynb}, UFAL, 2026.
+TENÓRIO, Antonio Rodrigo L. A.; GOMES, Bruno B. F. \textit{Lista de Exercícios 1: Inteligência Artificial}. Notebook \texttt{Lista\_IA.ipynb}, UFAL, 2026.
 
 \bibitem{weizenbaum1966}
-WEIZENBAUM, Joseph. ELIZA --- a computer program for the study of natural language communication between man and machine. \textit{Communications of the ACM}, v.~9, n.~1, p.~36--45, 1966.
+WEIZENBAUM, Joseph. ELIZA: a computer program for the study of natural language communication between man and machine. \textit{Communications of the ACM}, v.~9, n.~1, p.~36--45, 1966.
 
 \bibitem{colby1972}
 COLBY, Kenneth M.; WEBER, Sylvia; HILF, Franklin D. Artificial paranoia. \textit{Artificial Intelligence}, v.~2, n.~1, p.~1--25, 1971/1972.
