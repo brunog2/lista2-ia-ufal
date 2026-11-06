@@ -93,6 +93,23 @@ Para manter o código organizado e garantir que ambos acompanhem as partes da av
 
 ---
 
+## Progresso
+
+**5 / 15** questões concluídas (**33%**)
+
+```text
+[██████░░░░░░░░░░░░░░] 33%
+```
+
+| Situação | Quantidade | Questões |
+| :--- | :---: | :--- |
+| Concluídas | 5 | Q01, Q02, Q03, Q05, Q11 |
+| Pendentes | 10 | Q04, Q06, Q07, Q08, Q09, Q10, Q12, Q13, Q14, Q15 |
+
+Atualizar este bloco sempre que marcar ou desmarcar uma questão no checklist abaixo.
+
+---
+
 ## Status das atividades
 
 - [x] Q01: Ontologias vs Grafos de Conhecimento e Mapeamento (`docs/q01_ontologias_kg.md`)
@@ -105,7 +122,7 @@ Para manter o código organizado e garantir que ambos acompanhem as partes da av
 - [ ] Q08: Diagnóstico Médico com Redes Bayesianas (`src/q08_bayes/`)
 - [ ] Q09: Sistema de Recomendação Baseado em Ontologias OWL 2.0 (`src/q09_q15_ontologia/`)
 - [ ] Q10: Resolução de Problemas via Busca Não Informada e Heurística (`docs/q10_buscas.md`)
-- [ ] Q11: Agentes Clássicos vs Agentes LLM em Planejamento (`docs/q11_agentes_classicos_vs_llm.md`)
+- [x] Q11: Agentes Clássicos vs Agentes LLM em Planejamento (`docs/q11_agentes_classicos_vs_llm.md`)
 - [ ] Q12: Sistema de Agente Inteligente Baseado em LLM (`src/q12_agente_llm/`)
 - [ ] Q13: Ensaio sobre a Arquitetura Transformers (`docs/q13_transformers.md`)
 - [ ] Q14: Representação, Inferência e Aplicação em Knowledge Graphs (`docs/q14_knowledge_graphs.md`)
