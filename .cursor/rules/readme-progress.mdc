@@ -1,0 +1,20 @@
+---
+description: Atualizar progresso e checklist do README ao concluir ou reabrir questões da Lista 2
+alwaysApply: true
+---
+
+# Progresso da Lista 2 no README
+
+Sempre que uma questão for concluída, reaberta ou o checklist de `README.md` mudar, atualize o bloco **Progresso** no mesmo arquivo.
+
+## O que atualizar
+
+1. Contagem `X / 15` e percentual `round(X / 15 * 100)%`.
+2. Barra ASCII com 20 caracteres: `█` para a fração concluída e `░` para o restante.
+3. Tabela de concluídas e pendentes (listar códigos `Q01`…`Q15`).
+4. Checkbox correspondente em **Status das atividades** (`[x]` ou `[ ]`).
+
+## Critério
+
+- Marcar como concluída só quando a resposta/código da questão estiver pronto o bastante para entregar.
+- Manter progresso e checklist alinhados; nunca atualizar só um dos dois.
