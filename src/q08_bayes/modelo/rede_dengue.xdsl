@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<smile version="1.0" id="MyNetwork" numsamples="0" discsamples="0">
+    <nodes>
+        <cpt id="Estacao">
+            <state id="Chuvosa"/>
+            <state id="Seca"/>
+            <probabilities>0.4000000000000000 0.6000000000000000</probabilities>
+        </cpt>
+        <cpt id="Exposicao">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Estacao</parents>
+            <probabilities>0.6000000000000000 0.4000000000000000 0.2500000000000000 0.7500000000000000</probabilities>
+        </cpt>
+        <cpt id="Influenza">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Estacao</parents>
+            <probabilities>0.2000000000000000 0.8000000000000000 0.0800000000000000 0.9200000000000000</probabilities>
+        </cpt>
+        <cpt id="Dengue">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Exposicao</parents>
+            <probabilities>0.2000000000000000 0.8000000000000000 0.0300000000000000 0.9700000000000000</probabilities>
+        </cpt>
+        <cpt id="Febre">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Dengue Influenza</parents>
+            <probabilities>0.9800000000000000 0.0200000000000000 0.9000000000000000 0.1000000000000000 0.7500000000000000 0.2500000000000000 0.1000000000000000 0.9000000000000000</probabilities>
+        </cpt>
+        <cpt id="DorMuscular">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Dengue Influenza</parents>
+            <probabilities>0.9500000000000000 0.0500000000000000 0.8000000000000000 0.2000000000000000 0.7000000000000000 0.3000000000000000 0.1500000000000000 0.8500000000000000</probabilities>
+        </cpt>
+        <cpt id="Tosse">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Influenza</parents>
+            <probabilities>0.8000000000000000 0.2000000000000000 0.1500000000000000 0.8500000000000000</probabilities>
+        </cpt>
+        <cpt id="DorRetroOrbital">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Dengue</parents>
+            <probabilities>0.6000000000000000 0.4000000000000000 0.0500000000000000 0.9500000000000000</probabilities>
+        </cpt>
+        <cpt id="Manchas">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Dengue</parents>
+            <probabilities>0.4500000000000000 0.5500000000000000 0.0500000000000000 0.9500000000000000</probabilities>
+        </cpt>
+        <cpt id="ProvaLaco">
+            <state id="Sim"/>
+            <state id="Nao"/>
+            <parents>Dengue</parents>
+            <probabilities>0.4000000000000000 0.6000000000000000 0.0500000000000000 0.9500000000000000</probabilities>
+        </cpt>
+    </nodes>
+    <extensions>
+        <genie version="1.0" app="GeNIe 5.0.4830.0 ACADEMIC" name="MyNetwork">
+            <node id="Estacao">
+                <name>Estacao</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>97 19 169 67</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Exposicao">
+                <name>Exposicao</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>26 76 98 124</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Influenza">
+                <name>Influenza</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>96 10 168 58</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Dengue">
+                <name>Dengue</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>87 19 159 67</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Tosse">
+                <name>Tosse</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>59 23 131 71</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Febre">
+                <name>Febre</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>9 48 81 96</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="DorMuscular">
+                <name>DorMuscular</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>41 66 113 114</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="DorRetroOrbital">
+                <name>DorRetroOrbital</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>11 27 83 75</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="Manchas">
+                <name>Manchas</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>47 56 119 104</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+            <node id="ProvaLaco">
+                <name>ProvaLaco</name>
+                <interior color="e5f6f7"/>
+                <outline color="000080"/>
+                <font color="000000" name="Arial" size="8"/>
+                <position>50 28 122 76</position>
+                <barchart active="true" width="128" height="128"/>
+            </node>
+        </genie>
+    </extensions>
+</smile>

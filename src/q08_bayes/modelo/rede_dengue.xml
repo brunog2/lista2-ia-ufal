@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<BIF VERSION="0.3">
+  <NETWORK>
+    <NAME>UNTITLED</NAME>
+    <VARIABLE TYPE="nature">
+      <NAME>Dengue</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>DorMuscular</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>DorRetroOrbital</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Estacao</NAME>
+      <OUTCOME>Chuvosa</OUTCOME>
+      <OUTCOME>Seca</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Exposicao</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Febre</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Influenza</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Manchas</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>ProvaLaco</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Tosse</NAME>
+      <OUTCOME>Sim</OUTCOME>
+      <OUTCOME>Nao</OUTCOME>
+      <PROPERTY />
+    </VARIABLE>
+    <DEFINITION>
+      <FOR>Dengue</FOR>
+      <GIVEN>Exposicao</GIVEN>
+      <TABLE>0.2 0.8 0.03 0.97 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>DorMuscular</FOR>
+      <GIVEN>Dengue</GIVEN>
+      <GIVEN>Influenza</GIVEN>
+      <TABLE>0.95 0.05 0.8 0.2 0.7 0.3 0.15 0.85 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>DorRetroOrbital</FOR>
+      <GIVEN>Dengue</GIVEN>
+      <TABLE>0.6 0.4 0.05 0.95 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Estacao</FOR>
+      <TABLE>0.4 0.6 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Exposicao</FOR>
+      <GIVEN>Estacao</GIVEN>
+      <TABLE>0.6 0.4 0.25 0.75 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Febre</FOR>
+      <GIVEN>Dengue</GIVEN>
+      <GIVEN>Influenza</GIVEN>
+      <TABLE>0.98 0.02 0.9 0.1 0.75 0.25 0.1 0.9 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Influenza</FOR>
+      <GIVEN>Estacao</GIVEN>
+      <TABLE>0.2 0.8 0.08 0.92 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Manchas</FOR>
+      <GIVEN>Dengue</GIVEN>
+      <TABLE>0.45 0.55 0.05 0.95 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>ProvaLaco</FOR>
+      <GIVEN>Dengue</GIVEN>
+      <TABLE>0.4 0.6 0.05 0.95 </TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Tosse</FOR>
+      <GIVEN>Influenza</GIVEN>
+      <TABLE>0.8 0.2 0.15 0.85 </TABLE>
+    </DEFINITION>
+  </NETWORK>
+</BIF>
