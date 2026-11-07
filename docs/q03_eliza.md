@@ -1,7 +1,7 @@
 # Questão 3: Chatbot ELIZA, diálogo, algoritmo e evoluções (PARRY e AIML/ALICE)
 
 **Disciplina:** ECOM031: Inteligência Artificial (UFAL)  
-**Equipe:** Bruno Gomes de Barros Filho e Antonio Rodrigo Lima de Andrade Tenório  
+**Equipe:** Bruno Gomes de Barros Filho e Antônio Rodrigo Lima de Andrade Tenório  
 **Professor:** Evandro de Barros Costa
 
 ## 1. O chatbot ELIZA e o script DOCTOR

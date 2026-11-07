@@ -1,0 +1,1590 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://ic.ufal.br/ecom031/lista2/atividades-fisicas"
+         xmlns="http://ic.ufal.br/ecom031/lista2/atividades-fisicas#">
+
+<owl:Ontology rdf:about="http://ic.ufal.br/ecom031/lista2/atividades-fisicas">
+  <rdfs:label xml:lang="pt-BR">Ontologia de recomendação de atividades físicas</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Ontologia OWL 2 DL usada nas Questões 9 e 15 da Lista 2 de IA (UFAL, ECOM031, 2026.2). Dupla: Bruno Gomes de Barros Filho e Antônio Rodrigo Lima de Andrade Tenório.</rdfs:comment>
+  <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.0</owl:versionInfo>
+</owl:Ontology>
+
+<owl:ObjectProperty rdf:about="#temImpacto">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#NivelDeImpacto"/>
+  <rdfs:label xml:lang="pt-BR">tem impacto</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Funcional: cada atividade tem um único nível de impacto.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#temNivelTecnico">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#NivelTecnico"/>
+  <rdfs:label xml:lang="pt-BR">tem nível técnico</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Funcional.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#realizadaEm">
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#Local"/>
+  <owl:inverseOf rdf:resource="#sediaAtividade"/>
+  <rdfs:label xml:lang="pt-BR">realizada em</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#sediaAtividade">
+  <owl:inverseOf rdf:resource="#realizadaEm"/>
+  <rdfs:label xml:lang="pt-BR">sedia atividade</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Inversa de realizadaEm.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#parteDe">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:domain rdf:resource="#ParteDoCorpo"/>
+  <rdfs:range rdf:resource="#ParteDoCorpo"/>
+  <rdfs:label xml:lang="pt-BR">parte de</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Transitiva: joelho parteDe membro inferior.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#sobrecarrega">
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#ParteDoCorpo"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#sobrecarrega"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#parteDe"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label xml:lang="pt-BR">sobrecarrega</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Cadeia: sobrecarrega o parteDe -&gt; sobrecarrega.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#afeta">
+  <rdfs:domain rdf:resource="#CondicaoDeSaude"/>
+  <rdfs:range rdf:resource="#ParteDoCorpo"/>
+  <owl:inverseOf rdf:resource="#afetadaPor"/>
+  <rdfs:label xml:lang="pt-BR">afeta</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#afetadaPor">
+  <owl:inverseOf rdf:resource="#afeta"/>
+  <rdfs:label xml:lang="pt-BR">afetada por</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Inversa de afeta.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#contraindicadaPara">
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#CondicaoDeSaude"/>
+  <owl:inverseOf rdf:resource="#contraindica"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#sobrecarrega"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#afetadaPor"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label xml:lang="pt-BR">contraindicada para</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Cadeia: sobrecarrega o afetadaPor.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#contraindica">
+  <owl:inverseOf rdf:resource="#contraindicadaPara"/>
+  <rdfs:label xml:lang="pt-BR">contraindica</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Inversa de contraindicadaPara.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#temCondicao">
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="#CondicaoDeSaude"/>
+  <rdfs:label xml:lang="pt-BR">tem condição</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#naoDevePraticar">
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="#AtividadeFisica"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#temCondicao"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#contraindica"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label xml:lang="pt-BR">não deve praticar</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Cadeia: temCondicao o contraindica.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#promove">
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">promove</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#dependeDe">
+  <rdfs:domain rdf:resource="#Objetivo"/>
+  <rdfs:range rdf:resource="#Beneficio"/>
+  <owl:inverseOf rdf:resource="#contribuiPara"/>
+  <rdfs:label xml:lang="pt-BR">depende de</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#contribuiPara">
+  <owl:inverseOf rdf:resource="#dependeDe"/>
+  <rdfs:label xml:lang="pt-BR">contribui para</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Inversa de dependeDe.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#atendeObjetivo">
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="#Objetivo"/>
+  <owl:inverseOf rdf:resource="#atendidoPor"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#promove"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#contribuiPara"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label xml:lang="pt-BR">atende objetivo</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Cadeia: promove o contribuiPara.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#atendidoPor">
+  <owl:inverseOf rdf:resource="#atendeObjetivo"/>
+  <rdfs:label xml:lang="pt-BR">atendido por</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Inversa de atendeObjetivo.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#temObjetivo">
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="#Objetivo"/>
+  <rdfs:label xml:lang="pt-BR">tem objetivo</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#temAtividadeCandidata">
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="#AtividadeFisica"/>
+  <owl:propertyChainAxiom>
+    <rdf:Description>
+      <rdf:first rdf:resource="#temObjetivo"/>
+      <rdf:rest>
+        <rdf:Description>
+          <rdf:first rdf:resource="#atendidoPor"/>
+          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+        </rdf:Description>
+      </rdf:rest>
+    </rdf:Description>
+  </owl:propertyChainAxiom>
+  <rdfs:label xml:lang="pt-BR">tem atividade candidata</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Cadeia: temObjetivo o atendidoPor.</rdfs:comment>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="#gastoMET">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="pt-BR">gasto energético (MET)</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Equivalente metabólico médio da atividade.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#custoMensal">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="pt-BR">custo mensal (R$)</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Custo mensal estimado em reais.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#minimoDeParticipantes">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#AtividadeFisica"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="pt-BR">mínimo de participantes</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Pessoas necessárias para praticar.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#idade">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="pt-BR">idade</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Idade em anos completos.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#imc">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="pt-BR">IMC</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Índice de massa corporal (kg/m²), calculado fora da ontologia.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#minutosAtivosPorSemana">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="pt-BR">minutos ativos por semana</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Minutos semanais de atividade física moderada ou vigorosa.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#mesesDeExperiencia">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  <rdfs:label xml:lang="pt-BR">meses de experiência</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Tempo de prática regular de exercícios, em meses.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#orcamentoMensal">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  <rdfs:label xml:lang="pt-BR">orçamento mensal (R$)</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Quanto o usuário aceita pagar por mês.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#prefereAmbiente">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Usuario"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdfs:label xml:lang="pt-BR">prefere ambiente</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Preferência declarada: 'ar livre', 'fechado' ou 'indiferente'.</rdfs:comment>
+</owl:DatatypeProperty>
+
+<owl:AnnotationProperty rdf:about="#exigeAtividadeDoTipo">
+  <rdfs:label xml:lang="pt-BR">exige atividade do tipo</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Anotação: liga um perfil de usuário à classe de atividades seguras para ele.</rdfs:comment>
+</owl:AnnotationProperty>
+
+<owl:Class rdf:about="#AtividadeFisica">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#realizadaEm"/>
+      <owl:onClass rdf:resource="#Local"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#gastoMET"/>
+      <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#temImpacto"/>
+      <owl:onClass rdf:resource="#NivelDeImpacto"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#promove"/>
+      <owl:onClass rdf:resource="#Beneficio"/>
+      <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minQualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label xml:lang="pt-BR">Atividade física</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Prática corporal que pode ser recomendada a um usuário.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAerobica">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <rdfs:label xml:lang="pt-BR">Atividade aeróbica</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Modalidade predominantemente cardiorrespiratória.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeDeForca">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <rdfs:label xml:lang="pt-BR">Atividade de força</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Modalidade predominantemente de força e resistência muscular.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeDeFlexibilidade">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <rdfs:label xml:lang="pt-BR">Atividade de flexibilidade</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Práticas de mobilidade, alongamento e mente-corpo.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Esporte">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <rdfs:label xml:lang="pt-BR">Esporte</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Modalidade com regras e disputa, em geral coletiva.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Usuario">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#idade"/>
+      <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+      <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label xml:lang="pt-BR">Usuário</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Pessoa que pede uma recomendação.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#CondicaoDeSaude">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="pt-BR">Condição de saúde</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Condição que pode contraindicar atividades.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#CondicaoArticular">
+  <rdfs:subClassOf rdf:resource="#CondicaoDeSaude"/>
+  <rdfs:label xml:lang="pt-BR">Condição articular</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#CondicaoDaColuna">
+  <rdfs:subClassOf rdf:resource="#CondicaoDeSaude"/>
+  <rdfs:label xml:lang="pt-BR">Condição da coluna</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#CondicaoCardiovascular">
+  <rdfs:subClassOf rdf:resource="#CondicaoDeSaude"/>
+  <rdfs:label xml:lang="pt-BR">Condição cardiovascular</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#Local">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="pt-BR">Local</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Lugar onde uma atividade é praticada.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#LocalAoArLivre">
+  <rdfs:subClassOf rdf:resource="#Local"/>
+  <owl:disjointWith rdf:resource="#LocalFechado"/>
+  <rdfs:label xml:lang="pt-BR">Local ao ar livre</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#LocalFechado">
+  <rdfs:subClassOf rdf:resource="#Local"/>
+  <rdfs:label xml:lang="pt-BR">Local fechado</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#LocalAquatico">
+  <rdfs:subClassOf rdf:resource="#Local"/>
+  <rdfs:label xml:lang="pt-BR">Local aquático</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Piscina, praia ou lagoa; ortogonal a aberto/fechado.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#ParteDoCorpo">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="pt-BR">Parte do corpo</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Estrutura corporal que uma atividade pode sobrecarregar.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Beneficio">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="pt-BR">Benefício</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Efeito esperado da prática regular.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#Objetivo">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:label xml:lang="pt-BR">Objetivo</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Meta declarada pelo usuário.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NivelDeImpacto">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:oneOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#impacto_baixo"/>
+        <rdf:Description rdf:about="#impacto_moderado"/>
+        <rdf:Description rdf:about="#impacto_alto"/>
+      </owl:oneOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Nível de impacto</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Enumeração fechada: baixo, moderado, alto.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#NivelTecnico">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:oneOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#nivel_basico"/>
+        <rdf:Description rdf:about="#nivel_intermediario"/>
+        <rdf:Description rdf:about="#nivel_avancado"/>
+      </owl:oneOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Nível técnico</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Enumeração fechada: básico, intermediário, avançado.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeDeBaixoImpacto">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temImpacto"/>
+          <owl:hasValue rdf:resource="#impacto_baixo"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade de baixo impacto</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: temImpacto value impacto_baixo.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeDeAltoImpacto">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temImpacto"/>
+          <owl:hasValue rdf:resource="#impacto_alto"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade de alto impacto</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: temImpacto value impacto_alto.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeLeve">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade leve</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: gastoMET &lt; 3.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeModerada">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest>
+                    <rdf:Description>
+                      <rdf:first>
+                        <rdf:Description>
+                          <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</xsd:minInclusive>
+                        </rdf:Description>
+                      </rdf:first>
+                      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                  </rdf:rest>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade moderada</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: 3 &lt;= gastoMET &lt; 6.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeVigorosa">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</xsd:minInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#sobrecarrega"/>
+      <owl:hasValue rdf:resource="#sistema_cardiovascular"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+  <rdfs:label xml:lang="pt-BR">Atividade vigorosa</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: gastoMET &gt;= 6; sobrecarrega o sistema cardiovascular.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAoArLivre">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#realizadaEm"/>
+          <owl:someValuesFrom rdf:resource="#LocalAoArLivre"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade ao ar livre</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeEmAmbienteFechado">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#realizadaEm"/>
+          <owl:someValuesFrom rdf:resource="#LocalFechado"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade em ambiente fechado</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAquatica">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#realizadaEm"/>
+          <owl:someValuesFrom rdf:resource="#LocalAquatico"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade aquática</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeEmGrupo">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#minimoDeParticipantes"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</xsd:minInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade em grupo</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: exige pelo menos 2 participantes.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeGratuita">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#custoMensal"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</xsd:maxInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade gratuita</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: custo mensal &lt;= 0.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAdequadaParaIniciante">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temNivelTecnico"/>
+          <owl:hasValue rdf:resource="#nivel_basico"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade adequada para iniciante</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Exige apenas nível técnico básico.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAdequadaParaSedentario">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade adequada para sedentário</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Não vigorosa (gastoMET &lt; 6).</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAdequadaParaIdoso">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temImpacto"/>
+          <owl:hasValue rdf:resource="#impacto_baixo"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade adequada para idoso</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Baixo impacto e não vigorosa.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#AtividadeAdequadaParaObesidade">
+  <rdfs:subClassOf rdf:resource="#AtividadeFisica"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AtividadeFisica"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temImpacto"/>
+          <owl:hasValue rdf:resource="#impacto_baixo"/>
+        </owl:Restriction>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#gastoMET"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</xsd:minInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Atividade adequada para obesidade</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Baixo impacto e gastoMET &gt;= 3.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioIdoso">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#idade"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</xsd:minInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <exigeAtividadeDoTipo rdf:resource="#AtividadeAdequadaParaIdoso"/>
+  <rdfs:label xml:lang="pt-BR">Usuário idoso</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: idade &gt;= 60.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioSedentario">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#minutosAtivosPorSemana"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">150</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <exigeAtividadeDoTipo rdf:resource="#AtividadeAdequadaParaSedentario"/>
+  <rdfs:label xml:lang="pt-BR">Usuário sedentário</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: menos de 150 minutos ativos por semana (OMS).</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioIniciante">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#mesesDeExperiencia"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</xsd:maxExclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <exigeAtividadeDoTipo rdf:resource="#AtividadeAdequadaParaIniciante"/>
+  <rdfs:label xml:lang="pt-BR">Usuário iniciante</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: menos de 6 meses de prática.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioComObesidade">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#imc"/>
+          <owl:someValuesFrom>
+            <rdfs:Datatype>
+              <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+              <owl:withRestrictions>
+                <rdf:Description>
+                  <rdf:first>
+                    <rdf:Description>
+                      <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">30.0</xsd:minInclusive>
+                    </rdf:Description>
+                  </rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                </rdf:Description>
+              </owl:withRestrictions>
+            </rdfs:Datatype>
+          </owl:someValuesFrom>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <exigeAtividadeDoTipo rdf:resource="#AtividadeAdequadaParaObesidade"/>
+  <rdfs:label xml:lang="pt-BR">Usuário com obesidade</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: IMC &gt;= 30.</rdfs:comment>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioComCondicaoArticular">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temCondicao"/>
+          <owl:someValuesFrom rdf:resource="#CondicaoArticular"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Usuário com condição articular</rdfs:label>
+</owl:Class>
+
+<owl:Class rdf:about="#UsuarioSemCondicaoDeSaude">
+  <rdfs:subClassOf rdf:resource="#Usuario"/>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#Usuario"/>
+        <owl:Restriction>
+          <owl:onProperty rdf:resource="#temCondicao"/>
+          <owl:onClass rdf:resource="#CondicaoDeSaude"/>
+          <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:maxQualifiedCardinality>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+  <rdfs:label xml:lang="pt-BR">Usuário sem condição de saúde</rdfs:label>
+  <rdfs:comment xml:lang="pt-BR">Definida: temCondicao max 0. Só é inferida se o mundo for fechado.</rdfs:comment>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#impacto_baixo">
+  <rdf:type rdf:resource="#NivelDeImpacto"/>
+  <rdfs:label xml:lang="pt-BR">impacto baixo</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#impacto_moderado">
+  <rdf:type rdf:resource="#NivelDeImpacto"/>
+  <rdfs:label xml:lang="pt-BR">impacto moderado</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#impacto_alto">
+  <rdf:type rdf:resource="#NivelDeImpacto"/>
+  <rdfs:label xml:lang="pt-BR">impacto alto</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#nivel_basico">
+  <rdf:type rdf:resource="#NivelTecnico"/>
+  <rdfs:label xml:lang="pt-BR">nível básico</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#nivel_intermediario">
+  <rdf:type rdf:resource="#NivelTecnico"/>
+  <rdfs:label xml:lang="pt-BR">nível intermediário</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#nivel_avancado">
+  <rdf:type rdf:resource="#NivelTecnico"/>
+  <rdfs:label xml:lang="pt-BR">nível avançado</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#sistema_cardiovascular">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <rdfs:label xml:lang="pt-BR">Sistema cardiovascular</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#orla_de_ponta_verde">
+  <rdf:type rdf:resource="#LocalAoArLivre"/>
+  <rdfs:label xml:lang="pt-BR">Orla de Ponta Verde</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#parque_municipal_de_maceio">
+  <rdf:type rdf:resource="#LocalAoArLivre"/>
+  <rdfs:label xml:lang="pt-BR">Parque Municipal de Maceió</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#praia_da_pajucara">
+  <rdf:type rdf:resource="#LocalAoArLivre"/>
+  <rdf:type rdf:resource="#LocalAquatico"/>
+  <rdfs:label xml:lang="pt-BR">Praia da Pajuçara</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#quadra_de_areia_da_jatiuca">
+  <rdf:type rdf:resource="#LocalAoArLivre"/>
+  <rdfs:label xml:lang="pt-BR">Quadra de areia da Jatiúca</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#campo_society">
+  <rdf:type rdf:resource="#LocalAoArLivre"/>
+  <rdfs:label xml:lang="pt-BR">Campo society</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#piscina_do_clube">
+  <rdf:type rdf:resource="#LocalFechado"/>
+  <rdf:type rdf:resource="#LocalAquatico"/>
+  <rdfs:label xml:lang="pt-BR">Piscina coberta do clube</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#academia_do_bairro">
+  <rdf:type rdf:resource="#LocalFechado"/>
+  <rdfs:label xml:lang="pt-BR">Academia do bairro</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#estudio_de_pilates_e_yoga">
+  <rdf:type rdf:resource="#LocalFechado"/>
+  <rdfs:label xml:lang="pt-BR">Estúdio de pilates e yoga</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#box_de_crossfit">
+  <rdf:type rdf:resource="#LocalFechado"/>
+  <rdfs:label xml:lang="pt-BR">Box de CrossFit</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tronco">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <rdfs:label xml:lang="pt-BR">Tronco</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coluna_vertebral">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <parteDe rdf:resource="#tronco"/>
+  <rdfs:label xml:lang="pt-BR">Coluna vertebral</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#coluna_lombar">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <parteDe rdf:resource="#coluna_vertebral"/>
+  <rdfs:label xml:lang="pt-BR">Coluna lombar</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#membro_inferior">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <rdfs:label xml:lang="pt-BR">Membro inferior</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#joelho">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <parteDe rdf:resource="#membro_inferior"/>
+  <rdfs:label xml:lang="pt-BR">Joelho</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tornozelo">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <parteDe rdf:resource="#membro_inferior"/>
+  <rdfs:label xml:lang="pt-BR">Tornozelo</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#membro_superior">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <rdfs:label xml:lang="pt-BR">Membro superior</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ombro">
+  <rdf:type rdf:resource="#ParteDoCorpo"/>
+  <parteDe rdf:resource="#membro_superior"/>
+  <rdfs:label xml:lang="pt-BR">Ombro</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#condicionamento_cardiorrespiratorio">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Condicionamento cardiorrespiratório</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#gasto_calorico">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Gasto calórico</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#forca_muscular">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Força muscular</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#flexibilidade">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Flexibilidade</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#equilibrio">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Equilíbrio</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#relaxamento">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Relaxamento</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#interacao_social">
+  <rdf:type rdf:resource="#Beneficio"/>
+  <rdfs:label xml:lang="pt-BR">Interação social</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#perder_peso">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#gasto_calorico"/>
+  <rdfs:label xml:lang="pt-BR">Perder peso</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ganhar_forca">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#forca_muscular"/>
+  <rdfs:label xml:lang="pt-BR">Ganhar força</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#melhorar_condicionamento">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <rdfs:label xml:lang="pt-BR">Melhorar o condicionamento</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ganhar_flexibilidade">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#flexibilidade"/>
+  <rdfs:label xml:lang="pt-BR">Ganhar flexibilidade</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#prevenir_quedas">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#forca_muscular"/>
+  <dependeDe rdf:resource="#equilibrio"/>
+  <rdfs:label xml:lang="pt-BR">Prevenir quedas</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#reduzir_estresse">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#relaxamento"/>
+  <rdfs:label xml:lang="pt-BR">Reduzir o estresse</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#socializar">
+  <rdf:type rdf:resource="#Objetivo"/>
+  <dependeDe rdf:resource="#interacao_social"/>
+  <rdfs:label xml:lang="pt-BR">Socializar</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#artrose_no_joelho">
+  <rdf:type rdf:resource="#CondicaoArticular"/>
+  <afeta rdf:resource="#joelho"/>
+  <rdfs:label xml:lang="pt-BR">Artrose no joelho</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#entorse_recorrente_de_tornozelo">
+  <rdf:type rdf:resource="#CondicaoArticular"/>
+  <afeta rdf:resource="#tornozelo"/>
+  <rdfs:label xml:lang="pt-BR">Entorse recorrente de tornozelo</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tendinite_no_ombro">
+  <rdf:type rdf:resource="#CondicaoArticular"/>
+  <afeta rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">Tendinite no ombro</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hernia_de_disco">
+  <rdf:type rdf:resource="#CondicaoDaColuna"/>
+  <afeta rdf:resource="#coluna_vertebral"/>
+  <rdfs:label xml:lang="pt-BR">Hérnia de disco</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hipertensao_nao_controlada">
+  <rdf:type rdf:resource="#CondicaoCardiovascular"/>
+  <afeta rdf:resource="#sistema_cardiovascular"/>
+  <rdfs:label xml:lang="pt-BR">Hipertensão não controlada</rdfs:label>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#caminhada">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#parque_municipal_de_maceio"/>
+  <realizadaEm rdf:resource="#orla_de_ponta_verde"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#relaxamento"/>
+  <rdfs:label xml:lang="pt-BR">Caminhada</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#corrida">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_alto"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#parque_municipal_de_maceio"/>
+  <realizadaEm rdf:resource="#orla_de_ponta_verde"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <sobrecarrega rdf:resource="#joelho"/>
+  <sobrecarrega rdf:resource="#tornozelo"/>
+  <rdf:type>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#temImpacto"/>
+      <owl:hasValue rdf:resource="#impacto_baixo"/>
+    </owl:Restriction>
+  </rdf:type>
+  <rdfs:label xml:lang="pt-BR">Corrida</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.8</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ciclismo_na_orla">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#orla_de_ponta_verde"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <rdfs:label xml:lang="pt-BR">Ciclismo na orla</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#spinning">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#academia_do_bairro"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <rdfs:label xml:lang="pt-BR">Spinning</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">120.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#natacao">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#piscina_do_clube"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <sobrecarrega rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">Natação</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.8</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#hidroginastica">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#piscina_do_clube"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <rdfs:label xml:lang="pt-BR">Hidroginástica</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">150.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#zumba">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_moderado"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#academia_do_bairro"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <sobrecarrega rdf:resource="#joelho"/>
+  <sobrecarrega rdf:resource="#tornozelo"/>
+  <rdfs:label xml:lang="pt-BR">Zumba</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">100.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#stand_up_paddle">
+  <rdf:type rdf:resource="#AtividadeAerobica"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#praia_da_pajucara"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <promove rdf:resource="#equilibrio"/>
+  <promove rdf:resource="#relaxamento"/>
+  <sobrecarrega rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">Stand up paddle</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">150.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#musculacao">
+  <rdf:type rdf:resource="#AtividadeDeForca"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#academia_do_bairro"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <rdfs:label xml:lang="pt-BR">Musculação</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">100.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#treino_funcional">
+  <rdf:type rdf:resource="#AtividadeDeForca"/>
+  <temImpacto rdf:resource="#impacto_moderado"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#academia_do_bairro"/>
+  <realizadaEm rdf:resource="#parque_municipal_de_maceio"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#equilibrio"/>
+  <rdfs:label xml:lang="pt-BR">Treino funcional</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">5.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">90.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#crossfit">
+  <rdf:type rdf:resource="#AtividadeDeForca"/>
+  <temImpacto rdf:resource="#impacto_alto"/>
+  <temNivelTecnico rdf:resource="#nivel_avancado"/>
+  <realizadaEm rdf:resource="#box_de_crossfit"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <sobrecarrega rdf:resource="#joelho"/>
+  <sobrecarrega rdf:resource="#coluna_lombar"/>
+  <sobrecarrega rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">CrossFit</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#pilates">
+  <rdf:type rdf:resource="#AtividadeDeFlexibilidade"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#estudio_de_pilates_e_yoga"/>
+  <promove rdf:resource="#forca_muscular"/>
+  <promove rdf:resource="#equilibrio"/>
+  <promove rdf:resource="#flexibilidade"/>
+  <rdfs:label xml:lang="pt-BR">Pilates</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">280.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#yoga">
+  <rdf:type rdf:resource="#AtividadeDeFlexibilidade"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#estudio_de_pilates_e_yoga"/>
+  <promove rdf:resource="#equilibrio"/>
+  <promove rdf:resource="#flexibilidade"/>
+  <promove rdf:resource="#relaxamento"/>
+  <rdfs:label xml:lang="pt-BR">Yoga</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.5</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">160.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#alongamento">
+  <rdf:type rdf:resource="#AtividadeDeFlexibilidade"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#parque_municipal_de_maceio"/>
+  <promove rdf:resource="#flexibilidade"/>
+  <promove rdf:resource="#relaxamento"/>
+  <rdfs:label xml:lang="pt-BR">Alongamento</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2.3</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#tai_chi_chuan">
+  <rdf:type rdf:resource="#AtividadeDeFlexibilidade"/>
+  <temImpacto rdf:resource="#impacto_baixo"/>
+  <temNivelTecnico rdf:resource="#nivel_basico"/>
+  <realizadaEm rdf:resource="#parque_municipal_de_maceio"/>
+  <promove rdf:resource="#equilibrio"/>
+  <promove rdf:resource="#flexibilidade"/>
+  <promove rdf:resource="#relaxamento"/>
+  <rdfs:label xml:lang="pt-BR">Tai chi chuan</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#futebol_society">
+  <rdf:type rdf:resource="#Esporte"/>
+  <temImpacto rdf:resource="#impacto_alto"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#campo_society"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <sobrecarrega rdf:resource="#joelho"/>
+  <sobrecarrega rdf:resource="#tornozelo"/>
+  <rdfs:label xml:lang="pt-BR">Futebol society</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#volei_de_praia">
+  <rdf:type rdf:resource="#Esporte"/>
+  <temImpacto rdf:resource="#impacto_alto"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#quadra_de_areia_da_jatiuca"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <sobrecarrega rdf:resource="#joelho"/>
+  <sobrecarrega rdf:resource="#coluna_lombar"/>
+  <sobrecarrega rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">Vôlei de praia</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#beach_tennis">
+  <rdf:type rdf:resource="#Esporte"/>
+  <temImpacto rdf:resource="#impacto_moderado"/>
+  <temNivelTecnico rdf:resource="#nivel_intermediario"/>
+  <realizadaEm rdf:resource="#quadra_de_areia_da_jatiuca"/>
+  <promove rdf:resource="#gasto_calorico"/>
+  <promove rdf:resource="#condicionamento_cardiorrespiratorio"/>
+  <promove rdf:resource="#interacao_social"/>
+  <sobrecarrega rdf:resource="#ombro"/>
+  <rdfs:label xml:lang="pt-BR">Beach tennis</rdfs:label>
+  <gastoMET rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6.0</gastoMET>
+  <custoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">200.0</custoMensal>
+  <minimoDeParticipantes rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</minimoDeParticipantes>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#maria">
+  <rdf:type rdf:resource="#Usuario"/>
+  <temObjetivo rdf:resource="#prevenir_quedas"/>
+  <temObjetivo rdf:resource="#socializar"/>
+  <temCondicao rdf:resource="#artrose_no_joelho"/>
+  <rdfs:label xml:lang="pt-BR">Maria (67 anos)</rdfs:label>
+  <idade rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">67</idade>
+  <imc rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">27.0</imc>
+  <minutosAtivosPorSemana rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</minutosAtivosPorSemana>
+  <mesesDeExperiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</mesesDeExperiencia>
+  <orcamentoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">200.0</orcamentoMensal>
+  <prefereAmbiente rdf:datatype="http://www.w3.org/2001/XMLSchema#string">indiferente</prefereAmbiente>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#joao">
+  <rdf:type rdf:resource="#Usuario"/>
+  <temObjetivo rdf:resource="#perder_peso"/>
+  <temCondicao rdf:resource="#hipertensao_nao_controlada"/>
+  <rdfs:label xml:lang="pt-BR">João (34 anos)</rdfs:label>
+  <idade rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">34</idade>
+  <imc rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">31.5</imc>
+  <minutosAtivosPorSemana rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</minutosAtivosPorSemana>
+  <mesesDeExperiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</mesesDeExperiencia>
+  <orcamentoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">150.0</orcamentoMensal>
+  <prefereAmbiente rdf:datatype="http://www.w3.org/2001/XMLSchema#string">indiferente</prefereAmbiente>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#pedro">
+  <rdf:type rdf:resource="#Usuario"/>
+  <temObjetivo rdf:resource="#reduzir_estresse"/>
+  <temObjetivo rdf:resource="#ganhar_flexibilidade"/>
+  <temCondicao rdf:resource="#hernia_de_disco"/>
+  <rdfs:label xml:lang="pt-BR">Pedro (45 anos)</rdfs:label>
+  <idade rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</idade>
+  <imc rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25.0</imc>
+  <minutosAtivosPorSemana rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">200</minutosAtivosPorSemana>
+  <mesesDeExperiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</mesesDeExperiencia>
+  <orcamentoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">300.0</orcamentoMensal>
+  <prefereAmbiente rdf:datatype="http://www.w3.org/2001/XMLSchema#string">indiferente</prefereAmbiente>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#carla">
+  <rdf:type rdf:resource="#Usuario"/>
+  <temObjetivo rdf:resource="#socializar"/>
+  <temObjetivo rdf:resource="#ganhar_forca"/>
+  <rdfs:label xml:lang="pt-BR">Carla (25 anos)</rdfs:label>
+  <idade rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</idade>
+  <imc rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.0</imc>
+  <minutosAtivosPorSemana rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">300</minutosAtivosPorSemana>
+  <mesesDeExperiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">36</mesesDeExperiencia>
+  <orcamentoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">350.0</orcamentoMensal>
+  <prefereAmbiente rdf:datatype="http://www.w3.org/2001/XMLSchema#string">indiferente</prefereAmbiente>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#lucas">
+  <rdf:type rdf:resource="#Usuario"/>
+  <temObjetivo rdf:resource="#melhorar_condicionamento"/>
+  <rdf:type>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#temCondicao"/>
+      <owl:onClass rdf:resource="#CondicaoDeSaude"/>
+      <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:maxQualifiedCardinality>
+    </owl:Restriction>
+  </rdf:type>
+  <rdfs:label xml:lang="pt-BR">Lucas (28 anos)</rdfs:label>
+  <idade rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28</idade>
+  <imc rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">23.5</imc>
+  <minutosAtivosPorSemana rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">240</minutosAtivosPorSemana>
+  <mesesDeExperiencia rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24</mesesDeExperiencia>
+  <orcamentoMensal rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">100.0</orcamentoMensal>
+  <prefereAmbiente rdf:datatype="http://www.w3.org/2001/XMLSchema#string">indiferente</prefereAmbiente>
+</owl:NamedIndividual>
+
+<owl:AllDifferent>
+  <owl:distinctMembers rdf:parseType="Collection">
+    <rdf:Description rdf:about="#nivel_basico"/>
+    <rdf:Description rdf:about="#nivel_intermediario"/>
+    <rdf:Description rdf:about="#nivel_avancado"/>
+  </owl:distinctMembers>
+</owl:AllDifferent>
+
+<owl:AllDifferent>
+  <owl:distinctMembers rdf:parseType="Collection">
+    <rdf:Description rdf:about="#impacto_baixo"/>
+    <rdf:Description rdf:about="#impacto_moderado"/>
+    <rdf:Description rdf:about="#impacto_alto"/>
+  </owl:distinctMembers>
+</owl:AllDifferent>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#AtividadeAerobica"/>
+    <rdf:Description rdf:about="#AtividadeDeForca"/>
+    <rdf:Description rdf:about="#AtividadeDeFlexibilidade"/>
+    <rdf:Description rdf:about="#Esporte"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#AtividadeFisica"/>
+    <rdf:Description rdf:about="#Usuario"/>
+    <rdf:Description rdf:about="#CondicaoDeSaude"/>
+    <rdf:Description rdf:about="#Local"/>
+    <rdf:Description rdf:about="#ParteDoCorpo"/>
+    <rdf:Description rdf:about="#Beneficio"/>
+    <rdf:Description rdf:about="#Objetivo"/>
+    <rdf:Description rdf:about="#NivelDeImpacto"/>
+    <rdf:Description rdf:about="#NivelTecnico"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+
+</rdf:RDF>

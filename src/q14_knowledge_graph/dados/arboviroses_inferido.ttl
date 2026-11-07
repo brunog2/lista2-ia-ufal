@@ -1,0 +1,875 @@
+@prefix arbo: <https://example.org/arbo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+arbo:ambiente a owl:ObjectProperty ;
+    rdfs:range arbo:AmbienteDeTransmissao .
+
+arbo:combate a owl:ObjectProperty ;
+    rdfs:domain arbo:ControleVetorial ;
+    rdfs:range arbo:Vetor .
+
+arbo:diagnosticadaPor a owl:ObjectProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:ExameDiagnostico .
+
+arbo:diagnosticoDiferencialCom a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:Doenca .
+
+arbo:hospedeiroAmplificador a owl:ObjectProperty ;
+    rdfs:domain arbo:Arbovirus ;
+    rdfs:range arbo:Hospedeiro .
+
+arbo:pertenceATaxon a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:range arbo:TaxonViral .
+
+arbo:podeEvoluirPara a owl:ObjectProperty ;
+    rdfs:range arbo:Complicacao ;
+    rdfs:subPropertyOf arbo:temManifestacao .
+
+arbo:temSintoma a owl:ObjectProperty ;
+    rdfs:range arbo:Sintoma ;
+    rdfs:subPropertyOf arbo:temManifestacao .
+
+arbo:temVacina a owl:ObjectProperty ;
+    rdfs:range arbo:Vacina ;
+    rdfs:subPropertyOf arbo:prevenidaPor .
+
+arbo:transmitidaPor a owl:ObjectProperty ;
+    rdfs:domain arbo:Arbovirose ;
+    rdfs:range arbo:Vetor ;
+    owl:propertyChainAxiom arbo:cadeia_transmitidaPor_causadaPor_temVetor .
+
+arbo:vetorPrincipal a owl:ObjectProperty ;
+    rdfs:subPropertyOf arbo:temVetor .
+
+arbo:vetorSecundario a owl:ObjectProperty ;
+    rdfs:subPropertyOf arbo:temVetor .
+
+arbo:AntigenoNS1 a arbo:ExameDiagnostico,
+        arbo:Intervencao ;
+    rdfs:label "Antígeno NS1"@pt .
+
+arbo:Aves a arbo:AgenteBiologico,
+        arbo:Hospedeiro ;
+    rdfs:label "Aves"@pt .
+
+arbo:BichoPreguica a arbo:AgenteBiologico,
+        arbo:Hospedeiro ;
+    rdfs:label "Bicho-preguiça"@pt .
+
+arbo:Continente a owl:Class ;
+    rdfs:subClassOf arbo:Regiao .
+
+arbo:Imunohistoquimica a arbo:ExameDiagnostico,
+        arbo:Intervencao ;
+    rdfs:label "Imuno-histoquímica"@pt .
+
+arbo:Maceio a arbo:Municipio,
+        arbo:Regiao ;
+    rdfs:label "Maceió"@pt ;
+    arbo:parteDe arbo:Alagoas,
+        arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste .
+
+arbo:ManejoDeMateriaOrganica a arbo:ControleVetorial,
+        arbo:Intervencao,
+        arbo:MedidaPreventiva ;
+    rdfs:label "Manejo de matéria orgânica"@pt ;
+    arbo:combate arbo:CulicoidesParaensis .
+
+arbo:Maruim a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto .
+
+arbo:Municipio a owl:Class ;
+    rdfs:subClassOf arbo:Regiao .
+
+arbo:Orthobunyavirus a arbo:Genero,
+        arbo:TaxonViral ;
+    rdfs:label "Orthobunyavirus"@pt ;
+    arbo:pertenceATaxon arbo:Peribunyaviridae .
+
+arbo:PRNT a arbo:ExameDiagnostico,
+        arbo:Intervencao ;
+    rdfs:label "PRNT (neutralização)"@pt .
+
+arbo:Pais a owl:Class ;
+    rdfs:subClassOf arbo:Regiao .
+
+arbo:Piaui a arbo:Estado,
+        arbo:Regiao ;
+    rdfs:label "Piauí"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste .
+
+arbo:RegiaoSul a arbo:MacroRegiao,
+        arbo:Regiao ;
+    rdfs:label "Região Sul"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil .
+
+arbo:cadeia_ocorreEm_ocorreEm_parteDe rdf:first arbo:ocorreEm ;
+    rdf:rest ( arbo:parteDe ) .
+
+arbo:cadeia_transmitidaPor_causadaPor_temVetor rdf:first arbo:causadaPor ;
+    rdf:rest ( arbo:temVetor ) .
+
+arbo:causa a owl:ObjectProperty .
+
+arbo:causadaPor a owl:ObjectProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:Virus ;
+    owl:inverseOf arbo:causa .
+
+arbo:ocorreEm a owl:ObjectProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:Regiao ;
+    owl:propertyChainAxiom arbo:cadeia_ocorreEm_ocorreEm_parteDe .
+
+arbo:parteDe a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:domain arbo:Regiao ;
+    rdfs:range arbo:Regiao .
+
+arbo:prevenidaPor a owl:ObjectProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:MedidaPreventiva .
+
+arbo:vetorDe a owl:ObjectProperty .
+
+arbo:ChoqueHipovolemico a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Choque hipovolêmico"@pt .
+
+arbo:Conjuntivite a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Conjuntivite"@pt .
+
+arbo:DorRetroOrbital a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Dor retro-orbital"@pt .
+
+arbo:Estado a owl:Class ;
+    rdfs:subClassOf arbo:Regiao .
+
+arbo:FebreAmarela a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Febre amarela"@pt ;
+    arbo:causadaPor arbo:YFV ;
+    arbo:diagnosticadaPor arbo:Imunohistoquimica,
+        arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:FebreOropouche ;
+    arbo:ocorreEm arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoCentroOeste,
+        arbo:RegiaoNorte,
+        arbo:RegiaoSudeste ;
+    arbo:podeEvoluirPara arbo:Hemorragia,
+        arbo:InsuficienciaHepatica,
+        arbo:InsuficienciaRenal ;
+    arbo:prevenidaPor arbo:VacinaFebreAmarela17DD ;
+    arbo:temManifestacao arbo:Calafrios,
+        arbo:Cefaleia,
+        arbo:Febre,
+        arbo:Hemorragia,
+        arbo:Ictericia,
+        arbo:InsuficienciaHepatica,
+        arbo:InsuficienciaRenal,
+        arbo:Mialgia,
+        arbo:Nausea ;
+    arbo:temSintoma arbo:Calafrios,
+        arbo:Cefaleia,
+        arbo:Febre,
+        arbo:Ictericia,
+        arbo:Mialgia,
+        arbo:Nausea ;
+    arbo:temVacina arbo:VacinaFebreAmarela17DD ;
+    arbo:transmitidaPor arbo:AedesAegypti,
+        arbo:HaemagogusJanthinomys,
+        arbo:HaemagogusLeucocelaenus,
+        arbo:SabethesChloropterus .
+
+arbo:FebreDoNiloOcidental a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Febre do Nilo Ocidental"@pt ;
+    arbo:causadaPor arbo:WNV ;
+    arbo:diagnosticadaPor arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:Dengue ;
+    arbo:ocorreEm arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:Piaui,
+        arbo:RegiaoNordeste ;
+    arbo:podeEvoluirPara arbo:Meningoencefalite,
+        arbo:ParalisiaFlacidaAguda ;
+    arbo:prevenidaPor arbo:EliminacaoDeCriadouros ;
+    arbo:temManifestacao arbo:Cefaleia,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Meningoencefalite,
+        arbo:Mialgia,
+        arbo:Nausea,
+        arbo:ParalisiaFlacidaAguda ;
+    arbo:temSintoma arbo:Cefaleia,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia,
+        arbo:Nausea ;
+    arbo:transmitidaPor arbo:CulexQuinquefasciatus .
+
+arbo:Fotofobia a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Fotofobia"@pt .
+
+arbo:Ictericia a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Icterícia"@pt .
+
+arbo:InsuficienciaHepatica a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Insuficiência hepática"@pt .
+
+arbo:InsuficienciaRenal a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Insuficiência renal"@pt .
+
+arbo:MAYV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "MAYV (vírus Mayaro)"@pt ;
+    arbo:causa arbo:FebreMayaro ;
+    arbo:hospedeiroAmplificador arbo:PrimatasNaoHumanos ;
+    arbo:pertenceATaxon arbo:Alphavirus,
+        arbo:Togaviridae ;
+    arbo:temVetor arbo:HaemagogusJanthinomys ;
+    arbo:vetorPrincipal arbo:HaemagogusJanthinomys .
+
+arbo:ParalisiaFlacidaAguda a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Paralisia flácida aguda"@pt .
+
+arbo:Peribunyaviridae a arbo:Familia,
+        arbo:TaxonViral ;
+    rdfs:label "Peribunyaviridae"@pt .
+
+arbo:Periurbano a arbo:AmbienteDeTransmissao ;
+    rdfs:label "Periurbano"@pt .
+
+arbo:SindromeCongenitaDoZika a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Síndrome congênita do Zika"@pt .
+
+arbo:SindromeDeGuillainBarre a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Síndrome de Guillain-Barré"@pt .
+
+arbo:Urbano a arbo:AmbienteDeTransmissao ;
+    rdfs:label "Urbano"@pt .
+
+arbo:VacinaChikungunyaVLA1553 a arbo:Intervencao,
+        arbo:MedidaPreventiva,
+        arbo:Vacina ;
+    rdfs:label "Vacina chikungunya VLA1553"@pt .
+
+arbo:VacinaFebreAmarela17DD a arbo:Intervencao,
+        arbo:MedidaPreventiva,
+        arbo:Vacina ;
+    rdfs:label "Vacina febre amarela 17DD"@pt .
+
+arbo:VacinaQdenga a arbo:Intervencao,
+        arbo:MedidaPreventiva,
+        arbo:Vacina ;
+    rdfs:label "Qdenga (TAK-003)"@pt .
+
+arbo:WNV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "WNV (vírus do Nilo Ocidental)"@pt ;
+    arbo:causa arbo:FebreDoNiloOcidental ;
+    arbo:hospedeiroAmplificador arbo:Aves ;
+    arbo:pertenceATaxon arbo:Flaviviridae,
+        arbo:Orthoflavivirus ;
+    arbo:temVetor arbo:CulexQuinquefasciatus ;
+    arbo:vetorPrincipal arbo:CulexQuinquefasciatus .
+
+arbo:temManifestacao a owl:ObjectProperty ;
+    rdfs:domain arbo:Doenca ;
+    rdfs:range arbo:ManifestacaoClinica .
+
+arbo:Alagoas a arbo:Estado,
+        arbo:Regiao ;
+    rdfs:label "Alagoas"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste .
+
+arbo:Alphavirus a arbo:Genero,
+        arbo:TaxonViral ;
+    rdfs:label "Alphavirus"@pt ;
+    arbo:pertenceATaxon arbo:Togaviridae .
+
+arbo:DENV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "DENV (vírus da dengue)"@pt ;
+    arbo:causa arbo:Dengue ;
+    arbo:hospedeiroAmplificador arbo:SerHumano ;
+    arbo:pertenceATaxon arbo:Flaviviridae,
+        arbo:Orthoflavivirus ;
+    arbo:temVetor arbo:AedesAegypti,
+        arbo:AedesAlbopictus ;
+    arbo:vetorPrincipal arbo:AedesAegypti ;
+    arbo:vetorSecundario arbo:AedesAlbopictus .
+
+arbo:Familia a owl:Class ;
+    rdfs:subClassOf arbo:TaxonViral .
+
+arbo:FebreOropouche a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Febre do Oropouche"@pt ;
+    arbo:causadaPor arbo:OROV ;
+    arbo:diagnosticadaPor arbo:RTqPCR ;
+    arbo:diagnosticoDiferencialCom arbo:Dengue,
+        arbo:FebreAmarela ;
+    arbo:ocorreEm arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste,
+        arbo:RegiaoNorte ;
+    arbo:podeEvoluirPara arbo:Meningoencefalite ;
+    arbo:prevenidaPor arbo:ManejoDeMateriaOrganica ;
+    arbo:temManifestacao arbo:Artralgia,
+        arbo:Calafrios,
+        arbo:Cefaleia,
+        arbo:Febre,
+        arbo:Fotofobia,
+        arbo:Meningoencefalite,
+        arbo:Mialgia,
+        arbo:Nausea ;
+    arbo:temSintoma arbo:Artralgia,
+        arbo:Calafrios,
+        arbo:Cefaleia,
+        arbo:Febre,
+        arbo:Fotofobia,
+        arbo:Mialgia,
+        arbo:Nausea ;
+    arbo:transmitidaPor arbo:CulexQuinquefasciatus,
+        arbo:CulicoidesParaensis .
+
+arbo:Genero a owl:Class ;
+    rdfs:subClassOf arbo:TaxonViral .
+
+arbo:HaemagogusLeucocelaenus a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Haemagogus leucocelaenus"@pt ;
+    arbo:ambiente arbo:Silvestre ;
+    arbo:vetorDe arbo:YFV .
+
+arbo:MetodoWolbachia a arbo:ControleVetorial,
+        arbo:Intervencao,
+        arbo:MedidaPreventiva ;
+    rdfs:label "Método Wolbachia"@pt ;
+    arbo:combate arbo:AedesAegypti .
+
+arbo:OROV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "OROV (vírus Oropouche)"@pt ;
+    arbo:causa arbo:FebreOropouche ;
+    arbo:hospedeiroAmplificador arbo:BichoPreguica,
+        arbo:PrimatasNaoHumanos ;
+    arbo:pertenceATaxon arbo:Orthobunyavirus,
+        arbo:Peribunyaviridae ;
+    arbo:temVetor arbo:CulexQuinquefasciatus,
+        arbo:CulicoidesParaensis ;
+    arbo:vetorPrincipal arbo:CulicoidesParaensis ;
+    arbo:vetorSecundario arbo:CulexQuinquefasciatus .
+
+arbo:PrimatasNaoHumanos a arbo:AgenteBiologico,
+        arbo:Hospedeiro ;
+    rdfs:label "Primatas não humanos"@pt .
+
+arbo:RegiaoCentroOeste a arbo:MacroRegiao,
+        arbo:Regiao ;
+    rdfs:label "Região Centro-Oeste"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil .
+
+arbo:SabethesChloropterus a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Sabethes chloropterus"@pt ;
+    arbo:ambiente arbo:Silvestre ;
+    arbo:vetorDe arbo:YFV .
+
+arbo:Silvestre a arbo:AmbienteDeTransmissao ;
+    rdfs:label "Silvestre"@pt .
+
+arbo:ZIKV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "ZIKV (vírus Zika)"@pt ;
+    arbo:causa arbo:Zika ;
+    arbo:hospedeiroAmplificador arbo:SerHumano ;
+    arbo:pertenceATaxon arbo:Flaviviridae,
+        arbo:Orthoflavivirus ;
+    arbo:temVetor arbo:AedesAegypti,
+        arbo:AedesAlbopictus ;
+    arbo:vetorPrincipal arbo:AedesAegypti ;
+    arbo:vetorSecundario arbo:AedesAlbopictus .
+
+arbo:temVetor a owl:ObjectProperty ;
+    rdfs:domain arbo:Arbovirus ;
+    rdfs:range arbo:Vetor ;
+    owl:inverseOf arbo:vetorDe .
+
+arbo:AmbienteDeTransmissao a owl:Class .
+
+arbo:ArtralgiaCronica a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Artralgia crônica"@pt .
+
+arbo:CHIKV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "CHIKV (vírus chikungunya)"@pt,
+        "vírus chikungunya (fonte B)"@pt ;
+    owl:sameAs arbo:VirusChikungunya ;
+    arbo:causa arbo:Chikungunya ;
+    arbo:hospedeiroAmplificador arbo:SerHumano ;
+    arbo:pertenceATaxon arbo:Alphavirus,
+        arbo:Togaviridae ;
+    arbo:temVetor arbo:AedesAegypti,
+        arbo:AedesAlbopictus ;
+    arbo:vetorPrincipal arbo:AedesAegypti ;
+    arbo:vetorSecundario arbo:AedesAlbopictus .
+
+arbo:Calafrios a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Calafrios"@pt .
+
+arbo:ControleVetorial a owl:Class ;
+    rdfs:subClassOf arbo:Intervencao,
+        arbo:MedidaPreventiva .
+
+arbo:CulicoidesParaensis a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Maruim,
+        arbo:Vetor ;
+    rdfs:label "Culicoides paraensis"@pt ;
+    arbo:ambiente arbo:Periurbano ;
+    arbo:vetorDe arbo:OROV .
+
+arbo:EliminacaoDeCriadouros a arbo:ControleVetorial,
+        arbo:Intervencao,
+        arbo:MedidaPreventiva ;
+    rdfs:label "Eliminação de criadouros"@pt ;
+    arbo:combate arbo:AedesAegypti,
+        arbo:AedesAlbopictus,
+        arbo:CulexQuinquefasciatus .
+
+arbo:FebreMayaro a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Febre do Mayaro"@pt ;
+    arbo:causadaPor arbo:MAYV ;
+    arbo:diagnosticadaPor arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:Chikungunya,
+        arbo:Dengue,
+        arbo:Zika ;
+    arbo:ocorreEm arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoCentroOeste,
+        arbo:RegiaoNorte ;
+    arbo:podeEvoluirPara arbo:ArtralgiaCronica ;
+    arbo:temManifestacao arbo:Artralgia,
+        arbo:ArtralgiaCronica,
+        arbo:Cefaleia,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia ;
+    arbo:temSintoma arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia ;
+    arbo:transmitidaPor arbo:HaemagogusJanthinomys .
+
+arbo:Hemorragia a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Hemorragia"@pt .
+
+arbo:Meningoencefalite a arbo:Complicacao,
+        arbo:ManifestacaoClinica ;
+    rdfs:label "Meningoencefalite"@pt .
+
+arbo:Orthoflavivirus a arbo:Genero,
+        arbo:TaxonViral ;
+    rdfs:label "Orthoflavivirus"@pt ;
+    arbo:pertenceATaxon arbo:Flaviviridae .
+
+arbo:Prurido a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Prurido"@pt .
+
+arbo:RegiaoNorte a arbo:MacroRegiao,
+        arbo:Regiao ;
+    rdfs:label "Região Norte"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil .
+
+arbo:RegiaoSudeste a arbo:MacroRegiao,
+        arbo:Regiao ;
+    rdfs:label "Região Sudeste"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil .
+
+arbo:SerHumano a arbo:AgenteBiologico,
+        arbo:Hospedeiro ;
+    rdfs:label "Ser humano"@pt .
+
+arbo:Togaviridae a arbo:Familia,
+        arbo:TaxonViral ;
+    rdfs:label "Togaviridae"@pt .
+
+arbo:Vacina a owl:Class ;
+    rdfs:subClassOf arbo:Intervencao,
+        arbo:MedidaPreventiva .
+
+arbo:VirusChikungunya a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "CHIKV (vírus chikungunya)"@pt,
+        "vírus chikungunya (fonte B)"@pt ;
+    owl:sameAs arbo:CHIKV ;
+    arbo:causa arbo:Chikungunya ;
+    arbo:hospedeiroAmplificador arbo:SerHumano ;
+    arbo:pertenceATaxon arbo:Alphavirus,
+        arbo:Togaviridae ;
+    arbo:temVetor arbo:AedesAegypti,
+        arbo:AedesAlbopictus ;
+    arbo:vetorPrincipal arbo:AedesAegypti ;
+    arbo:vetorSecundario arbo:AedesAlbopictus .
+
+arbo:Zika a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Zika"@pt ;
+    arbo:causadaPor arbo:ZIKV ;
+    arbo:diagnosticadaPor arbo:PRNT,
+        arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:Chikungunya,
+        arbo:Dengue,
+        arbo:FebreMayaro ;
+    arbo:ocorreEm arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste,
+        arbo:RegiaoSudeste ;
+    arbo:podeEvoluirPara arbo:SindromeCongenitaDoZika,
+        arbo:SindromeDeGuillainBarre ;
+    arbo:prevenidaPor arbo:EliminacaoDeCriadouros,
+        arbo:MetodoWolbachia ;
+    arbo:temManifestacao arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:Conjuntivite,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia,
+        arbo:Prurido,
+        arbo:SindromeCongenitaDoZika,
+        arbo:SindromeDeGuillainBarre ;
+    arbo:temSintoma arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:Conjuntivite,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia,
+        arbo:Prurido ;
+    arbo:transmitidaPor arbo:AedesAegypti,
+        arbo:AedesAlbopictus .
+
+arbo:Chikungunya a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Chikungunya"@pt ;
+    arbo:causadaPor arbo:CHIKV,
+        arbo:VirusChikungunya ;
+    arbo:diagnosticadaPor arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:Dengue,
+        arbo:FebreMayaro,
+        arbo:Zika ;
+    arbo:ocorreEm arbo:Alagoas,
+        arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:RegiaoNordeste,
+        arbo:RegiaoSudeste ;
+    arbo:podeEvoluirPara arbo:ArtralgiaCronica ;
+    arbo:prevenidaPor arbo:EliminacaoDeCriadouros,
+        arbo:MetodoWolbachia,
+        arbo:VacinaChikungunyaVLA1553 ;
+    arbo:temManifestacao arbo:Artralgia,
+        arbo:ArtralgiaCronica,
+        arbo:Cefaleia,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia ;
+    arbo:temSintoma arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:EdemaArticular,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia ;
+    arbo:temVacina arbo:VacinaChikungunyaVLA1553 ;
+    arbo:transmitidaPor arbo:AedesAegypti,
+        arbo:AedesAlbopictus .
+
+arbo:Flaviviridae a arbo:Familia,
+        arbo:TaxonViral ;
+    rdfs:label "Flaviviridae"@pt .
+
+arbo:Hospedeiro a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico .
+
+arbo:MacroRegiao a owl:Class ;
+    rdfs:subClassOf arbo:Regiao .
+
+arbo:YFV a arbo:AgenteBiologico,
+        arbo:Arbovirus,
+        arbo:Virus ;
+    rdfs:label "YFV (vírus da febre amarela)"@pt ;
+    arbo:causa arbo:FebreAmarela ;
+    arbo:hospedeiroAmplificador arbo:PrimatasNaoHumanos ;
+    arbo:pertenceATaxon arbo:Flaviviridae,
+        arbo:Orthoflavivirus ;
+    arbo:temVetor arbo:AedesAegypti,
+        arbo:HaemagogusJanthinomys,
+        arbo:HaemagogusLeucocelaenus,
+        arbo:SabethesChloropterus ;
+    arbo:vetorPrincipal arbo:HaemagogusJanthinomys,
+        arbo:HaemagogusLeucocelaenus ;
+    arbo:vetorSecundario arbo:AedesAegypti,
+        arbo:SabethesChloropterus .
+
+arbo:Dengue a arbo:Arbovirose,
+        arbo:Doenca,
+        arbo:DoencaInfecciosa ;
+    rdfs:label "Dengue"@pt ;
+    arbo:causadaPor arbo:DENV ;
+    arbo:diagnosticadaPor arbo:AntigenoNS1,
+        arbo:RTqPCR,
+        arbo:SorologiaIgM ;
+    arbo:diagnosticoDiferencialCom arbo:Chikungunya,
+        arbo:FebreDoNiloOcidental,
+        arbo:FebreMayaro,
+        arbo:FebreOropouche,
+        arbo:Zika ;
+    arbo:ocorreEm arbo:Alagoas,
+        arbo:AmericaDoSul,
+        arbo:Brasil,
+        arbo:Maceio,
+        arbo:RegiaoCentroOeste,
+        arbo:RegiaoNordeste,
+        arbo:RegiaoNorte,
+        arbo:RegiaoSudeste,
+        arbo:RegiaoSul ;
+    arbo:podeEvoluirPara arbo:ChoqueHipovolemico,
+        arbo:Hemorragia ;
+    arbo:prevenidaPor arbo:EliminacaoDeCriadouros,
+        arbo:MetodoWolbachia,
+        arbo:VacinaQdenga ;
+    arbo:temManifestacao arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:ChoqueHipovolemico,
+        arbo:DorRetroOrbital,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Hemorragia,
+        arbo:Mialgia,
+        arbo:Nausea,
+        arbo:Prurido ;
+    arbo:temSintoma arbo:Artralgia,
+        arbo:Cefaleia,
+        arbo:DorRetroOrbital,
+        arbo:Exantema,
+        arbo:Febre,
+        arbo:Mialgia,
+        arbo:Nausea,
+        arbo:Prurido ;
+    arbo:temVacina arbo:VacinaQdenga ;
+    arbo:transmitidaPor arbo:AedesAegypti,
+        arbo:AedesAlbopictus .
+
+arbo:EdemaArticular a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Edema articular"@pt .
+
+arbo:ExameDiagnostico a owl:Class ;
+    rdfs:subClassOf arbo:Intervencao .
+
+arbo:HaemagogusJanthinomys a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Haemagogus janthinomys"@pt ;
+    arbo:ambiente arbo:Silvestre ;
+    arbo:vetorDe arbo:MAYV,
+        arbo:YFV .
+
+arbo:Mosquito a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto .
+
+arbo:SorologiaIgM a arbo:ExameDiagnostico,
+        arbo:Intervencao ;
+    rdfs:label "Sorologia IgM"@pt .
+
+arbo:CulexQuinquefasciatus a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Culex quinquefasciatus"@pt ;
+    arbo:ambiente arbo:Urbano ;
+    arbo:vetorDe arbo:OROV,
+        arbo:WNV .
+
+arbo:RTqPCR a arbo:ExameDiagnostico,
+        arbo:Intervencao ;
+    rdfs:label "RT-qPCR"@pt .
+
+arbo:Arbovirose a owl:Class ;
+    rdfs:subClassOf arbo:Doenca,
+        arbo:DoencaInfecciosa .
+
+arbo:DoencaInfecciosa a owl:Class ;
+    rdfs:subClassOf arbo:Doenca .
+
+arbo:Nausea a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Náusea"@pt .
+
+arbo:RegiaoNordeste a arbo:MacroRegiao,
+        arbo:Regiao ;
+    rdfs:label "Região Nordeste"@pt ;
+    arbo:parteDe arbo:AmericaDoSul,
+        arbo:Brasil .
+
+arbo:Inseto a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico,
+        arbo:Artropode .
+
+arbo:MedidaPreventiva a owl:Class ;
+    rdfs:subClassOf arbo:Intervencao .
+
+arbo:TaxonViral a owl:Class .
+
+arbo:Arbovirus a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico,
+        arbo:Virus .
+
+arbo:Artralgia a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Artralgia"@pt .
+
+arbo:Artropode a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico .
+
+arbo:Complicacao a owl:Class ;
+    rdfs:subClassOf arbo:ManifestacaoClinica .
+
+arbo:Exantema a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Exantema"@pt .
+
+arbo:Vetor a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico .
+
+arbo:Virus a owl:Class ;
+    rdfs:subClassOf arbo:AgenteBiologico .
+
+arbo:AedesAlbopictus a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Aedes albopictus"@pt ;
+    arbo:ambiente arbo:Periurbano ;
+    arbo:vetorDe arbo:CHIKV,
+        arbo:DENV,
+        arbo:VirusChikungunya,
+        arbo:ZIKV .
+
+arbo:Cefaleia a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Cefaleia"@pt .
+
+arbo:Febre a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Febre"@pt .
+
+arbo:Mialgia a arbo:ManifestacaoClinica,
+        arbo:Sintoma ;
+    rdfs:label "Mialgia"@pt .
+
+arbo:Sintoma a owl:Class ;
+    rdfs:subClassOf arbo:ManifestacaoClinica .
+
+arbo:Brasil a arbo:Pais,
+        arbo:Regiao ;
+    rdfs:label "Brasil"@pt ;
+    arbo:parteDe arbo:AmericaDoSul .
+
+arbo:Intervencao a owl:Class .
+
+arbo:AedesAegypti a arbo:AgenteBiologico,
+        arbo:Artropode,
+        arbo:Inseto,
+        arbo:Mosquito,
+        arbo:Vetor ;
+    rdfs:label "Aedes aegypti"@pt ;
+    arbo:ambiente arbo:Urbano ;
+    arbo:vetorDe arbo:CHIKV,
+        arbo:DENV,
+        arbo:VirusChikungunya,
+        arbo:YFV,
+        arbo:ZIKV .
+
+arbo:AmericaDoSul a arbo:Continente,
+        arbo:Regiao ;
+    rdfs:label "América do Sul"@pt .
+
+arbo:Doenca a owl:Class .
+
+arbo:Regiao a owl:Class .
+
+arbo:ManifestacaoClinica a owl:Class .
+
+arbo:AgenteBiologico a owl:Class .
+

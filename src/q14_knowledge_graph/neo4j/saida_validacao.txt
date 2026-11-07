@@ -1,0 +1,23 @@
+# Validação no neo4j:5.26-community em 2026-11-07
+entidades, classes, relacoes
+78, 29, 206
+consulta, respostas
+"C1", ["Chikungunya", "Dengue", "Febre amarela", "Febre do Nilo Ocidental", "Febre do Mayaro", "Febre do Oropouche", "Zika"]
+consulta, respostas
+"C2", ["DENV (vírus da dengue)", "YFV (vírus da febre amarela)", "WNV (vírus do Nilo Ocidental)", "ZIKV (vírus Zika)"]
+consulta, respostas
+"C3", ["Febre amarela", "Febre do Mayaro", "Febre do Nilo Ocidental", "Febre do Oropouche", "Zika", "Dengue", "Chikungunya"]
+consulta, respostas
+"C4", ["Chikungunya", "Dengue", "Febre do Nilo Ocidental", "Febre do Oropouche", "Zika"]
+consulta, respostas
+"C5", ["Manejo de matéria orgânica"]
+consulta, respostas
+"C6", ["CHIKV (vírus chikungunya)", "MAYV (vírus Mayaro)"]
+consulta, respostas
+"C7", ["Zika (6)", "Dengue (5)", "Chikungunya (6)"]
+consulta, respostas
+"C9", ["Febre do Nilo Ocidental", "Febre do Mayaro", "Febre do Oropouche", "Zika"]
+consulta, respostas
+"caminho", ["Febre do Nilo Ocidental", "Náusea", "Febre do Oropouche"]
+consulta, respostas
+"qualificador", ["Febre do Nilo Ocidental", "Piauí", "2014"]

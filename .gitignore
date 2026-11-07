@@ -24,3 +24,6 @@ ENV/
 # Temporary / Scratch
 tmp/
 *.log
+
+# Segredos locais (chaves de API)
+.env

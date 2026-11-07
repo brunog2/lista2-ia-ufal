@@ -1,6 +1,6 @@
 # Lista 2 - Inteligência Artificial
 
-**Dupla:** Bruno Gomes de Barros Filho (21111360); Antonio Rodrigo Lima de Andrade Tenório (23210707)  
+**Dupla:** Bruno Gomes de Barros Filho (21111360); Antônio Rodrigo Lima de Andrade Tenório (23210707)  
 **Disciplina:** ECOM031: Inteligência Artificial  
 **Professor:** Evandro de Barros Costa  
 **Período:** 2026.2

@@ -1,0 +1,77 @@
+net {
+}
+node Dengue{
+    states = ("Sim"  "Nao");
+}
+node DorMuscular{
+    states = ("Sim"  "Nao");
+}
+node DorRetroOrbital{
+    states = ("Sim"  "Nao");
+}
+node Estacao{
+    states = ("Chuvosa"  "Seca");
+}
+node Exposicao{
+    states = ("Sim"  "Nao");
+}
+node Febre{
+    states = ("Sim"  "Nao");
+}
+node Influenza{
+    states = ("Sim"  "Nao");
+}
+node Manchas{
+    states = ("Sim"  "Nao");
+}
+node ProvaLaco{
+    states = ("Sim"  "Nao");
+}
+node Tosse{
+    states = ("Sim"  "Nao");
+}
+potential (Dengue | Exposicao){
+ data = ((0.2  0.8 )
+ (0.03 0.97));
+}
+potential (DorMuscular | Dengue Influenza){
+ data = (((0.95 0.05)
+  (0.8  0.2 ))
+
+ ((0.7  0.3 )
+  (0.15 0.85)));
+}
+potential (DorRetroOrbital | Dengue){
+ data = ((0.6  0.4 )
+ (0.05 0.95));
+}
+potential (Estacao |){
+ data = (0.4 0.6);
+}
+potential (Exposicao | Estacao){
+ data = ((0.6  0.4 )
+ (0.25 0.75));
+}
+potential (Febre | Dengue Influenza){
+ data = (((0.98 0.02)
+  (0.9  0.1 ))
+
+ ((0.75 0.25)
+  (0.1  0.9 )));
+}
+potential (Influenza | Estacao){
+ data = ((0.2  0.8 )
+ (0.08 0.92));
+}
+potential (Manchas | Dengue){
+ data = ((0.45 0.55)
+ (0.05 0.95));
+}
+potential (ProvaLaco | Dengue){
+ data = ((0.4  0.6 )
+ (0.05 0.95));
+}
+potential (Tosse | Influenza){
+ data = ((0.8  0.2 )
+ (0.15 0.85));
+}

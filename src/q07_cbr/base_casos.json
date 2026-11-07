@@ -1,0 +1,850 @@
+{
+  "aviso": "Base de casos FICTÍCIA, criada para fins educacionais (Lista 2 de IA, UFAL). Não usar para diagnóstico ou tratamento reais.",
+  "casos": [
+    {
+      "id": "C01",
+      "diagnostico": "Dengue",
+      "problema": {
+        "sintomas": {
+          "dor_retroorbital": 3,
+          "dor_cabeca": 3,
+          "mialgia": 3,
+          "artralgia": 1,
+          "nauseas": 2,
+          "cansaco": 2
+        },
+        "temperatura": 39.4,
+        "dias_sintomas": 3,
+        "idade": 27,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Hidratação oral abundante (cerca de 60 ml/kg/dia)",
+        "Paracetamol ou dipirona para febre e dor",
+        "Evitar AAS e anti-inflamatórios (ibuprofeno, diclofenaco)",
+        "Retorno imediato se houver sinais de alarme: dor abdominal intensa, sangramento ou vômitos persistentes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C02",
+      "diagnostico": "Dengue",
+      "problema": {
+        "sintomas": {
+          "dor_retroorbital": 2,
+          "dor_cabeca": 3,
+          "mialgia": 3,
+          "exantema": 2,
+          "nauseas": 1,
+          "petequias": 1,
+          "cansaco": 3
+        },
+        "temperatura": 39.0,
+        "dias_sintomas": 4,
+        "idade": 45,
+        "inicio": "subito",
+        "alergias": [
+          "dipirona"
+        ]
+      },
+      "tratamento": [
+        "Hidratação oral abundante (cerca de 60 ml/kg/dia)",
+        "Paracetamol para febre e dor (alergia registrada no prontuário)",
+        "Evitar AAS e anti-inflamatórios (ibuprofeno, diclofenaco)",
+        "Retorno imediato se houver sinais de alarme: dor abdominal intensa, sangramento ou vômitos persistentes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Prova do laço positiva."
+    },
+    {
+      "id": "C03",
+      "diagnostico": "Dengue",
+      "problema": {
+        "sintomas": {
+          "dor_retroorbital": 2,
+          "dor_cabeca": 2,
+          "mialgia": 2,
+          "vomito": 1,
+          "dor_abdominal": 1,
+          "cansaco": 2
+        },
+        "temperatura": 38.8,
+        "dias_sintomas": 2,
+        "idade": 12,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Hidratação oral abundante (cerca de 60 ml/kg/dia)",
+        "Paracetamol ou dipirona para febre e dor",
+        "Evitar AAS e anti-inflamatórios (ibuprofeno, diclofenaco)",
+        "Retorno imediato se houver sinais de alarme: dor abdominal intensa, sangramento ou vômitos persistentes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C04",
+      "diagnostico": "Dengue",
+      "problema": {
+        "sintomas": {
+          "artralgia": 2,
+          "mialgia": 3,
+          "dor_cabeca": 2,
+          "exantema": 2,
+          "dor_retroorbital": 1,
+          "cansaco": 2
+        },
+        "temperatura": 39.2,
+        "dias_sintomas": 5,
+        "idade": 34,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Hidratação oral abundante (cerca de 60 ml/kg/dia)",
+        "Paracetamol ou dipirona para febre e dor",
+        "Evitar AAS e anti-inflamatórios (ibuprofeno, diclofenaco)",
+        "Retorno imediato se houver sinais de alarme: dor abdominal intensa, sangramento ou vômitos persistentes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Confirmado por sorologia; lembra chikungunya."
+    },
+    {
+      "id": "C05",
+      "diagnostico": "Chikungunya",
+      "problema": {
+        "sintomas": {
+          "artralgia": 3,
+          "edema_articular": 3,
+          "mialgia": 2,
+          "dor_cabeca": 2,
+          "cansaco": 2
+        },
+        "temperatura": 39.6,
+        "dias_sintomas": 4,
+        "idade": 52,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor articular",
+        "Compressas frias nas articulações inflamadas",
+        "Evitar anti-inflamatórios até descartar dengue"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C06",
+      "diagnostico": "Chikungunya",
+      "problema": {
+        "sintomas": {
+          "artralgia": 3,
+          "edema_articular": 2,
+          "exantema": 2,
+          "prurido": 1,
+          "dor_cabeca": 1,
+          "cansaco": 3
+        },
+        "temperatura": 39.3,
+        "dias_sintomas": 7,
+        "idade": 38,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor articular",
+        "Compressas frias nas articulações inflamadas",
+        "Evitar anti-inflamatórios até descartar dengue"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C07",
+      "diagnostico": "Chikungunya",
+      "problema": {
+        "sintomas": {
+          "artralgia": 3,
+          "edema_articular": 3,
+          "mialgia": 1,
+          "cansaco": 3
+        },
+        "temperatura": 38.9,
+        "dias_sintomas": 10,
+        "idade": 61,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor articular",
+        "Compressas frias nas articulações inflamadas",
+        "Evitar anti-inflamatórios até descartar dengue"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Dor articular persistente."
+    },
+    {
+      "id": "C08",
+      "diagnostico": "Chikungunya",
+      "problema": {
+        "sintomas": {
+          "artralgia": 2,
+          "mialgia": 3,
+          "dor_cabeca": 3,
+          "exantema": 1,
+          "dor_retroorbital": 1,
+          "nauseas": 1
+        },
+        "temperatura": 39.0,
+        "dias_sintomas": 3,
+        "idade": 29,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor articular",
+        "Compressas frias nas articulações inflamadas",
+        "Evitar anti-inflamatórios até descartar dengue"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Confirmado por RT-PCR; lembra dengue."
+    },
+    {
+      "id": "C09",
+      "diagnostico": "Zika",
+      "problema": {
+        "sintomas": {
+          "exantema": 3,
+          "prurido": 3,
+          "conjuntivite": 3,
+          "artralgia": 1,
+          "dor_cabeca": 1
+        },
+        "temperatura": 37.6,
+        "dias_sintomas": 3,
+        "idade": 24,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol para febre e dor",
+        "Anti-histamínico (loratadina) para a coceira",
+        "Gestantes: encaminhar para acompanhamento pré-natal específico"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C10",
+      "diagnostico": "Zika",
+      "problema": {
+        "sintomas": {
+          "exantema": 3,
+          "prurido": 2,
+          "conjuntivite": 2,
+          "artralgia": 2,
+          "edema_articular": 1
+        },
+        "temperatura": 37.3,
+        "dias_sintomas": 4,
+        "idade": 31,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol para febre e dor",
+        "Anti-histamínico (loratadina) para a coceira",
+        "Gestantes: encaminhar para acompanhamento pré-natal específico"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C11",
+      "diagnostico": "Zika",
+      "problema": {
+        "sintomas": {
+          "exantema": 2,
+          "prurido": 3,
+          "conjuntivite": 2,
+          "mialgia": 1,
+          "dor_cabeca": 2
+        },
+        "temperatura": 38.0,
+        "dias_sintomas": 2,
+        "idade": 19,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol para febre e dor",
+        "Anti-histamínico (loratadina) para a coceira",
+        "Gestantes: encaminhar para acompanhamento pré-natal específico"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C12",
+      "diagnostico": "Zika",
+      "problema": {
+        "sintomas": {
+          "exantema": 3,
+          "prurido": 2,
+          "artralgia": 1,
+          "cansaco": 1
+        },
+        "temperatura": 36.9,
+        "dias_sintomas": 5,
+        "idade": 27,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol para febre e dor",
+        "Anti-histamínico (loratadina) para a coceira",
+        "Gestantes: encaminhar para acompanhamento pré-natal específico"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Sem febre."
+    },
+    {
+      "id": "C13",
+      "diagnostico": "Influenza",
+      "problema": {
+        "sintomas": {
+          "mialgia": 3,
+          "calafrios": 3,
+          "dor_cabeca": 2,
+          "tosse": 2,
+          "dor_garganta": 2,
+          "cansaco": 3,
+          "coriza": 1
+        },
+        "temperatura": 39.1,
+        "dias_sintomas": 2,
+        "idade": 35,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor no corpo",
+        "Oseltamivir para grupos de risco, a critério médico",
+        "Procurar atendimento se houver falta de ar"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C14",
+      "diagnostico": "Influenza",
+      "problema": {
+        "sintomas": {
+          "tosse": 3,
+          "mialgia": 2,
+          "cansaco": 3,
+          "calafrios": 2,
+          "falta_ar": 1,
+          "dor_garganta": 1
+        },
+        "temperatura": 38.7,
+        "dias_sintomas": 3,
+        "idade": 68,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor no corpo",
+        "Oseltamivir para grupos de risco, a critério médico",
+        "Procurar atendimento se houver falta de ar"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Grupo de risco (idoso)."
+    },
+    {
+      "id": "C15",
+      "diagnostico": "Influenza",
+      "problema": {
+        "sintomas": {
+          "calafrios": 2,
+          "mialgia": 2,
+          "dor_cabeca": 2,
+          "tosse": 2,
+          "coriza": 2,
+          "vomito": 1
+        },
+        "temperatura": 39.4,
+        "dias_sintomas": 1,
+        "idade": 9,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor no corpo",
+        "Oseltamivir para grupos de risco, a critério médico",
+        "Procurar atendimento se houver falta de ar",
+        "Paciente pediátrico: doses calculadas pelo peso"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C16",
+      "diagnostico": "Influenza",
+      "problema": {
+        "sintomas": {
+          "tosse": 2,
+          "dor_garganta": 2,
+          "mialgia": 2,
+          "dor_cabeca": 3,
+          "cansaco": 2,
+          "congestao_nasal": 1
+        },
+        "temperatura": 38.5,
+        "dias_sintomas": 4,
+        "idade": 42,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Repouso e hidratação oral",
+        "Paracetamol ou dipirona para febre e dor no corpo",
+        "Oseltamivir para grupos de risco, a critério médico",
+        "Procurar atendimento se houver falta de ar"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C17",
+      "diagnostico": "COVID-19",
+      "problema": {
+        "sintomas": {
+          "anosmia": 3,
+          "tosse": 2,
+          "cansaco": 2,
+          "dor_cabeca": 1,
+          "dor_garganta": 1
+        },
+        "temperatura": 37.9,
+        "dias_sintomas": 5,
+        "idade": 40,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Isolamento domiciliar enquanto houver sintomas",
+        "Paracetamol ou dipirona para febre",
+        "Monitorar saturação de oxigênio e frequência respiratória",
+        "Procurar atendimento se houver falta de ar ou saturação abaixo de 94%"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Teste de antígeno positivo."
+    },
+    {
+      "id": "C18",
+      "diagnostico": "COVID-19",
+      "problema": {
+        "sintomas": {
+          "tosse": 3,
+          "falta_ar": 2,
+          "cansaco": 3,
+          "mialgia": 2,
+          "anosmia": 1
+        },
+        "temperatura": 38.4,
+        "dias_sintomas": 7,
+        "idade": 63,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Isolamento domiciliar enquanto houver sintomas",
+        "Paracetamol ou dipirona para febre",
+        "Monitorar saturação de oxigênio e frequência respiratória",
+        "Procurar atendimento se houver falta de ar ou saturação abaixo de 94%"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C19",
+      "diagnostico": "COVID-19",
+      "problema": {
+        "sintomas": {
+          "anosmia": 2,
+          "congestao_nasal": 1,
+          "dor_garganta": 2,
+          "tosse": 1,
+          "dor_cabeca": 2,
+          "diarreia": 1
+        },
+        "temperatura": 37.6,
+        "dias_sintomas": 3,
+        "idade": 28,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Isolamento domiciliar enquanto houver sintomas",
+        "Paracetamol ou dipirona para febre",
+        "Monitorar saturação de oxigênio e frequência respiratória",
+        "Procurar atendimento se houver falta de ar ou saturação abaixo de 94%"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C20",
+      "diagnostico": "COVID-19",
+      "problema": {
+        "sintomas": {
+          "tosse": 2,
+          "mialgia": 2,
+          "cansaco": 3,
+          "dor_cabeca": 2,
+          "calafrios": 1,
+          "falta_ar": 1
+        },
+        "temperatura": 38.6,
+        "dias_sintomas": 4,
+        "idade": 50,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Isolamento domiciliar enquanto houver sintomas",
+        "Paracetamol ou dipirona para febre",
+        "Monitorar saturação de oxigênio e frequência respiratória",
+        "Procurar atendimento se houver falta de ar ou saturação abaixo de 94%"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "RT-PCR positivo; lembra influenza."
+    },
+    {
+      "id": "C21",
+      "diagnostico": "Resfriado comum",
+      "problema": {
+        "sintomas": {
+          "coriza": 3,
+          "espirros": 3,
+          "congestao_nasal": 3,
+          "dor_garganta": 1
+        },
+        "temperatura": 37.0,
+        "dias_sintomas": 2,
+        "idade": 30,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Lavagem nasal com soro fisiológico",
+        "Hidratação oral",
+        "Paracetamol se houver desconforto"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C22",
+      "diagnostico": "Resfriado comum",
+      "problema": {
+        "sintomas": {
+          "coriza": 3,
+          "congestao_nasal": 2,
+          "tosse": 2,
+          "espirros": 2
+        },
+        "temperatura": 37.4,
+        "dias_sintomas": 3,
+        "idade": 6,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Lavagem nasal com soro fisiológico",
+        "Hidratação oral",
+        "Paracetamol se houver desconforto",
+        "Paciente pediátrico: doses calculadas pelo peso"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C23",
+      "diagnostico": "Resfriado comum",
+      "problema": {
+        "sintomas": {
+          "congestao_nasal": 3,
+          "coriza": 2,
+          "espirros": 2,
+          "dor_garganta": 1,
+          "tosse": 1,
+          "dor_cabeca": 1
+        },
+        "temperatura": 36.8,
+        "dias_sintomas": 4,
+        "idade": 55,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Lavagem nasal com soro fisiológico",
+        "Hidratação oral",
+        "Paracetamol se houver desconforto"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C24",
+      "diagnostico": "Resfriado comum",
+      "problema": {
+        "sintomas": {
+          "espirros": 3,
+          "coriza": 2,
+          "dor_garganta": 2,
+          "cansaco": 1
+        },
+        "temperatura": 37.2,
+        "dias_sintomas": 1,
+        "idade": 22,
+        "inicio": "gradual",
+        "alergias": []
+      },
+      "tratamento": [
+        "Lavagem nasal com soro fisiológico",
+        "Hidratação oral",
+        "Paracetamol se houver desconforto"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C25",
+      "diagnostico": "Amigdalite bacteriana",
+      "problema": {
+        "sintomas": {
+          "dor_garganta": 3,
+          "placas_amigdalas": 3,
+          "linfonodos_cervicais": 3,
+          "dor_cabeca": 1
+        },
+        "temperatura": 39.3,
+        "dias_sintomas": 2,
+        "idade": 8,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Amoxicilina por 10 dias, a critério médico",
+        "Ibuprofeno ou paracetamol para dor e febre",
+        "Gargarejo com água morna e sal",
+        "Paciente pediátrico: doses calculadas pelo peso"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C26",
+      "diagnostico": "Amigdalite bacteriana",
+      "problema": {
+        "sintomas": {
+          "dor_garganta": 3,
+          "placas_amigdalas": 2,
+          "linfonodos_cervicais": 2,
+          "cansaco": 2
+        },
+        "temperatura": 38.9,
+        "dias_sintomas": 3,
+        "idade": 17,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Amoxicilina por 10 dias, a critério médico",
+        "Ibuprofeno ou paracetamol para dor e febre",
+        "Gargarejo com água morna e sal"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C27",
+      "diagnostico": "Amigdalite bacteriana",
+      "problema": {
+        "sintomas": {
+          "dor_garganta": 3,
+          "placas_amigdalas": 3,
+          "dor_cabeca": 2,
+          "linfonodos_cervicais": 1,
+          "calafrios": 1
+        },
+        "temperatura": 39.0,
+        "dias_sintomas": 2,
+        "idade": 25,
+        "inicio": "subito",
+        "alergias": [
+          "amoxicilina"
+        ]
+      },
+      "tratamento": [
+        "Azitromicina por 5 dias, a critério médico (alergia a penicilinas)",
+        "Ibuprofeno ou paracetamol para dor e febre",
+        "Gargarejo com água morna e sal"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Alérgico a penicilinas."
+    },
+    {
+      "id": "C28",
+      "diagnostico": "Amigdalite bacteriana",
+      "problema": {
+        "sintomas": {
+          "dor_garganta": 3,
+          "linfonodos_cervicais": 2,
+          "dor_cabeca": 1,
+          "vomito": 1,
+          "dor_abdominal": 1
+        },
+        "temperatura": 38.6,
+        "dias_sintomas": 1,
+        "idade": 11,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Amoxicilina por 10 dias, a critério médico",
+        "Ibuprofeno ou paracetamol para dor e febre",
+        "Gargarejo com água morna e sal",
+        "Paciente pediátrico: doses calculadas pelo peso"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Placas ainda ausentes; teste rápido positivo."
+    },
+    {
+      "id": "C29",
+      "diagnostico": "Gastroenterite",
+      "problema": {
+        "sintomas": {
+          "diarreia": 3,
+          "vomito": 2,
+          "nauseas": 3,
+          "dor_abdominal": 2,
+          "cansaco": 1
+        },
+        "temperatura": 37.8,
+        "dias_sintomas": 1,
+        "idade": 33,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Soro de reidratação oral após cada evacuação",
+        "Dieta leve e fracionada",
+        "Ondansetrona se houver vômitos persistentes, a critério médico",
+        "Procurar atendimento se houver sinais de desidratação ou sangue nas fezes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": "Quadro clássico."
+    },
+    {
+      "id": "C30",
+      "diagnostico": "Gastroenterite",
+      "problema": {
+        "sintomas": {
+          "diarreia": 3,
+          "vomito": 3,
+          "nauseas": 2,
+          "dor_abdominal": 1,
+          "cansaco": 2
+        },
+        "temperatura": 38.3,
+        "dias_sintomas": 2,
+        "idade": 4,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Soro de reidratação oral após cada evacuação",
+        "Dieta leve e fracionada",
+        "Ondansetrona se houver vômitos persistentes, a critério médico",
+        "Procurar atendimento se houver sinais de desidratação ou sangue nas fezes",
+        "Paciente pediátrico: doses calculadas pelo peso"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    },
+    {
+      "id": "C31",
+      "diagnostico": "Gastroenterite",
+      "problema": {
+        "sintomas": {
+          "diarreia": 3,
+          "dor_abdominal": 3,
+          "nauseas": 1,
+          "cansaco": 3
+        },
+        "temperatura": 37.2,
+        "dias_sintomas": 2,
+        "idade": 70,
+        "inicio": "subito",
+        "alergias": []
+      },
+      "tratamento": [
+        "Soro de reidratação oral após cada evacuação",
+        "Dieta leve e fracionada",
+        "Ondansetrona se houver vômitos persistentes, a critério médico",
+        "Procurar atendimento se houver sinais de desidratação ou sangue nas fezes"
+      ],
+      "origem": "base",
+      "confirmacoes": 0,
+      "observacao": ""
+    }
+  ]
+}
