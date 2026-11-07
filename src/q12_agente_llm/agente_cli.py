@@ -1,9 +1,9 @@
 """Interface de chat em linha de comando do assistente de agenda acadêmica (Q12).
 
 Uso:
-    export ANTHROPIC_API_KEY=...        # necessário para conversar com o Claude
-    python agente_cli.py                # chat interativo
-    python agente_cli.py --demo         # simulação roteirizada do cenário da Q11, sem chave
+    python agente_cli.py                     # chat com o Gemini (GEMINI_API_KEY no ambiente ou no .env da raiz)
+    python agente_cli.py --provedor claude   # chat com o Claude (ANTHROPIC_API_KEY)
+    python agente_cli.py --demo              # simulação roteirizada do cenário da Q11, sem chave
 
 Comandos no chat: /agenda mostra o estado atual; sair (ou Ctrl+D) encerra.
 """
@@ -13,8 +13,31 @@ import argparse
 import json
 import os
 import sys
+from pathlib import Path
 
 from agente import Agente, ClienteAnthropic, ErroLLM, RespostaAgente
+
+ARQUIVO_ENV = Path(__file__).resolve().parents[2] / ".env"  # na raiz do repositório, ignorado pelo git
+VARIAVEL_DA_CHAVE = {"gemini": "GEMINI_API_KEY", "claude": "ANTHROPIC_API_KEY"}
+
+
+def carregar_env(caminho: Path = ARQUIVO_ENV) -> None:
+    """Lê linhas CHAVE=valor do .env sem sobrescrever variáveis já definidas no ambiente."""
+    if not caminho.exists():
+        return
+    for linha in caminho.read_text().splitlines():
+        linha = linha.strip()
+        if linha and not linha.startswith("#") and "=" in linha:
+            chave, valor = linha.split("=", 1)
+            os.environ.setdefault(chave.strip(), valor.strip().strip('"').strip("'"))
+
+
+def criar_cliente(provedor: str, esforco: str):
+    if provedor == "gemini":
+        from cliente_gemini import ClienteGemini
+
+        return ClienteGemini()
+    return ClienteAnthropic(esforco=esforco)
 
 
 def _resumir(texto: str, limite: int = 160) -> str:
@@ -46,6 +69,8 @@ def demo(com_trace: bool) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Assistente de agenda acadêmica (Q12)")
     parser.add_argument("--demo", action="store_true", help="roda a simulação roteirizada da Q11, sem chave de API")
+    parser.add_argument("--provedor", default="gemini", choices=["gemini", "claude"],
+                        help="LLM usado no chat (padrão: gemini, com modelo de reserva)")
     parser.add_argument("--esforco", default="medium", choices=["low", "medium", "high", "xhigh", "max"],
                         help="output_config.effort enviado ao Claude (padrão: medium)")
     parser.add_argument("--sem-trace", action="store_true", help="não mostra as chamadas de ferramentas")
@@ -55,11 +80,13 @@ def main() -> int:
     if args.demo:
         demo(com_trace)
         return 0
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ANTHROPIC_API_KEY não definida. Exporte a chave ou rode com --demo.", file=sys.stderr)
+    carregar_env()
+    variavel = VARIAVEL_DA_CHAVE[args.provedor]
+    if not os.environ.get(variavel):
+        print(f"{variavel} não definida. Coloque a chave no .env da raiz ou rode com --demo.", file=sys.stderr)
         return 1
 
-    agente = Agente(ClienteAnthropic(esforco=args.esforco))
+    agente = Agente(criar_cliente(args.provedor, args.esforco))
     print("Assistente de agenda acadêmica. Descreva suas atividades e o tempo disponível. "
           "Digite 'sair' para encerrar.\n")
     while True:

@@ -12,8 +12,9 @@ A aplicação é um assistente que organiza o dia de um professor a partir de um
 generalizando o cenário da Q11 (aula, correção, reunião e revisão de artigo entre 14h e 18h). A resposta
 da Q11 (`docs/q11_agentes_classicos_vs_llm.md`) concluiu que o LLM é bom para interpretar pedidos em
 linguagem natural e redigir respostas, e que restrições, planejamento e verificação devem ficar em
-mecanismos explícitos. Este trabalho implementa essa arquitetura híbrida: o Claude (`claude-opus-5-5`)
-conversa com o professor e chama ferramentas; um planejador exato em Python decide os horários; um
+mecanismos explícitos. Este trabalho implementa essa arquitetura híbrida: um LLM conversa com o
+professor e chama ferramentas (por padrão o Gemini `gemini-3.5-flash-lite`, com `gemini-3.1-flash-lite`
+como reserva; o Claude `claude-opus-5-5` é a alternativa); um planejador exato em Python decide os horários; um
 verificador independente confere o plano; e as justificativas que o modelo apresenta vêm prontas das
 ferramentas.
 
@@ -24,11 +25,12 @@ ferramentas.
 | `planejador.py` | Modelo do problema, função de utilidade, busca exata com poda e verificador de restrições |
 | `explicacao.py` | Resumo estruturado do plano: justificativas, contrafactuais, ociosidade, restrições ativas, 2ª melhor alternativa |
 | `agente.py` | Ferramentas (schemas estritos), estado da agenda, loop de uso de ferramentas e cliente da API do Claude |
+| `cliente_gemini.py` | Cliente do Gemini (Google AI Studio): tradução do histórico, modelo principal e de reserva |
 | `agente_cli.py` | Interface de chat em linha de comando |
 | `simulacao.py` | Cliente roteirizado (mesmo formato das mensagens da API, sem modelo) e roteiro do cenário da Q11 |
 | `gantt.py` | Gráfico de Gantt do plano |
 | `q12_agente_llm.ipynb` | Notebook executado com o cenário da Q11, variações, verificador e o agente |
-| `test_q12_planejador.py`, `test_q12_verificador.py`, `test_q12_agente.py` | Testes (427 casos) |
+| `test_q12_planejador.py`, `test_q12_verificador.py`, `test_q12_agente.py`, `test_q12_cliente_gemini.py` | Testes (447 casos) |
 | `figures/` | Gantt do cenário da Q11, das variações e do replanejamento (PNG e PDF) |
 
 ## 2. Especificação
@@ -74,7 +76,7 @@ explícita.
 flowchart LR
     P([Professor]) -- texto livre --> CLI[agente_cli.py<br/>chat]
     CLI --> AG[Agente<br/>loop de ferramentas]
-    AG <-- "messages + tools (strict)" --> LLM[Claude<br/>claude-opus-5-5]
+    AG <-- "mensagens + ferramentas" --> LLM[LLM<br/>Gemini 3.5 Flash-Lite<br/>reserva: 3.1 Flash-Lite<br/>ou Claude Opus 5.5]
     AG -- tool_use --> EX[Agenda<br/>executor de ferramentas]
     EX --> PL[Planejador exato<br/>branch and bound]
     EX --> VE[Verificador<br/>independente]
@@ -87,13 +89,13 @@ flowchart LR
 Fluxo de um turno:
 
 1. O professor escreve o pedido.
-2. O agente envia histórico, prompt de sistema e as cinco ferramentas ao Claude.
-3. O Claude responde com blocos `tool_use` (por exemplo `definir_janela` e `registrar_atividades` em
+2. O agente envia histórico, prompt de sistema e as cinco ferramentas ao LLM.
+3. O LLM responde com chamadas de ferramenta (blocos `tool_use`) (por exemplo `definir_janela` e `registrar_atividades` em
    paralelo). O agente executa cada um e devolve todos os `tool_result` numa única mensagem de usuário,
    com `is_error: true` quando a ferramenta falha.
-4. O Claude chama `planejar_agenda`. O executor roda o planejador, o verificador e o gerador de explicações
+4. O LLM chama `planejar_agenda`. O executor roda o planejador, o verificador e o gerador de explicações
    e devolve um JSON com o plano e as justificativas.
-5. O Claude redige a resposta final a partir desse JSON. A CLI mostra a resposta e o trace das ferramentas.
+5. O LLM redige a resposta final a partir desse JSON. A CLI mostra a resposta e o trace das ferramentas.
 
 ## 3. Componentes
 
@@ -180,6 +182,30 @@ ferramentas, e o prompt manda listar as suposições feitas na interpretação.
 
 ### 3.4 Loop do agente e uso da API
 
+O loop (`Agente.processar`) trabalha com mensagens em blocos (`text`, `tool_use`, `tool_result`) e recebe o
+cliente do LLM por injeção: qualquer objeto com o método `criar_mensagem(system, tools, messages)` serve.
+Há dois clientes reais.
+
+**Gemini (padrão), `cliente_gemini.py`.**
+
+- Modelo principal `gemini-3.5-flash-lite` e reserva `gemini-3.1-flash-lite`, os dois na camada gratuita do
+  Google AI Studio. Se o principal devolver 404, 429 ou 5xx (modelo indisponível, cota esgotada, falha do
+  servidor) ou der erro de conexão, a mesma requisição vai para a reserva. Erros do próprio pedido (400) e
+  de chave (401/403) não tentam a reserva, porque falhariam do mesmo jeito.
+- Tradução nos dois sentidos: os schemas das ferramentas viram `FunctionDeclaration` com
+  `parameters_json_schema`; o histórico vira `Content` com papéis `user`/`model`; cada `tool_result` vira um
+  `FunctionResponse` com o nome e o id da chamada correspondente (`{"resultado": ...}` ou `{"erro": ...}`).
+  As respostas voltam como blocos `tool_use`/`text`, e o `finish_reason` vira `stop_reason`
+  (`SAFETY`/`PROHIBITED_CONTENT` → `refusal`, `MAX_TOKENS` → `max_tokens`).
+- As partes originais da resposta do Gemini são guardadas no histórico e reenviadas sem alteração. Os
+  modelos Gemini 3 exigem isso: cada chamada de função carrega uma `thought_signature` que precisa voltar
+  no turno seguinte.
+- A execução automática de funções do SDK fica desligada; quem executa as ferramentas é o agente.
+- A chave é lida de `GEMINI_API_KEY`. A CLI e o notebook carregam o arquivo `.env` da raiz do repositório,
+  que está no `.gitignore`; a chave não aparece em código, saídas ou commits.
+
+**Claude, `ClienteAnthropic` em `agente.py`** (alternativa, `--provedor claude`):
+
 - Modelo `claude-opus-5-5`. O thinking é sempre ligado nesse modelo; o código não envia `thinking`
   (equivale a adaptativo) nem `budget_tokens`. A profundidade é controlada por
   `output_config={"effort": "medium"}`, ajustável com `--esforco` na CLI.
@@ -207,11 +233,12 @@ ferramentas, e o prompt manda listar as suposições feitas na interpretação.
 
 ## 4. Como executar
 
-Dependências (todas já estão no `.venv` do repositório): `anthropic` (testado com 2.6.0), `matplotlib`,
-`pandas`, `pytest`, `jupyter`/`nbconvert` para o notebook. Em outro ambiente:
+Dependências (todas já estão no `.venv` do repositório): `google-genai` (testado com 3.0.0), `anthropic`
+(testado com 2.6.0), `matplotlib`, `pandas`, `pytest`, `jupyter`/`nbconvert` para o notebook. Em outro
+ambiente:
 
 ```bash
-pip install "anthropic>=2.6" matplotlib pandas pytest jupyter
+pip install "google-genai>=3.0" "anthropic>=2.6" matplotlib pandas pytest jupyter
 ```
 
 Os comandos abaixo partem desta pasta (`src/q12_agente_llm`).
@@ -220,19 +247,20 @@ Sem chave de API:
 
 ```bash
 python agente_cli.py --demo        # conversa roteirizada da Q11 (2 turnos); planejador real, sem LLM
-python -m pytest -q                # 427 testes
+python -m pytest -q                # 447 testes
 jupyter nbconvert --to notebook --execute --inplace q12_agente_llm.ipynb
 ```
 
-Com chave de API:
+Com chave de API. Crie o arquivo `.env` na raiz do repositório (ele já está no `.gitignore`) com a chave
+gratuita do Google AI Studio:
 
 ```bash
-export ANTHROPIC_API_KEY=...
-python agente_cli.py               # chat com o Claude
-python agente_cli.py --esforco low # menos raciocínio, respostas mais rápidas
+echo "GEMINI_API_KEY=sua-chave" > ../../.env
+python agente_cli.py                     # chat com o Gemini (3.5 Flash-Lite, reserva 3.1 Flash-Lite)
+python agente_cli.py --provedor claude   # chat com o Claude (precisa de ANTHROPIC_API_KEY no .env ou no ambiente)
 ```
 
-Com a chave definida, a seção 6.3 do notebook também chama o Claude de verdade. Sem ela, a célula é
+Com a chave definida, a seção 6.3 do notebook também chama o Gemini de verdade. Sem ela, a célula é
 pulada e avisa isso.
 
 ## 5. Resultados
@@ -279,6 +307,27 @@ desempate termina antes a atividade que acaba mais cedo.
 
 ![Replanejamento](figures/q12_gantt_replanejamento.png)
 
+### Execução real com o Gemini
+
+A seção 6.3 do notebook roda o agente com o Gemini nos mesmos dois turnos da simulação (pedido da Q11 e,
+depois, a orientação de TCC). Na execução salva, o `gemini-3.5-flash-lite` respondeu sozinho (a reserva não
+foi necessária), cada turno levou cerca de 8 segundos e a sequência de ferramentas foi a esperada:
+`definir_janela` e `registrar_atividades` em paralelo, depois `planejar_agenda`. O plano final foi o ótimo
+do planejador (utilidade 19,25 no primeiro turno e 28,25 depois do replanejamento), e a resposta trouxe a
+tabela, o motivo de B ficar de fora e a segunda melhor alternativa, tudo tirado do JSON da ferramenta.
+
+O que muda entre execuções é a interpretação do pedido, e isso confirma a divisão de trabalho da Q11:
+
+- Numa execução de teste, o modelo marcou a correção (B) como divisível, contrariando a instrução do prompt
+  ("na dúvida, use false"). O planejador então dividiu B em dois blocos, e a resposta declarou a suposição.
+- Na execução salva, B ficou indivisível, mas o modelo registrou B com prioridade alta. O texto do pedido
+  não diz a prioridade da correção (a tabela da Q11 diz "média"), então a escolha é defensável, mas muda a
+  utilidade da segunda alternativa (16,25 em vez de 14,25).
+
+Nos dois casos o plano foi ótimo para os dados que o modelo registrou, e o trace e a lista de suposições
+deixam o professor ver e corrigir a interpretação. O verificador garante as restrições; ele não garante que
+a extração esteja certa.
+
 ## 6. Testes
 
 - `test_q12_planejador.py`: planos e utilidades dos três cenários da Q11; explicações e contrafactuais;
@@ -294,6 +343,10 @@ desempate termina antes a atividade que acaba mais cedo.
   turnos. Com um transporte HTTP falso, confere que a requisição real leva `claude-opus-5-5`, o header
   `server-side-fallback-2026-07-01`, `fallbacks: "default"`, `output_config.effort`, ferramentas estritas
   e nenhum `tool_choice` ou `thinking`, e que respostas 400, 401, 429 e 529 viram `ErroLLM`.
+- `test_q12_cliente_gemini.py`: com um cliente falso que devolve objetos reais do SDK `google-genai`,
+  confere a tradução de chamadas de função e de motivos de parada, a ligação de cada `FunctionResponse` à
+  chamada certa (nome e id), a preservação da parte original com `thought_signature`, a queda para o modelo
+  de reserva em 404/429/5xx, a ausência de reserva em 400/401/403 e um turno completo do agente.
 
 Para checar se os testes pegam erros de verdade, introduzimos três defeitos no planejador (remover a
 opção de ficar ocioso, testar só o maior bloco possível, podar com folga de 0,5). Os três foram
@@ -315,10 +368,17 @@ detectados.
   para amanhã é agendada.
 - A extração depende do LLM. Se ele entender errado uma duração, o plano será ótimo para dados errados;
   o trace e o `/agenda` existem para o professor conferir.
-- Nada foi testado contra a API real nesta máquina, por falta de chave. A forma das requisições e o
-  tratamento das respostas foram verificados com transporte HTTP falso e cliente roteirizado.
+- O Gemini foi testado contra a API real (seção 6.3 do notebook). O caminho do Claude não foi: não havia
+  chave da Anthropic, e a forma das requisições foi verificada com transporte HTTP falso.
+- A extração varia entre execuções (seção 5, "Execução real com o Gemini"): o mesmo pedido já gerou atividades com divisibilidade e
+  prioridade diferentes. Um passo de confirmação ("entendi isto; posso planejar?") reduziria o risco.
 
-## 8. Custos e latência (estimativa, não medida)
+## 8. Custos e latência
+
+Com o Gemini, o uso cabe na camada gratuita do Google AI Studio, que tem limite de requisições por minuto e
+por dia; a queda para o modelo de reserva cobre o caso de a cota de um modelo acabar. Na execução salva cada
+turno levou cerca de 8 segundos (três chamadas sequenciais). A estimativa abaixo é para o Claude.
+
 
 Cada turno típico faz três chamadas ao modelo (extração, planejamento, resposta). O prompt de sistema tem
 cerca de 1,4 mil caracteres, as definições das ferramentas cerca de 2,9 mil e o resultado de
@@ -338,6 +398,8 @@ entre chamadas, cache de prompt é uma otimização direta caso o uso cresça.
 - YAO, S. et al. ReAct: Synergizing Reasoning and Acting in Language Models. ICLR, 2023.
 - SCHICK, T. et al. Toolformer: Language Models Can Teach Themselves to Use Tools. NeurIPS, 2023.
 - KAMBHAMPATI, S. et al. LLMs Can't Plan, But Can Help Planning in LLM-Modulo Frameworks. ICML, 2024.
+- Google. Documentação da Gemini API (Google AI Studio): function calling e thought signatures.
+  https://ai.google.dev/gemini-api/docs
 - Anthropic. Documentação da Messages API: uso de ferramentas, strict tool use, thinking adaptativo,
   effort e fallback de recusa no servidor. https://platform.claude.com/docs
 - Questão 11 desta lista: `docs/q11_agentes_classicos_vs_llm.md`.
