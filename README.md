@@ -3,7 +3,7 @@
 Repositório da Lista de Exercícios 2 da disciplina ECOM031: Inteligência Artificial (Engenharia de Computação / PPGI) na Universidade Federal de Alagoas (UFAL).
 
 * **Professor:** Evandro de Barros Costa
-* **Dupla:** Bruno Gomes e Renato Coca
+* **Dupla:** Bruno Gomes de Barros Filho (21111360) e Antônio Rodrigo Lima de Andrade Tenório (23210707)
 * **Período:** 2026.2
 
 ---
@@ -46,10 +46,10 @@ As 15 questões foram agrupadas em quatro módulos temáticos para dividir o des
 
 | Módulo | Escopo e questões | Responsável primário | Revisor |
 | :--- | :--- | :--- | :--- |
-| Módulo A: Busca, algoritmos e agentes clássicos | Q2 (KNN), Q4 (Taxonomia PEAS), Q10 (Buscas BFS/UCS/A*) | Bruno Gomes | Renato Coca |
-| Módulo B: Incerteza e sistemas especialistas | Q6 (Fuzzy Mamdani), Q7 (CBR Médico + Vídeo), Q8 (Redes Bayesianas) | Renato Coca | Bruno Gomes |
-| Módulo C: Ontologias e grafos de conhecimento | Q1 (Comparativo), Q9 (Recomendador OWL), Q14 (KG e Neo4j), Q15 (Protégé/Reasoner) | Bruno Gomes | Renato Coca |
-| Módulo D: NLP, Transformers e agentes LLM | Q3 (ELIZA/PARRY), Q5 (Inferência LLM), Q11 (Planejamento), Q12 (Agente LLM), Q13 (Transformers) | Renato Coca | Bruno Gomes |
+| Módulo A: Busca, algoritmos e agentes clássicos | Q2 (KNN), Q4 (Taxonomia PEAS), Q10 (Buscas BFS/UCS/A*) | Bruno Gomes | Antônio Rodrigo |
+| Módulo B: Incerteza e sistemas especialistas | Q6 (Fuzzy Mamdani), Q7 (CBR Médico + Vídeo), Q8 (Redes Bayesianas) | Antônio Rodrigo | Bruno Gomes |
+| Módulo C: Ontologias e grafos de conhecimento | Q1 (Comparativo), Q9 (Recomendador OWL), Q14 (KG e Neo4j), Q15 (Protégé/Reasoner) | Bruno Gomes | Antônio Rodrigo |
+| Módulo D: NLP, Transformers e agentes LLM | Q3 (ELIZA/PARRY), Q5 (Inferência LLM), Q11 (Planejamento), Q12 (Agente LLM), Q13 (Transformers) | Antônio Rodrigo | Bruno Gomes |
 
 ---
 
