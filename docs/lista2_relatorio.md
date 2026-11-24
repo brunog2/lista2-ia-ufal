@@ -1248,7 +1248,7 @@ numericamente sobre esses pontos.
 | tempo | longo | triangular | [30, 45, 60] |
 | tempo | muito longo | triangular | [45, 60, 60] |
 
-![Funções de pertinência](figures/q06_pertinencias.png)
+![Funções de pertinência](../figures/q06_pertinencias.png)
 
 Por que cada formato:
 
@@ -1282,7 +1282,7 @@ A tabela foi escrita com quatro critérios:
 4. com solo `úmido` a saída é sempre `nenhum`, porque irrigar perto da capacidade de campo só faz a
    água drenar e carregar nutrientes.
 
-![Matriz de regras](figures/q06_matriz_regras.png)
+![Matriz de regras](../figures/q06_matriz_regras.png)
 
 A mesma base em texto (linhas: umidade; colunas: temperatura amena / quente / muito quente):
 
@@ -1329,7 +1329,7 @@ prevista de 25 %**. Todos os números abaixo saem da execução do notebook.
 | temperatura = 32 °C | amena / quente / muito quente | 0,003 / 0,458 / 0,278 |
 | chuva = 25 % | baixa / média / alta | 0,750 / 0,167 / 0,000 |
 
-![Fuzzificação do caso](figures/q06_fuzzificacao.png)
+![Fuzzificação do caso](../figures/q06_fuzzificacao.png)
 
 A umidade de 38 % é ao mesmo tempo um pouco `seca` e mais `adequada`. O grau 0,003 de `amena` vem da
 cauda da gaussiana.
@@ -1372,7 +1372,7 @@ daquele termo:
 O conjunto agregado é o máximo ponto a ponto dos consequentes cortados. À esquerda, os cortes; à
 direita, o conjunto agregado com a posição de cada método de defuzzificação.
 
-![Agregação e defuzzificação](figures/q06_agregacao_defuzzificacao.png)
+![Agregação e defuzzificação](../figures/q06_agregacao_defuzzificacao.png)
 
 ### 3.5 Etapa 5: defuzzificação pelo centroide
 
@@ -1413,7 +1413,7 @@ Os métodos de máximo só olham o patamar mais alto do conjunto agregado, que a
 (21,9 a 38,1 min); ignoram que `longo` e `muito longo` também foram ativados. Para ver o efeito na
 operação, a umidade foi varrida de 0 a 100 % em passos de 0,5 %, com 32 °C e 25 % de chuva:
 
-![Métodos de defuzzificação](figures/q06_metodos_defuzzificacao.png)
+![Métodos de defuzzificação](../figures/q06_metodos_defuzzificacao.png)
 
 | Método | Maior salto entre passos de 0,5 % (min) | Valores distintos na varredura |
 |---|---|---|
@@ -1430,9 +1430,9 @@ entre 74,5 % e 75 % de umidade) acontece quando `adequada` chega a zero e só `n
 
 ## 5. Superfície de controle e mapas de calor
 
-![Superfície de controle](figures/q06_superficie_3d.png)
+![Superfície de controle](../figures/q06_superficie_3d.png)
 
-![Mapas de calor](figures/q06_mapas_calor.png)
+![Mapas de calor](../figures/q06_mapas_calor.png)
 
 O que a superfície mostra:
 
@@ -1452,7 +1452,7 @@ O que a superfície mostra:
 
 Cada entrada percorre seu universo com as outras fixas no caso base (38 %, 32 °C, 25 %).
 
-![Sensibilidade](figures/q06_sensibilidade.png)
+![Sensibilidade](../figures/q06_sensibilidade.png)
 
 | Entrada | Saída mín (min) | Saída máx (min) | Amplitude (min) | Derivada no caso base |
 |---|---|---|---|---|
@@ -1600,7 +1600,7 @@ Escrever as 27 combinações evita o problema na operação normal.
 | Inclusão de novos casos | `SistemaCBR.reter` ([seção 4.4](#44-retain)) |
 | Exemplos de consultas | [seção 5](#5-exemplos-de-consultas) |
 | Análise dos resultados | [seção 6](#6-análise-dos-resultados) |
-| Vídeo ou demonstração | CLI `cbr_cli.py`, notebook e [roteiro do vídeo](#8-roteiro-para-o-vídeo-de-demonstração) |
+| Vídeo ou demonstração | CLI `cbr_cli.py` e notebook |
 
 ## Como executar
 
@@ -1664,7 +1664,7 @@ Os tratamentos seguem, de forma simplificada, as orientações gerais conhecidas
 
 O mapa abaixo mostra a intensidade média de cada sintoma por doença.
 
-![Intensidade média de cada sintoma por doença](figures/q07_perfil_sintomas.png)
+![Intensidade média de cada sintoma por doença](../figures/q07_perfil_sintomas.png)
 
 ## 2. Representação dos casos
 
@@ -1764,7 +1764,7 @@ Os testes confirmam, para as três variantes e para todos os pares de casos da b
 
 A figura mostra a similaridade global entre todos os pares de casos, agrupados por doença. Com o Jaccard ponderado os blocos da diagonal ficam mais destacados do fundo.
 
-![Matrizes de similaridade](figures/q07_matriz_similaridade.png)
+![Matrizes de similaridade](../figures/q07_matriz_similaridade.png)
 
 | Métrica | Média, mesma doença | Média, doenças diferentes | Diferença | Maior sim. entre doenças diferentes | Vizinho mais próximo com mesma doença |
 |---|---|---|---|---|---|
@@ -1774,7 +1774,7 @@ A figura mostra a similaridade global entre todos os pares de casos, agrupados p
 
 O ponderado é o que mais afasta os pares de doenças diferentes (média 0,348) e tem a maior diferença entre as duas médias. A distribuição dos pares no Jaccard ponderado aparece abaixo; a sobreposição entre 0,5 e 0,8 corresponde aos pares de arboviroses e de quadros respiratórios.
 
-![Distribuição da similaridade entre pares](figures/q07_distribuicao_similaridade.png)
+![Distribuição da similaridade entre pares](../figures/q07_distribuicao_similaridade.png)
 
 ## 4. O ciclo CBR implementado
 
@@ -1856,7 +1856,7 @@ Sugestão: Chikungunya, confiança 62% (votos: chikungunya 1,302; dengue 0,814).
 
 A figura decompõe a similaridade dos cinco primeiros na contribuição de cada atributo. Temperatura, início, dias e idade contribuem quase igual para todos; quem decide o ranking é a parcela dos sintomas.
 
-![Contribuição de cada atributo na consulta 3](figures/q07_contribuicoes_consulta3.png)
+![Contribuição de cada atributo na consulta 3](../figures/q07_contribuicoes_consulta3.png)
 
 No notebook, essa consulta também serve de exemplo de revisão: o médico informa que a sorologia deu chikungunya, confirma o diagnóstico e troca o tratamento.
 
@@ -1917,13 +1917,13 @@ Cada um dos 31 casos foi retirado da base e consultado contra os 30 restantes. M
 | 5 | 0,839 | 0,871 | **0,935** |
 | 7 | 0,806 | 0,839 | 0,871 |
 
-![Acurácia leave-one-out por métrica e k](figures/q07_loo_metricas.png)
+![Acurácia leave-one-out por métrica e k](../figures/q07_loo_metricas.png)
 
 A acurácia top-3 foi 1,000 em todas as 12 combinações: o diagnóstico real sempre aparece entre os três mais próximos. Com k = 1 o sistema fica sujeito ao vizinho isolado mais parecido, que nos casos de fronteira costuma ser da doença vizinha. Com k = 7 o voto passa a incluir casos de outras doenças em número suficiente para virar o resultado em grupos pequenos (cada doença tem só 3 ou 4 casos, e 2 ou 3 sobram quando um deles é retirado). k = 3 e k = 5 empataram no Jaccard ponderado, e ficamos com k = 3 por ser o menor.
 
 A configuração adotada (Jaccard ponderado, k = 3) acertou 29 de 31 casos (top-1 = 0,935), com confiança média de 0,825.
 
-![Matriz de confusão leave-one-out](figures/q07_matriz_confusao.png)
+![Matriz de confusão leave-one-out](../figures/q07_matriz_confusao.png)
 
 ### Análise dos erros
 
@@ -1954,19 +1954,6 @@ A consulta 5 mostra a vantagem prática do CBR em relação a um classificador t
 - A adaptação do tratamento procura o nome do medicamento no texto do item. Tratamentos estruturados (medicamento, dose, duração) permitiriam regras mais seguras, como checar classes de medicamentos (penicilinas, anti-inflamatórios).
 - A similaridade simbólica do início é 0 ou 1; não há escala intermediária. Atributos como região, época do ano ou exames laboratoriais, que ajudam muito a separar as arboviroses, não foram modelados.
 - A busca é linear sobre toda a base, o que é suficiente para dezenas ou centenas de casos.
-
-## 8. Roteiro para o vídeo de demonstração
-
-Duração sugerida: 5 a 7 minutos. Antes de gravar, apague `src/q07_cbr/base_casos_local.json` (se existir) para começar com a base original, e deixe o terminal com fonte grande.
-
-1. Apresentação (30 s): nome da dupla, a questão e o aviso de que os dados são fictícios.
-2. A base (1 min): abrir `base_casos.json` e mostrar um caso (sintomas com intensidade, diagnóstico, tratamento). Mostrar no notebook a tabela-resumo e a figura `q07_perfil_sintomas.png`.
-3. Similaridade (1 min): mostrar `cbr_similaridade.py` (pesos dos atributos e dos sintomas) e o exemplo dos casos A e B no notebook.
-4. Consulta clara pela CLI (1 min 30 s): rodar `.venv/bin/python src/q07_cbr/cbr_cli.py` e digitar a consulta 1 (`dor_retroorbital:3, dor_cabeca:3, mialgia:2, nauseas:1, cansaco:2`; 39,1; 3 dias; 72 anos; súbito; alergia `dipirona`). Comentar a tabela de vizinhos (Retrieve), o voto e a confiança (Reuse) e os dois ajustes no tratamento. Confirmar o diagnóstico (Revise) e responder "n" para não reter.
-5. Consulta ambígua (1 min): nova consulta com a consulta 3 (`artralgia:2, exantema:2, mialgia:2, dor_cabeca:2, cansaco:1`; 38,8; 4; 35; súbito). Mostrar que a confiança cai para 62% e que o vizinho mais próximo é de outra doença.
-6. Caso novo e retenção (1 min 30 s): consulta de sinusite (`congestao_nasal:3, dor_cabeca:3, coriza:2`; 38,0; 12; 40; gradual). Responder "n" na confirmação, digitar `Sinusite bacteriana` e um tratamento, e reter. Em seguida, fazer a consulta parecida (`congestao_nasal:3, dor_cabeca:2, coriza:2`; 37,9; 10; 45; gradual) e mostrar o caso retido em primeiro lugar, com `origem = retido`. Por fim, repetir a primeira consulta de sinusite com o mesmo diagnóstico e mostrar a mensagem de que o caso não foi duplicado.
-7. Avaliação (1 min): no notebook, mostrar a tabela leave-one-out, a matriz de confusão e os dois erros (C08 e C20), explicando por que são casos de fronteira.
-8. Testes (15 s): rodar `.venv/bin/python -m pytest src/q07_cbr -q` e mostrar os 16 testes passando.
 
 ## Referências
 
@@ -2022,7 +2009,6 @@ Duração sugerida: 5 a 7 minutos. Antes de gravar, apague `src/q07_cbr/base_cas
 | Influência de cada evidência | [9](#9-influência-de-cada-evidência-e-valor-da-informação) |
 | Arquivo do projeto na ferramenta | [11](#11-arquivo-do-projeto-na-ferramenta) |
 | Discussão, limitações, melhorias | [12](#12-discussão) |
-| Vídeo | [14](#14-roteiro-para-o-vídeoapresentação) |
 
 ## Como executar
 
@@ -2086,7 +2072,7 @@ Os requisitos mínimos ficam cobertos com folga: 1 doença principal (mais 1 con
 
 ## 3. Estrutura da rede e justificativa das dependências
 
-![Rede Bayesiana do diagnóstico diferencial de dengue](figures/q08_rede.png)
+![Rede Bayesiana do diagnóstico diferencial de dengue](../figures/q08_rede.png)
 
 Todas as arestas apontam de causa para efeito, que é o que o item a) pede.
 
@@ -2273,7 +2259,7 @@ Prioris das doenças (sem nenhuma evidência): **P(Dengue = Sim) = 0,0963** e **
 | Tosse | Sim | 0,2332 | 0,2559 | 1,10 |
 | ProvaLaco | Sim | 0,0837 | 0,3940 | 4,71 |
 
-![Priori e posteriori no Experimento 1](figures/q08_exp1_priori_posteriori.png)
+![Priori e posteriori no Experimento 1](../figures/q08_exp1_priori_posteriori.png)
 
 **Interpretação.** Três achados bastam para levar a dengue de 9,6% a 98,3%. A rede também raciocina "para cima" e "para os lados": a exposição a foco sobe para 80%, a estação chuvosa para 55%, e a rede prevê que a prova do laço daria positivo com 39% de chance e que há 82% de chance de dor no corpo, sintomas que ainda nem foram perguntados. A influenza sobe um pouco (12,8% → 16,3%) porque a febre também é compatível com ela e porque a estação chuvosa ficou mais provável.
 
@@ -2308,7 +2294,7 @@ Prioris das doenças (sem nenhuma evidência): **P(Dengue = Sim) = 0,0963** e **
 | + Febre = Sim | 0,4989 | 0,4336 |
 | + DorMuscular = Sim | 0,6196 | 0,4928 |
 
-![Evolução das probabilidades com evidências acumuladas](figures/q08_exp2_atualizacao_incremental.png)
+![Evolução das probabilidades com evidências acumuladas](../figures/q08_exp2_atualizacao_incremental.png)
 
 **Interpretação.** Na sequência A a febre sozinha multiplica a probabilidade de dengue por 3,6. Quando a tosse chega, a dengue *cai* de 34,8% para 21,6%, mesmo sendo a tosse quase irrelevante para a dengue de forma direta (a dengue nem é pai da tosse). O que acontece é explaining away: a tosse torna a gripe muito provável (77,6%) e a gripe passa a explicar a febre, tirando o "mérito" da dengue. A dor muscular sobe as duas doenças, porque ambas a causam; a dengue ganha um pouco mais (de 21,6% para 28,0%) porque a CPT da dor muscular é mais alta para dengue. No fim, o quadro aponta para gripe.
 
@@ -2326,7 +2312,7 @@ Na sequência B cada sinal específico faz a dengue saltar, e a gripe recua conf
 
 (Todos os achados listados sem valor explícito são "Sim".)
 
-![Comparação de perfis](figures/q08_exp3_comparacao_perfis.png)
+![Comparação de perfis](../figures/q08_exp3_comparacao_perfis.png)
 
 **Interpretação.** P3 e P4 têm exatamente os mesmos sintomas; só muda o contexto, e a dengue vai de 62,0% para 29,0%. Uma regra do tipo "febre e dor no corpo ⇒ suspeita de dengue" não faz essa distinção. P5 mostra o peso de um achado negativo: a ausência de tosse derruba a gripe para 6,4%, e uma prova do laço positiva, que sozinha é um exame fraco, leva a dengue a 86,2%.
 
@@ -2384,7 +2370,7 @@ Para decidir qual pergunta fazer em seguida a um paciente que só relatou febre,
 | DorMuscular | 0,5708 | 0,5022 | 0,1431 | 0,1073 |
 | Tosse | 0,4057 | 0,2161 | 0,4382 | 0,0391 |
 
-![Influência dos sintomas e valor da informação](figures/q08_influencia_e_valor_informacao.png)
+![Influência dos sintomas e valor da informação](../figures/q08_influencia_e_valor_informacao.png)
 
 Perguntar sobre dor atrás dos olhos é o que mais reduz a incerteza. A tosse é a que menos ajuda a decidir sobre dengue, embora seja ótima para decidir sobre gripe. Note que a tosse inverte o sentido usual: presente, ela *reduz* a dengue (21,6%); ausente, aumenta (43,8%).
 
@@ -2403,7 +2389,7 @@ Para a consulta P(Dengue = Sim | Febre = Sim, Tosse = Sim), cujo valor exato é 
 | 5000 | 0,2140 | 0,0051 | 0,2204 | 0,0142 |
 | 10000 | 0,2170 | 0,0045 | 0,2145 | 0,0076 |
 
-![Convergência da inferência aproximada](figures/q08_convergencia_amostragem.png)
+![Convergência da inferência aproximada](../figures/q08_convergencia_amostragem.png)
 
 Os dois métodos convergem para o valor exato e o desvio cai aproximadamente com 1/√n. A rejeição parece melhor na tabela, mas a comparação engana: no pgmpy o `size` da rejeição conta amostras *aceitas*, e como P(Febre = Sim, Tosse = Sim) = 0,1023, cerca de 90% das amostras geradas são descartadas. Para 10.000 amostras aceitas a rejeição gera perto de 100.000. Na ponderação nenhuma amostra é descartada, mas os pesos variam muito (de 0,015 a 0,78 nesta consulta), o que aumenta a variância. Numa rede deste tamanho a inferência exata é instantânea; a amostragem só valeria a pena numa rede muito maior.
 
@@ -2471,20 +2457,6 @@ Na rede, o conhecimento é local: cada CPT descreve uma relação causa-efeito q
 - amostragem por rejeição e ponderação dentro de 0,02 do valor exato com 20.000 amostras;
 - informação mútua não negativa e ordenada;
 - round-trip dos quatro formatos exportados.
-
-## 14. Roteiro para o vídeo/apresentação
-
-Sugestão de roteiro com cerca de 8 minutos. Os números citados são os que o notebook produz.
-
-1. **Abertura (30 s).** Apresentar a dupla e o problema: separar dengue de gripe num pronto atendimento em Alagoas.
-2. **A rede (1 min 30 s).** Mostrar `figures/q08_rede.png`. Explicar os quatro grupos de nós e por que a febre e a dor muscular têm dois pais. Mostrar a CPT da febre no notebook.
-3. **Independências (1 min).** Rodar a célula de `is_dconnected`. Destacar a linha Dengue e Influenza: independentes dada a estação, dependentes quando a febre é observada.
-4. **Experimento 1 (1 min).** Febre + dor retro-orbital + manchas: dengue de 9,6% para 98,3%. Mostrar a conferência com enumeração em numpy dando o mesmo valor.
-5. **Experimento 2 (1 min 30 s).** Sequência do enunciado. Parar na tosse e perguntar "por que a dengue caiu?". Explicar o explaining away. Comparar com a sequência C.
-6. **Experimento 3 e MAP (1 min).** P3 contra P4: mesmos sintomas, contexto diferente, 62,0% contra 29,0%.
-7. **Evidência incerta e valor da informação (1 min).** Tabela de λ e o gráfico de informação mútua: a próxima pergunta deveria ser sobre dor atrás dos olhos.
-8. **Arquivo do projeto e testes (30 s).** Mostrar a pasta `modelo/` e rodar `pytest`.
-9. **Fechamento (30 s).** Uma limitação (probabilidades educacionais, faltam chikungunya e zika) e uma melhoria (estimar CPTs com dados do SINAN).
 
 ## Referências
 
@@ -2583,7 +2555,7 @@ Abaixo delas estão as especializações primitivas: `AtividadeAerobica`, `Ativi
 `CondicaoDaColuna` e `CondicaoCardiovascular`; `LocalAoArLivre` e `LocalFechado` (disjuntas) e
 `LocalAquatico` (ortogonal, porque a Praia da Pajuçara é aquática e ao ar livre).
 
-![grafo de propriedades](figures/q09_grafo_propriedades.png)
+![grafo de propriedades](../figures/q09_grafo_propriedades.png)
 
 As propriedades de objeto ligam essas classes (figura acima). As que aparecem em laranja não são
 cadastradas: o reasoner as deduz por cadeias de propriedades.
@@ -2685,14 +2657,14 @@ As 18 atividades receberam 103 pertinências a classes definidas (figura abaixo)
 serve para hipertensos; natação é `AtividadeAdequadaParaIdoso` (5,8 MET, baixo impacto), mas não é
 `AtividadeAdequadaParaIniciante` (exige nível intermediário).
 
-![classificação das atividades](figures/q09_classificacao_atividades.png)
+![classificação das atividades](../figures/q09_classificacao_atividades.png)
 
 Os usuários de exemplo foram classificados assim: Maria (67 anos, 60 min/semana, 0 meses, artrose) em
 `UsuarioIdoso`, `UsuarioSedentario`, `UsuarioIniciante` e `UsuarioComCondicaoArticular`; João (IMC 31,5) em
 `UsuarioComObesidade`, `UsuarioSedentario` e `UsuarioIniciante`; Lucas em `UsuarioSemCondicaoDeSaude`;
 Carla e Pedro só em `Usuario`.
 
-![contraindicações](figures/q09_contraindicacoes_inferidas.png)
+![contraindicações](../figures/q09_contraindicacoes_inferidas.png)
 
 Na figura acima, Pedro tem hérnia de disco, que afeta a coluna vertebral. Nenhuma atividade foi
 cadastrada como sobrecarregando a coluna vertebral. CrossFit e vôlei de praia sobrecarregam a coluna
@@ -2787,7 +2759,7 @@ Ana, 26 anos, treina há mais de 3 anos e declarou não ter condições de saúd
 `temCondicao`, ela foi classificada como `UsuarioSemCondicaoDeSaude`, nenhum filtro se aplicou e as 11
 candidatas ficaram aptas. CrossFit ficou em primeiro (7), por atender força e socialização.
 
-![ranking](figures/q09_ranking_recomendacoes.png)
+![ranking](../figures/q09_ranking_recomendacoes.png)
 
 O notebook também registra uma execução da CLI com respostas pela entrada padrão (Rafael, 45 anos,
 hipertenso, quer reduzir o estresse e socializar): alongamento, caminhada, tai chi chuan,
@@ -3735,7 +3707,7 @@ Todos os números abaixo foram calculados pelo planejador (notebook, seções 2 
 | Janela 14h-19h | A 14:00-15:30, C 16:00-17:00, B 17:00-19:00 | 22,00 | D | forçar D: 19,25 |
 | Pedido novo: orientação de TCC (E), 30 min, alta, hoje | E 14:00-14:30, A 14:30-16:00, C 16:00-17:00, D 17:00-18:00 | 28,25 | B | forçar B: 22,00 |
 
-![Variações do cenário da Q11](figures/q12_gantt_variacoes.png)
+![Variações do cenário da Q11](../figures/q12_gantt_variacoes.png)
 
 Saída do modo `--demo` para o pedido da Q11 (explicação gerada por `texto_explicacao`, sem LLM):
 
@@ -3766,7 +3738,7 @@ No replanejamento, a orientação de TCC entra às 14h e ocupa o tempo que estav
 aula passa para 14h30-16h. E e A têm o mesmo valor (9), então as duas ordens têm a mesma utilidade, e o
 desempate termina antes a atividade que acaba mais cedo.
 
-![Replanejamento](figures/q12_gantt_replanejamento.png)
+![Replanejamento](../figures/q12_gantt_replanejamento.png)
 
 ### Execução real com o Gemini
 
@@ -4464,7 +4436,7 @@ O grafo tem 78 entidades e 156 fatos. Os números de previsão de links servem p
 ## Questão 15: Aplicação de ontologia OWL 2.0 e raciocínio no Protégé
 
 
-A aplicação desta questão reutiliza a ontologia OWL 2 de atividades físicas desenvolvida na Questão 9 (`src/q09_q15_ontologia/`). Abaixo estão a representação, o raciocínio com HermiT/Pellet, a comparação de reasoners e o roteiro no Protégé.
+A aplicação desta questão reutiliza a ontologia OWL 2 de atividades físicas desenvolvida na Questão 9 (`src/q09_q15_ontologia/`). Abaixo estão a representação, o raciocínio com HermiT/Pellet, a comparação de reasoners e o passo a passo no Protégé.
 
 > Apresente e discuta um exemplo de aplicação de sua escolha que faça uso de ontologia com OWL 2.0,
 > enfatizando a representação do conhecimento e raciocínio. Para isso, utilize a ferramenta protégé
@@ -4535,7 +4507,7 @@ A primeira vale porque as duas definições exigem `gastoMET < 6` e a de idoso a
 `AtividadeAdequadaParaObesidade` não é subclasse de `AtividadeAdequadaParaSedentario` porque não limita o
 MET por cima; o ciclismo na orla (8 MET, baixo impacto) é adequado para obesidade e não para sedentários.
 
-![antes e depois do reasoner](figures/q15_hierarquia_antes_depois.png)
+![antes e depois do reasoner](../figures/q15_hierarquia_antes_depois.png)
 
 Realização. 21 indivíduos ganharam tipos que não estavam declarados, 111 tipos novos ao todo. A caminhada,
 por exemplo, foi declarada só como `AtividadeAerobica` e terminou com 10 tipos, entre eles
@@ -4573,7 +4545,7 @@ execução salva no notebook, que variam alguns centésimos entre execuções):
 | HermiT | consistência (cópia inconsistente) | 0,452 | 0,037 |
 | Pellet | consistência (cópia inconsistente) | 0,696 | 0,053 |
 
-![tempos](figures/q15_tempos_hermit_pellet.png)
+![tempos](../figures/q15_tempos_hermit_pellet.png)
 
 Os resultados coincidiram: mesma hierarquia para as 39 classes, mesmos tipos para os 66 indivíduos (211
 pares indivíduo/classe), mesma classe insatisfazível e mesmo veredito de consistência nos três arquivos. O
@@ -4648,26 +4620,6 @@ interface do Protégé 5.6, que já traz o HermiT 1.4.3 (o Pellet pode ser insta
    `DifferentIndividuals`).
 10. Abra `ontologia_atividades_fisicas_insatisfazivel.owl` e inicie o reasoner: `AtividadeSuaveDeAltoImpacto`
     fica em vermelho, sob `owl:Nothing` na hierarquia inferida.
-
-## Roteiro para o vídeo/apresentação
-
-Duração sugerida: 8 a 10 minutos.
-
-1. (1 min) Problema e domínio: recomendar atividade física com segurança; mostrar o enunciado e a figura
-   `q09_grafo_propriedades.png`.
-2. (2 min) Protégé, ontologia declarada: classes de topo, uma classe definida (`AtividadeVigorosa`), as
-   propriedades com cadeia (`naoDevePraticar`) e os fatos da corrida.
-3. (2 min) Protégé, HermiT: *Start reasoner*, trocar para a hierarquia inferida e mostrar as subsunções
-   novas; abrir `maria` e mostrar tipos e `naoDevePraticar` em amarelo; clicar no "?" de
-   `maria naoDevePraticar zumba`.
-4. (1 min) Consistência: abrir a cópia inconsistente e a cópia insatisfazível.
-5. (2 min) Recomendador: rodar `python recomendador_atividades.py` com o perfil de Dona Lúcia (68 anos,
-   72 kg, 1,60 m, 40 min, 0 meses, objetivos 5 e 7, condição 1, R$ 200, ar livre) e comentar perfis,
-   contraindicações, ranking e descartadas.
-6. (1 min) Mundo aberto: repetir com condição em branco e com "0" e mostrar o aviso e a classificação
-   `UsuarioSemCondicaoDeSaude`.
-7. (1 min) Fechamento: tabela HermiT x Pellet e limites (sem aritmética, sem SWRL, cardinalidade não valida
-   dados).
 
 ## Referências
 
