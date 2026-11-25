@@ -5,6 +5,8 @@
 **Professor:** Evandro de Barros Costa
 **Período:** 2026.2
 
+**Apresentação:** [vídeo da Questão 8](https://drive.google.com/file/d/1UIWX-2w4TzcJlKA28wIOey4JuVPxbaLm/view?usp=drive_link)
+
 ## Enunciado
 
 > Desenvolva de um Sistema de Diagnóstico Médico Utilizando Redes Bayesianas. Trata-se de uma atividade na qual se aplicará os conceitos de Representação do Conhecimento sob Incerteza por meio da modelagem e implementação de um sistema inteligente de diagnóstico médico baseado em Redes Bayesianas. Cada equipe deverá desenvolver um modelo probabilístico capaz de representar relações de dependência entre doenças, sintomas e outros fatores relevantes, permitindo a realização de inferências diagnósticas a partir das evidências observadas. O sistema deverá utilizar uma Rede Bayesiana para:
@@ -42,7 +44,7 @@
 | Influência de cada evidência | [9](#9-influência-de-cada-evidência-e-valor-da-informação) |
 | Arquivo do projeto na ferramenta | [11](#11-arquivo-do-projeto-na-ferramenta) |
 | Discussão, limitações, melhorias | [12](#12-discussão) |
-| Vídeo | [14](#14-roteiro-para-o-vídeoapresentação) |
+| Apresentação ou vídeo | [Apresentação da Questão 8](https://drive.google.com/file/d/1UIWX-2w4TzcJlKA28wIOey4JuVPxbaLm/view?usp=drive_link). Roteiro na [seção 14](#14-roteiro-para-o-vídeoapresentação) |
 
 ## Como executar
 

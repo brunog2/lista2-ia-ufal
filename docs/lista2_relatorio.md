@@ -1574,6 +1574,8 @@ Escrever as 27 combinações evita o problema na operação normal.
 
 > Aviso: todos os casos, sintomas e tratamentos deste trabalho são fictícios e foram escritos para fins didáticos. O sistema não deve ser usado para diagnóstico ou tratamento reais.
 
+**Apresentação:** [vídeo da Questão 7](https://drive.google.com/file/d/1ChSCUUCaMIf4aQYP_oj0H3rvu2dDnASl/view?usp=drive_link)
+
 ## Enunciado
 
 > Desenvolva um Sistema de Apoio ao Diagnóstico Médico Baseado em Casos. O sistema deverá ser capaz de receber como entrada um conjunto de sintomas informados pelo paciente e compará-los com uma base de casos previamente armazenados. Cada caso deverá conter, no mínimo, informações sobre sintomas observados, diagnóstico realizado e tratamento recomendado. O sistema deverá implementar as etapas fundamentais do ciclo de Raciocínio Baseado em Casos:
@@ -1600,7 +1602,7 @@ Escrever as 27 combinações evita o problema na operação normal.
 | Inclusão de novos casos | `SistemaCBR.reter` ([seção 4.4](#44-retain)) |
 | Exemplos de consultas | [seção 5](#5-exemplos-de-consultas) |
 | Análise dos resultados | [seção 6](#6-análise-dos-resultados) |
-| Vídeo ou demonstração | CLI `cbr_cli.py` e notebook |
+| Vídeo ou demonstração | [Apresentação da Questão 7](https://drive.google.com/file/d/1ChSCUUCaMIf4aQYP_oj0H3rvu2dDnASl/view?usp=drive_link). CLI `cbr_cli.py` e notebook |
 
 ## Como executar
 
@@ -1972,6 +1974,8 @@ A consulta 5 mostra a vantagem prática do CBR em relação a um classificador t
 **Professor:** Evandro de Barros Costa
 **Período:** 2026.2
 
+**Apresentação:** [vídeo da Questão 8](https://drive.google.com/file/d/1UIWX-2w4TzcJlKA28wIOey4JuVPxbaLm/view?usp=drive_link)
+
 ## Enunciado
 
 > Desenvolva de um Sistema de Diagnóstico Médico Utilizando Redes Bayesianas. Trata-se de uma atividade na qual se aplicará os conceitos de Representação do Conhecimento sob Incerteza por meio da modelagem e implementação de um sistema inteligente de diagnóstico médico baseado em Redes Bayesianas. Cada equipe deverá desenvolver um modelo probabilístico capaz de representar relações de dependência entre doenças, sintomas e outros fatores relevantes, permitindo a realização de inferências diagnósticas a partir das evidências observadas. O sistema deverá utilizar uma Rede Bayesiana para:
@@ -2009,6 +2013,7 @@ A consulta 5 mostra a vantagem prática do CBR em relação a um classificador t
 | Influência de cada evidência | [9](#9-influência-de-cada-evidência-e-valor-da-informação) |
 | Arquivo do projeto na ferramenta | [11](#11-arquivo-do-projeto-na-ferramenta) |
 | Discussão, limitações, melhorias | [12](#12-discussão) |
+| Apresentação ou vídeo | [Apresentação da Questão 8](https://drive.google.com/file/d/1UIWX-2w4TzcJlKA28wIOey4JuVPxbaLm/view?usp=drive_link) |
 
 ## Como executar
 
@@ -2482,6 +2487,8 @@ representação do conhecimento em OWL 2 e as tarefas de raciocínio, com HermiT
 
 Todos os números deste relatório saem das execuções salvas nos notebooks.
 
+**Apresentação:** [vídeo da Questão 9](https://drive.google.com/file/d/136nk5DS2Gqkj0s731FMllO9I5JOQxRFj/view?usp=drive_link)
+
 ## Arquivos
 
 | Arquivo | Conteúdo |
@@ -2637,6 +2644,7 @@ classificada como vigorosa passa a ter, e daí a hipertensão não controlada a 
 | Inferência por reasoner | HermiT pelo owlready2; Pellet para comparação e explicações |
 | Receber informações do usuário | `PerfilUsuario` e CLI interativa |
 | Recomendações justificadas e elementos da decisão | relatório com perfis inferidos, axiomas usados, contraindicações com o caminho da dedução, pontuação parcela a parcela e candidatas descartadas com o motivo |
+| Apresentação ou vídeo | [Apresentação da Questão 9](https://drive.google.com/file/d/136nk5DS2Gqkj0s731FMllO9I5JOQxRFj/view?usp=drive_link) |
 
 ### 9.5 Exemplos de consultas e inferências
 

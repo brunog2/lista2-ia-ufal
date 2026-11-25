@@ -11,6 +11,8 @@ representação do conhecimento em OWL 2 e as tarefas de raciocínio, com HermiT
 
 Todos os números deste relatório saem das execuções salvas nos notebooks.
 
+**Apresentação da Questão 9:** [vídeo](https://drive.google.com/file/d/136nk5DS2Gqkj0s731FMllO9I5JOQxRFj/view?usp=drive_link)
+
 ## Arquivos
 
 | Arquivo | Conteúdo |
@@ -168,6 +170,7 @@ classificada como vigorosa passa a ter, e daí a hipertensão não controlada a 
 | Inferência por reasoner | HermiT pelo owlready2; Pellet para comparação e explicações |
 | Receber informações do usuário | `PerfilUsuario` e CLI interativa |
 | Recomendações justificadas e elementos da decisão | relatório com perfis inferidos, axiomas usados, contraindicações com o caminho da dedução, pontuação parcela a parcela e candidatas descartadas com o motivo |
+| Apresentação ou vídeo | [Apresentação da Questão 9](https://drive.google.com/file/d/136nk5DS2Gqkj0s731FMllO9I5JOQxRFj/view?usp=drive_link) |
 
 ### 9.5 Exemplos de consultas e inferências
 

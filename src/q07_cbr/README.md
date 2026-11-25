@@ -7,6 +7,8 @@
 
 > Aviso: todos os casos, sintomas e tratamentos deste trabalho são fictícios e foram escritos para fins didáticos. O sistema não deve ser usado para diagnóstico ou tratamento reais.
 
+**Apresentação:** [vídeo da Questão 7](https://drive.google.com/file/d/1ChSCUUCaMIf4aQYP_oj0H3rvu2dDnASl/view?usp=drive_link)
+
 ## Enunciado
 
 > Desenvolva um Sistema de Apoio ao Diagnóstico Médico Baseado em Casos. O sistema deverá ser capaz de receber como entrada um conjunto de sintomas informados pelo paciente e compará-los com uma base de casos previamente armazenados. Cada caso deverá conter, no mínimo, informações sobre sintomas observados, diagnóstico realizado e tratamento recomendado. O sistema deverá implementar as etapas fundamentais do ciclo de Raciocínio Baseado em Casos:
@@ -33,7 +35,7 @@
 | Inclusão de novos casos | `SistemaCBR.reter` ([seção 4.4](#44-retain)) |
 | Exemplos de consultas | [seção 5](#5-exemplos-de-consultas) |
 | Análise dos resultados | [seção 6](#6-análise-dos-resultados) |
-| Vídeo ou demonstração | CLI `cbr_cli.py`, notebook e [roteiro do vídeo](#8-roteiro-para-o-vídeo-de-demonstração) |
+| Vídeo ou demonstração | [Apresentação da Questão 7](https://drive.google.com/file/d/1ChSCUUCaMIf4aQYP_oj0H3rvu2dDnASl/view?usp=drive_link). CLI `cbr_cli.py`, notebook e [roteiro do vídeo](#8-roteiro-para-o-vídeo-de-demonstração) |
 
 ## Como executar
 
